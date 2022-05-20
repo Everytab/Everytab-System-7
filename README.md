@@ -20,4 +20,4 @@ Copy ES.bas and PLUSNON to THE ES/7 FOLDER
 
 Put test releases in the Releases tab
 
-I will check and transfer to the proper page
+I will check and transfer to the public page
