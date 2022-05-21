@@ -13,9 +13,10 @@ Requirements
 2) PowerISO
 
 Edit the base disk images given
-Copy ST1 to 4/UP1 and UP2 to root of floppy
 
-Copy ES.bas and PLUSNON to THE ES/7 FOLDER
+• Copy ST1 to 4/UP1 and UP2 to root of floppy
+
+• Copy ES.bas and PLUSNON to THE ES/7 FOLDER
 
 
 Put test releases in the Releases tab
