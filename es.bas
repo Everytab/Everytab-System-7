@@ -10,7 +10,6 @@ DECLARE FUNCTION BitOn% (which%, IntVal%)
 DECLARE FUNCTION DriveType% (Drv%)
 DECLARE FUNCTION Hex2Bin$ (Hcs$)
 DECLARE FUNCTION TotalMem% ()
-SCREEN 9
 90 CLS
 CLS
 COLOR 7, 0
@@ -53,78 +52,145 @@ CLS
 CLS
 CLS
 CLS
-CIRCLE (0, 0), 10
 PRINT "The Everytab System/7 for DOS based Systems "; Ver$
 DELAY 1
 PRINT "OS Build "; Build$
 DELAY 1.5
 PRINT "Loading"
 DELAY 3
+CLS
 PRINT "[          ]"
-DELAY 2
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*         ]"
-DELAY .5
+PRINT "[=         ]"
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*=        ]"
-DELAY .5
+PRINT "[ =        ]"
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*=*       ]"
-DELAY .5
+PRINT "[  =       ]"
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*=*=      ]"
-DELAY .5
+PRINT "[   =      ]"
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*=*=*     ]"
-DELAY .5
+PRINT "[    =     ]"
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*=*=*=    ]"
-DELAY .5
+PRINT "[     =    ]"
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*=*=*=*   ]"
-DELAY .5
+PRINT "[      =   ]"
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*=*=*=*=  ]"
-DELAY .5
+PRINT "[       =  ]"
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*=*=*=*=* ]"
-DELAY .5
+PRINT "[        = ]"
+DELAY .2
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-PRINT "OS Build "; Build$
-PRINT "Loading"
-PRINT "[*=*=*=*=*=]"
-DELAY .5
+PRINT "[         =]"
+DELAY .2
 CLS
+PRINT "[          ]"
+DELAY .2
+CLS
+PRINT "[=         ]"
+DELAY .2
+CLS
+PRINT "[ =        ]"
+DELAY .2
+CLS
+PRINT "[  =       ]"
+DELAY .2
+CLS
+PRINT "[   =      ]"
+DELAY .2
+CLS
+PRINT "[    =     ]"
+DELAY .2
+CLS
+PRINT "[     =    ]"
+DELAY .2
+CLS
+PRINT "[      =   ]"
+DELAY .2
+CLS
+PRINT "[       =  ]"
+DELAY .2
+CLS
+PRINT "[        = ]"
+DELAY .2
+CLS
+PRINT "[         =]"
+DELAY .2
+CLS
+PRINT "[          ]"
+DELAY .2
+CLS
+PRINT "[=         ]"
+DELAY .2
+CLS
+PRINT "[ =        ]"
+DELAY .2
+CLS
+PRINT "[  =       ]"
+DELAY .2
+CLS
+PRINT "[   =      ]"
+DELAY .2
+CLS
+PRINT "[    =     ]"
+DELAY .2
+CLS
+PRINT "[     =    ]"
+DELAY .2
+CLS
+PRINT "[      =   ]"
+DELAY .2
+CLS
+PRINT "[       =  ]"
+DELAY .2
+CLS
+PRINT "[        = ]"
+DELAY .2
+CLS
+PRINT "[         =]"
+DELAY .2
+CLS
+PRINT "[          ]"
+DELAY .2
+CLS
+PRINT "[=         ]"
+DELAY .2
+CLS
+PRINT "[ =        ]"
+DELAY .2
+CLS
+PRINT "[  =       ]"
+DELAY .2
+CLS
+PRINT "[   =      ]"
+DELAY .2
+CLS
+PRINT "[    =     ]"
+DELAY .2
+CLS
+PRINT "[     =    ]"
+DELAY .2
+CLS
+PRINT "[      =   ]"
+DELAY .2
+CLS
+PRINT "[       =  ]"
+DELAY .2
+CLS
+PRINT "[        = ]"
+DELAY .2
+CLS
+PRINT "[         =]"
+DELAY .2
 
-DELAY 1
 
 PRINT e
 IF e = 0 THEN
@@ -135,7 +201,7 @@ CLS
     PLAY "C"
     PLAY "D"
     PLAY "E"
-    PLAY "E"
+    PLAY "F"
     PLAY "A"
 PRINT "Post-Install Setup"
 PRINT "================================================================================"
@@ -201,11 +267,46 @@ PRINT ""
     PRINT "Please choose an task"
     PRINT ""
     PRINT "1) Built-in tasks"
-    PRINT "2) Command line"
-    PRINT "3) End Session"
+    PRINT "2) Run an DOS App"
+    PRINT "3) Command line"
+    PRINT "4) End Session"
     mouseshow
 106 INPUT ">"; op
-
+    IF op = 2 THEN
+	    CLS
+	    PRINT "RUNAPP"
+	    PRINT "================================================================================"
+	    PRINT "AVAILABLE COMMANDS :- DIR (SHOWS DIRECTORY LISTING), CD (ALLOWS TO CHANGE DIRECTORY), RUN (RUNS THE FILE), EXIT"
+	    PRINT "Due to limitations, only commands with UPPERCASE are supported"
+99 INPUT "APPRUN>"; ap4p$
+	    IF ap4p$ = "DIR" THEN
+	    SHELL "DIR /w"
+	    GOTO 99
+	    ELSEIF ap4p$ = "CD" THEN
+	    INPUT "Choose the directory to change to"; CD$
+	    ON ERROR GOTO 111
+	    CHDIR CD$
+	    ON ERROR GOTO 111
+	    GOTO 99
+	    ELSEIF ap4p$ = "DRIVE" THEN
+	    INPUT "Choose the Drive to change to"; D$
+	    ON ERROR GOTO 111
+	    SHELL D$
+	    ON ERROR GOTO 111
+	    GOTO 99
+	    ELSEIF ap4p$ = "RUN" THEN
+	    INPUT "Type the file name of the program"; r$
+	    ON ERROR GOTO 111
+	    SHELL r$
+	    ON ERROR GOTO 111
+	    GOTO 99
+	    ELSEIF ap4p$ = "EXIT" THEN
+	    GOTO 123
+	    ELSE
+	    PLAY "A"
+	    GOTO 99
+	    END IF
+	    END IF
     IF op = 1 THEN
 124 CLS
 PRINT "Built-in tasks"
@@ -214,13 +315,12 @@ PRINT "=========================================================================
 	PRINT ""
 	PRINT "1) Settings"
 	PRINT "2) Browser Demo (no functionality)"
-	PRINT "3) Open External App"
-	PRINT "4) Decimal to Binary Converter"
-	PRINT "5) X-Wing (Velocity and Angle)"
-	PRINT "6) Microsoft Word for MS-DOS (External)"
-	PRINT "7) Legacy Calculator"
-	PRINT "8) Plus Pak Launcher"
-	PRINT "9) < Return Back"
+	PRINT "3) Decimal to Binary Converter"
+	PRINT "4) X-Wing (Velocity and Angle)"
+	PRINT "5) Microsoft Word for MS-DOS (External)"
+	PRINT "6) Legacy Calculator"
+	PRINT "7) Plus Pak Launcher"
+	PRINT "8) < Return Back"
 124.5 INPUT ">"; app
 	IF app = 1 THEN
 125 CLS
@@ -367,40 +467,7 @@ GOTO 125
 	    PRINT "NO connection, Terminating session"
 	    DELAY 3
 	    GOTO 124
-	ELSEIF app = 3 THEN
-	    CLS
-	    PRINT "RUNAPP"
-	    PRINT "================================================================================"
-	    PRINT "AVAILABLE COMMANDS :- DIR (SHOWS DIRECTORY LISTING), CD (ALLOWS TO CHANGE DIRECTORY), RUN (RUNS THE FILE), EXIT"
-	    PRINT "Due to limitations, only commands with UPPERCASE are supported"
-99 INPUT "APPRUN>"; ap4p$
-	    IF ap4p$ = "DIR" THEN
-	    SHELL "DIR /w"
-	    GOTO 99
-	    ELSEIF ap4p$ = "CD" THEN
-	    INPUT "Choose the directory to change to"; CD$
-	    ON ERROR GOTO 111
-	    CHDIR CD$
-	    ON ERROR GOTO 111
-	    GOTO 99
-	    ELSEIF ap4p$ = "DRIVE" THEN
-	    INPUT "Choose the Drive to change to"; D$
-	    ON ERROR GOTO 111
-	    SHELL D$
-	    ON ERROR GOTO 111
-	    GOTO 99
-	    ELSEIF ap4p$ = "RUN" THEN
-	    INPUT "Type the file name of the program"; r$
-	    ON ERROR GOTO 111
-	    SHELL r$
-	    ON ERROR GOTO 111
-	    GOTO 99
-	    ELSEIF ap4p$ = "EXIT" THEN
-	    GOTO 124
-	    ELSE
-	    PLAY "A"
-	    GOTO 99
-	    END IF
+	
 	ELSEIF app = 4 THEN
 	    REM binary
 CLS
@@ -538,7 +605,7 @@ GOTO 123
 	    BEEP
 	    GOTO 124.5
 	END IF
-    ELSEIF op = 2 THEN
+    ELSEIF op = 3 THEN
 	CLS
 	COLOR 7, 0
 	CLS
@@ -624,7 +691,7 @@ GOTO 123
 
 
 	END IF
-    ELSEIF op = 3 THEN
+    ELSEIF op = 4 THEN
 	CLS
 	PRINT "SHUTDOWN"
 	PRINT "================================================================================"
