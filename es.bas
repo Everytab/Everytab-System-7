@@ -10,6 +10,7 @@ DECLARE FUNCTION BitOn% (which%, IntVal%)
 DECLARE FUNCTION DriveType% (Drv%)
 DECLARE FUNCTION Hex2Bin$ (Hcs$)
 DECLARE FUNCTION TotalMem% ()
+SCREEN 9
 90 CLS
 CLS
 COLOR 7, 0
@@ -50,9 +51,9 @@ PRINT "ES/7 init..."
 DELAY 3
 CLS
 CLS
-COLOR 0, 7
 CLS
 CLS
+CIRCLE (0, 0), 10
 PRINT "The Everytab System/7 for DOS based Systems "; Ver$
 DELAY 1
 PRINT "OS Build "; Build$
