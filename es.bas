@@ -41,8 +41,8 @@ CLOSE #1
 PRINT "The Read of the registry was succesful"
 DELAY 2
 DELAY 1
-Build$ = "14.8.255"
-Ver$ = "Alpha 1 Release (0.1)"
+Build$ = "14.10.255"
+Ver$ = "Alpha 1 Release (0.11)"
  CLS
 164 DELAY .1
 CLS
@@ -467,7 +467,11 @@ GOTO 125
 	    PRINT "NO connection, Terminating session"
 	    DELAY 3
 	    GOTO 124
-	
+	ELSEIF app = 3 THEN
+	CLS
+	PRINT "Not yet Implemented :("
+	SLEEP 5
+	GOTO 124
 	ELSEIF app = 4 THEN
 	    REM binary
 CLS
@@ -673,7 +677,7 @@ GOTO 123
 	    PRINT ""
 	    PRINT ""
 	    PRINT "The system has halted. Record the FAIL code"
-	    PRINT "of the error and contact an service representative"
+	    PRINT "of the error and contact an Everytab System/7 Developer"
 	    DELAY 5
 	    CLS
 	    DELAY 1
