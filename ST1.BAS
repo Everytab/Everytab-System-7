@@ -77,8 +77,15 @@ PRINT "Press any key to start copying files"
 DO
 LOOP UNTIL INKEY$ <> ""
 SHELL ("A:")
-SHELL ("COPY.BAT")
+CHDIR "ES"
+SHELL ("COPY *.* C:")
+SHELL ("C:")
+SHELL ("mkdir word")
+SHELL ("A:")
+CHDIR "word"
+SHELL ("COPY *.* C:\word")
 CLS
+
 PRINT "Setup has completed, Press CTRL + ALT + DEL to restart"
 10
 GOTO 10
