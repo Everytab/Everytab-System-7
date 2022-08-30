@@ -78,12 +78,12 @@ DO
 LOOP UNTIL INKEY$ <> ""
 SHELL ("A:")
 CHDIR "ES"
-SHELL ("COPY *.* C:")
+SHELL ("COPY *.* C: /Y")
 SHELL ("C:")
 SHELL ("mkdir word")
 SHELL ("A:")
 CHDIR "word"
-SHELL ("COPY *.* C:\word")
+SHELL ("COPY *.* C:\word /Y")
 CLS
 
 PRINT "Setup has completed, Press CTRL + ALT + DEL to restart"
