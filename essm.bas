@@ -41,8 +41,8 @@ CLOSE #1
 PRINT "The Read of the registry was succesful"
 DELAY 2
 DELAY 1
-Build$ = "14.11.285"
-Ver$ = "Alpha Demo"
+Build$ = "15.00.300"
+Ver$ = "September Alpha Release"
  CLS
 164 DELAY .1
 CLS
@@ -248,13 +248,16 @@ PRINT ""
 97 INPUT "PASSWORD>"; PASS$
 98 IF PASS$ = PASSE$ THEN
     DELAY 1
+    SHELL "C:"
+    SHELL "CD \"
     CLS
-    PRINT "GPClient : Checking for connections"
+    PRINT "NETMAN : Checking for connections"
     DELAY 1
-    PRINT "GPClient : No connection found"
+    PRINT "NETMAN : No connection found"
     DELAY 1
 98.25 CLS
-    PRINT "CHOOSE SESSION TYPE"
+    PRINT "Session Picker"
+    PRINT "================================================================================"
     PRINT "Type 1 for Session Manager (Graphical with mouse), any other number else for Application chooser (Text-Based)"
     INPUT erj
     IF erj = 1 THEN
@@ -323,11 +326,10 @@ PRINT "=========================================================================
 	PRINT "1) Settings"
 	PRINT "2) Browser Demo (no functionality)"
 	PRINT "3) Decimal to Binary Converter"
-	PRINT "4) X-Wing (Velocity and Angle)"
-	PRINT "5) Microsoft Word for MS-DOS (External)"
-	PRINT "6) Legacy Calculator"
-	PRINT "7) Plus Pak Launcher"
-	PRINT "8) < Return Back"
+	PRINT "4) Microsoft Word for MS-DOS (External)"
+	PRINT "5) Legacy Calculator"
+	PRINT "6) Plus Pak Launcher (Not available until 15.01)"
+	PRINT "7) < Return Back"
 124.5 INPUT ">"; app
 	IF app = 1 THEN
 125 CLS
@@ -338,8 +340,7 @@ PRINT "=========================================================================
 	    PRINT ""
 	    PRINT "1 - Reset"
 	    PRINT "2 - About"
-	    PRINT "3 - CMOS Info Viewer"
-	    PRINT "4 - Exit"
+	    PRINT "3 - Exit"
 126 INPUT ">"; set
 	    IF set = 1 THEN
 		CLS
@@ -384,80 +385,14 @@ CLOSE #1
 		PRINT ""
 		PRINT "Changelog :"
 		PRINT ""
-		PRINT "Major UI Changes, Bug fixes"
+		PRINT "The September Alpha Release, New User Interface and more..."
 		PRINT ""
 		PRINT "Press any key to continue ..."
 		PRINT
 		DO
 		LOOP UNTIL INKEY$ <> ""
 		GOTO 125
-	    ELSEIF set = 3 THEN
-
-'DEFINT A-Z
-' CMOS.BAS
-' Reads the contents of the CMOS
-'
-'DEFINT A-Z
-'
-'CLS
-'PRINT "RAW CMOS Contents:"
-'FOR i = 0 TO &H7F
-' OUT &H70, i
-' PRINT USING "\   \"; HEX$(INP(&H71));
-'NEXT i
-'PRINT " "
-'PRINT "CMOS Battery State: ";
-'IF CMOSBattery% THEN PRINT "Good" ELSE PRINT "Battery Dead"
-'PRINT
-'k% = DriveType%(1)
-'PRINT "Drive A: ";
-'IF k% = 0 THEN PRINT "None"
-'IF k% = 1 THEN PRINT "5"; CHR$(172); " 360K"
-'IF k% = 2 THEN PRINT "5"; CHR$(172); " 1.2M"
-'IF k% = 3 THEN PRINT "3"; CHR$(171); " 720K"
-'IF k% = 4 THEN PRINT "3"; CHR$(171); " 1.44M"
-'k% = DriveType%(2)
-'PRINT "Drive B: ";
-'IF k% = 0 THEN PRINT "None"
-'IF k% = 1 THEN PRINT "5"; CHR$(172); " 360K"
-'IF k% = 2 THEN PRINT "5"; CHR$(172); " 1.2M"
-'IF k% = 3 THEN PRINT "3"; CHR$(171); " 720K"
-'IF k% = 4 THEN PRINT "3"; CHR$(171); " 1.44M"
-'PRINT
-'OUT &H70, &H19
-'b% = INP(&H71)
-'PRINT "Hard Disk 0 Type:";
-'IF b <> 0 THEN PRINT b% ELSE PRINT " Not Installed"
-'OUT &H70, &H1A
-'b% = INP(&H71)
-'PRINT "Hard Disk 1 Type:";
-'IF b <> 0 THEN PRINT b% ELSE PRINT " Not Installed"
-'PRINT
-'
-'OUT &H70, &H15
-'b% = INP(&H71)
-'OUT &H70, &H16
-'b1% = INP(&H71)
-'PRINT "Base Memory:"; RTRIM$(STR$(CVI(CHR$(b) + CHR$(b1%)))); "K"
-'
-'OUT &H70, &H17
-'b% = INP(&H71)
-'OUT &H70, &H18
-'b1% = INP(&H71)
-'PRINT "Extended Memory:"; RTRIM$(STR$(CVI(CHR$(b) + CHR$(b1%)))); "K"
-'
-'PRINT "Total System Memory:"; RTRIM$(STR$(TotalMem%)); "K"
-CLS
-PRINT "SETTINGS > CMOS Viewer"
-PRINT "================================================================================"
-SLEEP 2
-CLS
-PRINT "CMOS Viewer Has Commited an Illegal action and has been stopped"
-PLAY "A"
-DELAY 4
-GOTO 125
-
-	    ELSEIF set = 4 THEN
+            ELSEIF set = 3 THEN
 		GOTO 124
 	    ELSE
 		BEEP
@@ -469,10 +404,10 @@ GOTO 125
 	    PRINT "Browser Demo"
 	    PRINT "================================================================================"
 	    PRINT "Checking connection..."
-	    DELAY 3
+	    DELAY 1
 	    PRINT ""
 	    PRINT "NO connection, Terminating session"
-	    DELAY 3
+	    DELAY 2
 	    GOTO 124
 	ELSEIF app = 3 THEN
 	    REM binary
@@ -513,37 +448,8 @@ PRINT ""
 PRINT "Binary code is reversed"
 DELAY 5
 GOTO 124
-	ELSEIF app = 4 THEN
-10
-CLS
-RANDOMIZE TIMER
-cor = RND * 150
-cor2 = CINT(cor)
-IF cor2 < 30 AND cor2 > -30 THEN GOTO 10
 
-PRINT "The TIE Fighter is at"; cor2
-
-INPUT "enter velocity"; V
-INPUT "enter angle"; A
-D = ((V ^ 2) * SIN(2 * A)) / 10
-PRINT "Hit on:"
-PRINT CINT(-D)
-
-IF CINT(-D) < cor2 + 30 AND CINT(-D) > cor2 - 30 THEN
-    PRINT "Target Destroyed"
-ELSEIF CINT(-D) < 30 AND CINT(-D) > -30 THEN PRINT "Affirmative Hit"
-ELSE PRINT "Miss"
-END IF
-PRINT " 0 to exit, 1 to play again"
-786 INPUT C
-IF C = 0 THEN
-GOTO 124
-ELSEIF C = 1 THEN
-GOTO 10
-ELSE
-GOTO 786
-END IF
-ELSEIF app = 5 THEN
+ELSEIF app = 4 THEN
 SHELL "C:"
 CHDIR "\"
 ON ERROR GOTO 111
@@ -552,7 +458,7 @@ ON ERROR GOTO 111
 SHELL "WORD"
 ON ERROR GOTO 111
 GOTO 123
-	ELSEIF app = 6 THEN
+	ELSEIF app = 5 THEN
 	    CLS
 200 PRINT "Legacy Calculator"
 	    PRINT ("+,-,x,_(Divide)")
@@ -600,12 +506,12 @@ GOTO 123
 
 	    END IF
 	    GOTO 124.5
-	ELSEIF app = 7 THEN
+	ELSEIF app = 6 THEN
 	    SHELL "C:"
 	    CHDIR "\"
 	    SHELL "PLUS.EXE"
 	    GOTO 124.5
-	ELSEIF app = 8 THEN
+	ELSEIF app = 7 THEN
 	  GOTO 123
 	ELSE
 	    BEEP
@@ -652,7 +558,7 @@ GOTO 123
 	    PRINT "The system detected an processing"
 	    PRINT "error at location DOSAPPRUN:01"
 	    PRINT ""
-	    PRINT "00000000"
+	    PRINT "FAIL : 00000000"
 	    PRINT "OS Revision "; Build$
 	    PRINT ""
 	    PRINT ""
