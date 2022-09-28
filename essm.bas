@@ -1,195 +1,89 @@
-DECLARE SUB Mousedriver (ax%, bx%, cx%, dx%, rmouse%)
-DECLARE SUB mouseshow ()
-DECLARE FUNCTION Mouseinit% ()
-DEFINT A-Z
-
 DECLARE SUB DELAY (dlay!)
-DECLARE FUNCTION VidMem% ()
-DECLARE FUNCTION CMOSBattery% ()
-DECLARE FUNCTION BitOn% (which%, IntVal%)
-DECLARE FUNCTION DriveType% (Drv%)
 DECLARE FUNCTION Hex2Bin$ (Hcs$)
-DECLARE FUNCTION TotalMem% ()
 90 CLS
 CLS
 COLOR 7, 0
 CLS
 SHELL "C:"
 SHELL "CD \"
-PRINT "ES/7 Loader for DOS v.1"
-DELAY 4
+PRINT "ES/7 Loader for DOS"
+DELAY .5
 CLS
-PRINT "Registry Check v.1"
+PRINT "REGLOAD"
 PRINT "Reading Registry and Loading into Memory"
-DELAY 3
-OPEN "sys.dat" FOR BINARY AS #1
+DELAY .1
+OPEN "C:\sys.dat" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
-OPEN "sys.dat" FOR OUTPUT AS #1
+OPEN "C:\sys.dat" FOR OUTPUT AS #1
 WRITE #1, 0
 WRITE #1, 0
 WRITE #1, 0
 PRINT "WARNING!!! : Registry was not found, had to be rebuilt"
-DELAY 1
+DELAY .1
 END IF
 CLOSE #1
-OPEN "sys.dat" FOR INPUT AS #1
+OPEN "C:\sys.dat" FOR INPUT AS #1
 INPUT #1, e
 INPUT #1, f$
 INPUT #1, PASSE$
 CLOSE #1
 PRINT "The Read of the registry was succesful"
-DELAY 2
 DELAY 1
-Build$ = "15.00.300"
-Ver$ = "September Alpha Release"
+ESID = 0
+SMID = 0
+Build$ = "15.01.313"
+Ver$ = "October Release Candidate 1"
  CLS
 164 DELAY .1
 CLS
 PRINT "ES/7 init..."
-DELAY 3
-CLS
-CLS
-CLS
-CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
 DELAY 1
-PRINT "OS Build "; Build$
-DELAY 1.5
-PRINT "Loading"
-DELAY 3
 CLS
-PRINT "[          ]"
-DELAY .2
 CLS
-PRINT "[=         ]"
-DELAY .2
 CLS
-PRINT "[ =        ]"
-DELAY .2
 CLS
-PRINT "[  =       ]"
-DELAY .2
+BMP$ = "C:\boot.bmp"
+OPEN BMP$ FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+CLOSE #1
+PRINT "ES/7 15.01.313"
+DELAY 15
+ELSE
+'=== Set the screen mode for a 640x480, 16 color BMP
+
+SCREEN 12
+
+'=== Skip header, go to pallette data
+
+SEEK 1, 55
+
+'=== Load Pallette
+
+Pal$ = INPUT$(64, 1) '4 * 16
+OUT &H3C8, 0
+FOR x% = 1 TO LEN(Pal$) STEP 4
+   OUT &H3C9, ASC(MID$(Pal$, x% + 2, 1)) \ 4
+   OUT &H3C9, ASC(MID$(Pal$, x% + 1, 1)) \ 4
+   OUT &H3C9, ASC(MID$(Pal$, x%, 1)) \ 4
+NEXT
+
+'=== Plot rows, pixel by pixel.
+
+FOR y% = 479 TO 0 STEP -1
+    Row$ = INPUT$(320, 1)
+    FOR x% = 0 TO 639 STEP 2
+      clr% = ASC(MID$(Row$, x% \ 2 + 1, 1))
+      PSET (x%, y%), (clr% AND 240) \ 16
+      PSET (x% + 1, y%), clr% AND 15
+    NEXT
+NEXT
+
+CLOSE 1
+SLEEP 2
+END IF
+SCREEN 0
 CLS
-PRINT "[   =      ]"
-DELAY .2
-CLS
-PRINT "[    =     ]"
-DELAY .2
-CLS
-PRINT "[     =    ]"
-DELAY .2
-CLS
-PRINT "[      =   ]"
-DELAY .2
-CLS
-PRINT "[       =  ]"
-DELAY .2
-CLS
-PRINT "[        = ]"
-DELAY .2
-CLS
-PRINT "[         =]"
-DELAY .2
-CLS
-PRINT "[          ]"
-DELAY .2
-CLS
-PRINT "[=         ]"
-DELAY .2
-CLS
-PRINT "[ =        ]"
-DELAY .2
-CLS
-PRINT "[  =       ]"
-DELAY .2
-CLS
-PRINT "[   =      ]"
-DELAY .2
-CLS
-PRINT "[    =     ]"
-DELAY .2
-CLS
-PRINT "[     =    ]"
-DELAY .2
-CLS
-PRINT "[      =   ]"
-DELAY .2
-CLS
-PRINT "[       =  ]"
-DELAY .2
-CLS
-PRINT "[        = ]"
-DELAY .2
-CLS
-PRINT "[         =]"
-DELAY .2
-CLS
-PRINT "[          ]"
-DELAY .2
-CLS
-PRINT "[=         ]"
-DELAY .2
-CLS
-PRINT "[ =        ]"
-DELAY .2
-CLS
-PRINT "[  =       ]"
-DELAY .2
-CLS
-PRINT "[   =      ]"
-DELAY .2
-CLS
-PRINT "[    =     ]"
-DELAY .2
-CLS
-PRINT "[     =    ]"
-DELAY .2
-CLS
-PRINT "[      =   ]"
-DELAY .2
-CLS
-PRINT "[       =  ]"
-DELAY .2
-CLS
-PRINT "[        = ]"
-DELAY .2
-CLS
-PRINT "[         =]"
-DELAY .2
-CLS
-PRINT "[          ]"
-DELAY .2
-CLS
-PRINT "[=         ]"
-DELAY .2
-CLS
-PRINT "[ =        ]"
-DELAY .2
-CLS
-PRINT "[  =       ]"
-DELAY .2
-CLS
-PRINT "[   =      ]"
-DELAY .2
-CLS
-PRINT "[    =     ]"
-DELAY .2
-CLS
-PRINT "[     =    ]"
-DELAY .2
-CLS
-PRINT "[      =   ]"
-DELAY .2
-CLS
-PRINT "[       =  ]"
-DELAY .2
-CLS
-PRINT "[        = ]"
-DELAY .2
-CLS
-PRINT "[         =]"
-DELAY .2
 
 
 PRINT e
@@ -203,15 +97,25 @@ CLS
     PLAY "E"
     PLAY "F"
     PLAY "A"
+1232 CLS
 PRINT "Post-Install Setup"
 PRINT "================================================================================"
 PRINT ""
 PRINT "Welcome to the Everytab System/7"
+PRINT "Do you want to:"
+PRINT "1) Enter a new username and password"
+PRINT "2) Restore from a backup"
+INPUT fes
+IF fes = 1 THEN
+CLS
+PRINT "Post-Install Setup"
+PRINT "================================================================================"
+PRINT "Fresh Setup:"
 INPUT "Enter your name"; nanme$
 INPUT "Enter your password"; non$
 PRINT "Ready to Write"
-PRINT "Press any key to continue ..."
-OPEN "sys.dat" FOR OUTPUT AS #1
+PRINT "Press any key to write the values ..."
+OPEN "C:\sys.dat" FOR OUTPUT AS #1
 WRITE #1, 1
 PRINT
 DO
@@ -219,12 +123,29 @@ LOOP UNTIL INKEY$ <> ""
 WRITE #1, nanme$
 WRITE #1, non$
 CLOSE #1
-PRINT "Press any key to restart ..."
+PRINT "Completed, Press any key to restart ..."
 PRINT
 DO
 LOOP UNTIL INKEY$ <> ""
-GOTO 90
-
+SHELL "fdapm warmboot"
+ELSEIF fes = 2 THEN
+PRINT "Post-Install Setup"
+PRINT "================================================================================"
+PRINT "Insert the disk with the backup"
+PRINT "If this operation fails, do not worry. The Post-Install Setup will start again"
+PRINT ""
+PRINT "Press any key to continue"
+DO
+LOOP UNTIL INKEY$ <> ""
+SHELL ("COPY A:\SYS.DAT C:\")
+PRINT "[DEBUG] Result"
+PRINT "Restarting in 10 seconds"
+SLEEP 10
+SHELL "fdapm warmboot"
+ELSE
+BEEP
+GOTO 1232
+END IF
 ELSE
 CLS
 PRINT "Starting Login Session, Please Wait..."
@@ -236,7 +157,7 @@ COLOR 15, 1
 CLS
 95 CLS
 
-PRINT "LOGIN"
+PRINT "Login"
 PRINT "================================================================================"
 PRINT ""
 PRINT ""
@@ -251,10 +172,6 @@ PRINT ""
     SHELL "C:"
     SHELL "CD \"
     CLS
-    PRINT "NETMAN : Checking for connections"
-    DELAY 1
-    PRINT "NETMAN : No connection found"
-    DELAY 1
 98.25 CLS
     PRINT "Session Picker"
     PRINT "================================================================================"
@@ -280,7 +197,6 @@ PRINT ""
     PRINT "2) Run an DOS App"
     PRINT "3) Command line"
     PRINT "4) End Session"
-    mouseshow
 106 INPUT ">"; op
     IF op = 2 THEN
 	    CLS
@@ -324,11 +240,11 @@ PRINT "=========================================================================
 	PRINT "Tasks :-"
 	PRINT ""
 	PRINT "1) Settings"
-	PRINT "2) Browser Demo (no functionality)"
+	PRINT "2) DOSLynx Web Browser"
 	PRINT "3) Decimal to Binary Converter"
 	PRINT "4) Microsoft Word for MS-DOS (External)"
-	PRINT "5) Legacy Calculator"
-	PRINT "6) Plus Pak Launcher (Not available until 15.01)"
+	PRINT "5) Calculator"
+	PRINT "6) Utilities"
 	PRINT "7) < Return Back"
 124.5 INPUT ">"; app
 	IF app = 1 THEN
@@ -343,7 +259,7 @@ PRINT "=========================================================================
 	    PRINT "3 - Exit"
 126 INPUT ">"; set
 	    IF set = 1 THEN
-		CLS
+444 CLS
 		COLOR 15, 4
 		CLS
 		PRINT "SETTINGS > RESET"
@@ -352,7 +268,7 @@ PRINT "=========================================================================
 		PLAY "D"
 		PLAY "A"
 		PLAY "D"
-444 INPUT "***WARNING!!!*** THIS WILL RESET YOUR PASSWORD, ARE YOU SURE?(Y/N)"; e$
+INPUT "***WARNING!!!*** THIS WILL RESET YOUR PASSWORD, ARE YOU SURE?(Y/N)"; e$
 		IF e$ = "Y" THEN
 OPEN "sys.dat" FOR OUTPUT AS #1
 WRITE #1, 0
@@ -385,14 +301,15 @@ CLOSE #1
 		PRINT ""
 		PRINT "Changelog :"
 		PRINT ""
-		PRINT "The September Alpha Release, New User Interface and more..."
 		PRINT ""
+		PRINT "Thanks to all the people who worked on FreeDOS!"
+		PRINT "Everytab System/7 is based on a modified FreeDOS Install"
 		PRINT "Press any key to continue ..."
 		PRINT
 		DO
 		LOOP UNTIL INKEY$ <> ""
 		GOTO 125
-            ELSEIF set = 3 THEN
+	    ELSEIF set = 3 THEN
 		GOTO 124
 	    ELSE
 		BEEP
@@ -401,13 +318,9 @@ CLOSE #1
 	    END IF
 	ELSEIF app = 2 THEN
 	    CLS
-	    PRINT "Browser Demo"
-	    PRINT "================================================================================"
-	    PRINT "Checking connection..."
-	    DELAY 1
-	    PRINT ""
-	    PRINT "NO connection, Terminating session"
-	    DELAY 2
+	    SHELL ("C:")
+	    CHDIR ("LYNX")
+	    SHELL ("DOSLYNX.EXE")
 	    GOTO 124
 	ELSEIF app = 3 THEN
 	    REM binary
@@ -455,7 +368,7 @@ CHDIR "\"
 ON ERROR GOTO 111
 CHDIR "WORD"
 ON ERROR GOTO 111
-SHELL "WORD"
+SHELL "C:\WORD\WORD.COM"
 ON ERROR GOTO 111
 GOTO 123
 	ELSEIF app = 5 THEN
@@ -509,8 +422,7 @@ GOTO 123
 	ELSEIF app = 6 THEN
 	    SHELL "C:"
 	    CHDIR "\"
-	    SHELL "PLUS.EXE"
-	    GOTO 124.5
+	    CHAIN "PLUS.EXE"
 	ELSEIF app = 7 THEN
 	  GOTO 123
 	ELSE
@@ -610,10 +522,13 @@ GOTO 123
 	    PLAY "C"
 	    DELAY 5
 	    CLS
-	    DELAY 1.5
-	    PRINT "System shutdown is complete"
-	    PRINT "It is now safe to turn off the computer"
 	    CLOSE #1
+	    DELAY 1.5
+	    SHELL "fdapm poweroff"
+	    PRINT "No ACPI?"
+	    PRINT "Well then...System shutdown is complete?"
+	    PRINT "It is now safe to turn off the computer"
+	   
 423
 GOTO 423
 	ELSEIF shut = 2 THEN
@@ -634,7 +549,7 @@ GOTO 423
 	    DELAY 5
 	    CLS
 	    DELAY 1
-	    GOTO 90
+	    SHELL ("fdapm warmboot")
 	ELSEIF shut = 3 THEN
 	CLS
 	    PLAY "A"
@@ -657,7 +572,7 @@ GOTO 423
     END IF
 ELSE
     CLS
-    PRINT "LOGIN > ERROR"
+    PRINT "Login > Invalid Password"
     PRINT "================================================================================"
     PRINT ""
     PRINT "The Password which was entered is invalid for the user specified"
@@ -668,55 +583,13 @@ ELSE
 END IF
 END IF
 
-FUNCTION BitOn (which, IntVal)
-   BitOn = 0
-   SELECT CASE which
-      CASE 1: IF (IntVal AND 128) THEN BitOn = (-1)
-      CASE 2: IF (IntVal AND 64) THEN BitOn = (-1)
-      CASE 3: IF (IntVal AND 32) THEN BitOn = (-1)
-      CASE 4: IF (IntVal AND 16) THEN BitOn = (-1)
-      CASE 5: IF (IntVal AND 8) THEN BitOn = (-1)
-      CASE 6: IF (IntVal AND 4) THEN BitOn = (-1)
-      CASE 7: IF (IntVal AND 2) THEN BitOn = (-1)
-      CASE 8: IF (IntVal AND 1) THEN BitOn = (-1)
-      CASE 9: IF (IntVal AND (-32768)) THEN BitOn = (-1)
-      CASE 10: IF (IntVal AND 16384) THEN BitOn = (-1)
-      CASE 11: IF (IntVal AND 8192) THEN BitOn = (-1)
-      CASE 12: IF (IntVal AND 4096) THEN BitOn = (-1)
-      CASE 13: IF (IntVal AND 2048) THEN BitOn = (-1)
-      CASE 14: IF (IntVal AND 1024) THEN BitOn = (-1)
-      CASE 15: IF (IntVal AND 512) THEN BitOn = (-1)
-      CASE 16: IF (IntVal AND 256) THEN BitOn = (-1)
-   END SELECT
-END FUNCTION
-
-FUNCTION CMOSBattery%
-	OUT &H70, &HD
-	B% = INP(&H71)
-	C = BitOn%(1, B%)
-	CMOSBattery% = C
-END FUNCTION
-
+DEFINT A-Z
 SUB DELAY (dlay!)
     start! = TIMER
     DO WHILE start! + dlay! >= TIMER
 	IF start! > TIMER THEN start! = start! - 86400
     LOOP
 END SUB
-
-FUNCTION DriveType% (Drv%)
-	OUT &H70, &H10
-	B% = INP(&H71)
-	IF Drv% = 1 THEN
-		t$ = LEFT$(Hex2Bin$(LTRIM$(RTRIM$(HEX$(B%)))), 4)
-	ELSE
-		t$ = MID$(Hex2Bin$(LTRIM$(RTRIM$(HEX$(B%)))), 5, 4)
-	END IF
-	IF t$ = "0001" THEN DriveType% = 1
-	IF t$ = "0010" THEN DriveType% = 2
-	IF t$ = "0011" THEN DriveType% = 3
-	IF t$ = "0100" THEN DriveType% = 4
-END FUNCTION
 
 FUNCTION Hex2Bin$ (Hcs$)
    Hcs$ = UCASE$(Hcs$)
@@ -758,61 +631,5 @@ FUNCTION Hex2Bin$ (Hcs$)
       END SELECT
    NEXT
    Hex2Bin$ = Out$
-END FUNCTION
-
-SUB Mousedriver (ax%, bx%, cx%, dx%, rmouse%)
-   DEF SEG = VARSEG(rmouse$)
-   rmouse% = SADD(rmouse$)
-END SUB
-
-FUNCTION Mouseinit%
-   ax% = 0
-   Mousedriver ax%, 0, 0, 0, rmouse%
-   Mouseinit% = ax%
-END FUNCTION
-
-SUB mouseshow
-   ax% = 1
-   Mousedriver ax%, 0, 0, 0, rmouse%
-END SUB
-
-SUB Mousestat (lb%, mb&, rb%, xmouse%, ymouse%)
-   ax% = 3
-   Mousedriver ax%, bx%, cx%, dx%, rmouse%
-   lb% = ((bx% AND 1) <> 0)
-   rb% = ((bx% AND 1) <> 0)
-   mb% = -((bx% AND 4) \ 4)
-   ymouse% = dx%
-   xmouse% = cx%
-END SUB
-
-FUNCTION TotalMem%
-	OUT &H70, &H15
-	B% = INP(&H71)
-	OUT &H70, &H16
-	b1% = INP(&H71)
-	a1% = CVI(CHR$(B) + CHR$(b1%))
-	OUT &H70, &H17
-	B% = INP(&H71)
-	OUT &H70, &H18
-	b1% = INP(&H71)
-	a2% = CVI(CHR$(B) + CHR$(b1%))
-	TotalMem% = a1% + a2%
-END FUNCTION
-
-FUNCTION VidMem%
- 
-' Returns the amount of Video Memory
-' PC's BIOS only reports up to 256K, though.
-'------------------------------------------------------------------------
- 
-DEF SEG = 0
-vm = PEEK(&H487)
-vm = Byte AND 96
-vm = vm \ 32
-vm = (vm + 1) * 64
-DEF SEG
-VidMem% = vm
- 
 END FUNCTION
 
