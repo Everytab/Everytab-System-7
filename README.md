@@ -26,3 +26,6 @@ Files which are depricated (Useless)
 - ES and ESSM (Use ESSM2)
 - PLUSNON
 - the base images
+
+
+Also sussycamel will log tha changes
