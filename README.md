@@ -18,3 +18,11 @@ Requirements
 Put test releases in the Releases tab
 
 I will check and transfer to the public page
+
+Files which are depricated (Useless)
+
+- ST1 to 4 (Use CDST)
+- UP1 and 2 (Use CDST)
+- ES and ESSM (Use ESSM2)
+- PLUSNON
+- the base images
