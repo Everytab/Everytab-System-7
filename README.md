@@ -9,15 +9,11 @@ set the work environment in a folder having QBasic 4.5 (Given in the repo)
 How to make an install
 
 Requirements
-1) Compiled ES.bas and ST1.bas
+1) Compiled ESSM2.bas and CDST.bas
 2) PowerISO
 
-Edit the base disk images given
-
-• Copy ST1 to the root of the floppy
-
-• Copy ES.bas and PLUSNON to THE ES/7 FOLDER
-
+1) Modify the ES7.zip and replace the needed files
+2) Modify the boot image file of the ISO (option in PowerISO) and add CDST
 
 Put test releases in the Releases tab
 
