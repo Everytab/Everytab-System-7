@@ -1,3 +1,4 @@
+REM Depricated, use CDST
 CLS
 COLOR 15, 1
 CLS
