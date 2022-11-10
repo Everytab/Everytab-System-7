@@ -1,4 +1,5 @@
 OPTION BASE 1
+REM Load MENU Variables
 DIM MenuItem(4) AS STRING
 DIM ChooseItem AS INTEGER
 DIM XMenuPosn AS INTEGER
@@ -19,7 +20,6 @@ DIM EMenuItem(2) AS STRING
 DIM EChooseItem AS INTEGER
 DIM EXMenuPosn AS INTEGER
 DIM EYMenuPosn AS INTEGER
-DECLARE SUB DELAY (dlay!)
 DECLARE FUNCTION Hex2Bin$ (Hcs$)
 90 CLS
 CLS
@@ -28,7 +28,7 @@ CLS
 SHELL "C:"
 SHELL "CD \"
 PRINT "ES/7 Loader for FreeDOS"
-DELAY 1
+SLEEP 1
 CLS
 PRINT "REGLOAD"
 PRINT "Reading User File and Loading into Memory"
@@ -50,16 +50,16 @@ INPUT #1, f$
 INPUT #1, PASSE$
 CLOSE #1
 PRINT "The Read of the User File was succesful"
-DELAY 1
+SLEEP 1
 ESID = 0
 SMID = 0
-Build$ = "15.02.316"
-Ver$ = "October Alpha"
+Build$ = "15.02.317"
+Ver$ = "Alpha Next"
  CLS
-164 DELAY .1
+164 SLEEP .1
 CLS
 PRINT "ES/7 init..."
-DELAY 1
+SLEEP 1
 CLS
 CLS
 CLS
@@ -170,9 +170,9 @@ END IF
 ELSE
 CLS
 PRINT "Starting Login Session, Please Wait..."
-DELAY 2.5
+SLEEP 2.5
 CLS
-DELAY 1
+SLEEP 1
 CLS
 COLOR 15, 1
 CLS
@@ -189,7 +189,7 @@ PRINT "Enter the password"
 PRINT ""
 97 INPUT "PASSWORD>"; PASS$
 98 IF PASS$ = PASSE$ THEN
-    DELAY 1
+    SLEEP 1
     SHELL "C:"
     SHELL "CD \"
     CLS
@@ -254,7 +254,7 @@ RETURN
     99.25 
     IF erj$ = "Session Manager (Text-based GUI)" THEN
     SHELL "C:\SM.EXE"
-	    DELAY 1.5
+	    SLEEP 1.5
 	    COLOR 15, 4
 	    PLAY "A"
 	    CLS
@@ -270,9 +270,9 @@ RETURN
 	    PRINT ""
 	    PRINT "The system has halted. Record the FAIL code"
 	    PRINT "of the error and contact an Everytab System/7 Developer"
-	    DELAY 5
+	    SLEEP 5
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    GOTO 90
 
     ELSE
@@ -611,7 +611,7 @@ WEND
 PRINT ""
 PRINT ""
 PRINT "Binary code is reversed"
-DELAY 5
+SLEEP 5
 GOTO 124
 
 ELSEIF app$ = "Microsoft Word for MS-DOS (External)" THEN
@@ -635,7 +635,7 @@ GOTO 124
 		PRINT "Enter the second number"
 		INPUT "TRICALC>"; B
 		PRINT (A + B)
-		DELAY 5
+		SLEEP 5
 		GOTO 124
 	      
 	    ELSEIF os$ = "-" THEN
@@ -644,7 +644,7 @@ GOTO 124
 		PRINT "Enter the second number"
 		INPUT "TRICALC>"; B
 		PRINT (A - B)
-		DELAY 5
+		SLEEP 5
 		GOTO 124
 	      
 	    ELSEIF os$ = "x" THEN
@@ -653,7 +653,7 @@ GOTO 124
 		PRINT "Enter the second number"
 		INPUT "TRICALC>"; B
 		PRINT (A * B)
-		DELAY 5
+		SLEEP 5
 		GOTO 124
 	       
 	    ELSEIF os$ = "_" THEN
@@ -662,11 +662,11 @@ GOTO 124
 		PRINT "Enter the second number"
 		INPUT "TRICALC>"; B
 		PRINT (A \ B)
-		DELAY 5
+		SLEEP 5
 		GOTO 124
 	    ELSE
 		PRINT "The value specified is invalid"
-		DELAY 1
+		SLEEP 1
 		GOTO 200
 
 	    END IF
@@ -702,7 +702,7 @@ PRINT ""
 	ELSEIF COMAND$ = "LETSCRASHREEDS" THEN
 111 CLS
 	    
-	    DELAY 1.5
+	    SLEEP 1.5
 	    COLOR 15, 4
 	    PLAY "A"
 	    CLS
@@ -718,13 +718,13 @@ PRINT ""
 	    PRINT ""
 	    PRINT "The system has halted. Record the FAIL code"
 	    PRINT "of the error and contact an Everytab System/7 Developer"
-	    DELAY 5
+	    SLEEP 5
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    GOTO 90
 112 CLS
 	    
-	    DELAY 1.5
+	    SLEEP 1.5
 	    COLOR 15, 4
 	    PLAY "A"
 	    CLS
@@ -740,13 +740,13 @@ PRINT ""
 	    PRINT ""
 	    PRINT "The system has halted. Record the FAIL code"
 	    PRINT "of the error and contact an Everytab System/7 Developer"
-	    DELAY 5
+	    SLEEP 5
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    GOTO 90
 113 CLS
 	    
-	    DELAY 1.5
+	    SLEEP 1.5
 	    COLOR 15, 4
 	    PLAY "A"
 	    CLS
@@ -762,9 +762,9 @@ PRINT ""
 	    PRINT ""
 	    PRINT "The system has halted. Record the FAIL code"
 	    PRINT "of the error and contact an Everytab System/7 Developer"
-	    DELAY 5
+	    SLEEP 5
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    GOTO 90
 	ELSEIF COMAND$ = "" THEN
 	    GOTO 100
@@ -846,9 +846,9 @@ RETURN
 6465 
 	IF shut$ = "End the session" THEN
 	    PRINT "Preparing to Exit"
-	    DELAY 2
+	    SLEEP 2
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    COLOR 7, 0
 	    CLS
 	    CLS
@@ -858,10 +858,10 @@ RETURN
 	    PLAY "E"
 	    PLAY "D"
 	    PLAY "C"
-	    DELAY 5
+	    SLEEP 5
 	    CLS
 	    CLOSE #1
-	    DELAY 1.5
+	    SLEEP 1.5
 	    SHELL "fdapm poweroff"
           ON ERROR GOTO 113
 	    PRINT "The system detected an processing"
@@ -879,7 +879,7 @@ GOTO 423
 	ELSEIF shut$ = "Restart the session" THEN
 	    PRINT "Preparing to restart session"
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    CLS
 	    COLOR 7, 0
 	    CLS
@@ -891,9 +891,9 @@ GOTO 423
 	    PLAY "D"
 	    PLAY "C"
 
-	    DELAY 5
+	    SLEEP 5
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    SHELL ("fdapm warmboot")
           ON ERROR GOTO 113
 	ELSEIF shut$ = "Logoff" THEN
@@ -922,19 +922,13 @@ ELSE
     PRINT ""
     PRINT "The Password which was entered is not correct."
     PLAY "A"
-    DELAY 3
+    SLEEP 3
     CLS
     GOTO 95
 END IF
 END IF
 
 DEFINT A-Z
-SUB DELAY (dlay!)
-    start! = TIMER
-    DO WHILE start! + dlay! >= TIMER
-	IF start! > TIMER THEN start! = start! - 86400
-    LOOP
-END SUB
 
 FUNCTION Hex2Bin$ (Hcs$)
    Hcs$ = UCASE$(Hcs$)
