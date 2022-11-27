@@ -187,7 +187,7 @@ PRINT ""
 PRINT "Username : "; f$
 PRINT "Enter the password"
 PRINT ""
-97 INPUT "PASSWORD>"; PASS$
+97 INPUT ">"; PASS$
 98 IF PASS$ = PASSE$ THEN
     SLEEP 1
     SHELL "C:"
@@ -349,14 +349,15 @@ ope$ = MenuItem(ChooseItem)
 
     IF ope$ = "Run an DOS App" THEN
 	    CLS
-	    PRINT "Run an DOS App (Depricated)"
-	    PRINT "================================================================================"
-	    PRINT "Commands :- dir (shows files), cd (change directory), run, Exit"
-            99 PRINT "Current Folder :"
+	    PRINT "Run an DOS App"
+	    PRINT "==============================================================================="
+            99 cls
+	    PRINT "Current Folder :"
             SHELL "DIR /w"
+	    PRINT "Commands :- dir (shows files), cd (change directory), run, exit"
             INPUT "Run App >"; ap4p$
 	    IF ap4p$ = "dir" THEN
-	    SHELL "DIR /w"
+	    SHELL "DIR /p"
 	    GOTO 99
 	    ELSEIF ap4p$ = "cd" THEN
 	    INPUT "Choose the directory to change to"; CD$
@@ -553,11 +554,10 @@ CLOSE #1
 		PRINT "OS Build "; Build$
 		PRINT ""
 		PRINT "Credits :"
-		PRINT "Developers :- Everytab, JayTheCoderX, greenland, Mark_ & CoroX_"
-                PRINT "Graphic Designers :- JayTheCoderX"
-                PRINT ""
-		PRINT "Thanks to all the people who worked on FreeDOS."
+		PRINT "Developers - Everytab, JayTheCoderX, greenland, Mark_ & CoroX_"
+                PRINT "Graphic Designers - JayTheCoderX"
 		PRINT "Everytab System/7 runs on a modified FreeDOS Install"
+		PRINT ""
 		PRINT "Press any key to continue ..."
 		PRINT
 		DO
@@ -974,5 +974,6 @@ FUNCTION Hex2Bin$ (Hcs$)
       END SELECT
    NEXT
    Hex2Bin$ = Out$
-END FUNCTION
+END FUNCTION	
 
+		
