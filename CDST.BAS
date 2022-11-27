@@ -11,7 +11,7 @@ PRINT "_______________________"
 PRINT ""
 PRINT ""
 PRINT "Welcome to Everytab System/7 Setup"
-PRINT "The Version on this disk is - October Alpha build 15.02.316"
+PRINT "The Version on this disk is - December Release
 PRINT "This program shall go through the following"
 PRINT ""
 PRINT "1) Preparing your Hard Disk through the FDISK Utility (Standard Setup)"
@@ -25,7 +25,7 @@ DO
 LOOP UNTIL INKEY$ <> ""
 145 CLS
 MenuItem$(1) = "Fresh Install - FDISK and format"
-MenuItem$(2) = "Upgrade from MS-DOS or ES/7 SepAlpha"
+MenuItem$(2) = "Upgrade from MS-DOS or ES/7 September Release"
 MenuItem$(3) = "Upgrade from FreeDOS"
 PRINT "Everytab System/7 Setup"
 PRINT "_______________________"
@@ -116,6 +116,9 @@ PRINT "Press any key to start FDISK"
 DO
 LOOP UNTIL INKEY$ <> ""
 SHELL "FDISK"
+CLS
+PRINT "If you have just made a partition, Press ctrl+alt+delete"
+PRINT "Else, Press any key to continue"
 CLS
 PRINT "Everytab System/7 Setup"
 PRINT "_______________________"
