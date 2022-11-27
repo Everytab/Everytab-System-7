@@ -53,7 +53,7 @@ PRINT "The Read of the User File was succesful"
 SLEEP 1
 ESID = 0
 SMID = 0
-Build$ = "15.02.317"
+Build$ = "15.02.318"
 Ver$ = "Alpha Next"
  CLS
 164 SLEEP .1
@@ -68,7 +68,7 @@ BMP$ = "C:\boot.bmp"
 OPEN BMP$ FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
-PRINT "ES/7 15.02.316"
+PRINT "ES/7 15.02.318"
 DELAY 10
 ELSE
 '=== Set the screen mode for a 640x480, 16 color BMP
@@ -352,7 +352,9 @@ ope$ = MenuItem(ChooseItem)
 	    PRINT "Run an DOS App (Depricated)"
 	    PRINT "================================================================================"
 	    PRINT "Commands :- dir (shows files), cd (change directory), run, Exit"
-99 INPUT "Run App >"; ap4p$
+            99 PRINT "Current Folder :"
+            SHELL "DIR /w"
+            INPUT "Run App >"; ap4p$
 	    IF ap4p$ = "dir" THEN
 	    SHELL "DIR /w"
 	    GOTO 99
@@ -550,8 +552,10 @@ CLOSE #1
 		PRINT "The Everytab System/7 Version "; Ver$
 		PRINT "OS Build "; Build$
 		PRINT ""
-		PRINT ""
-		PRINT ""
+		PRINT "Credits :"
+		PRINT "Developers :- Everytab, JayTheCoderX, greenland, Mark_ & CoroX_"
+                PRINT "Graphic Designers :- JayTheCoderX"
+                PRINT ""
 		PRINT "Thanks to all the people who worked on FreeDOS."
 		PRINT "Everytab System/7 runs on a modified FreeDOS Install"
 		PRINT "Press any key to continue ..."
