@@ -145,14 +145,13 @@ PRINT "=========================================================================
 	    PRINT ""
 	    PRINT "1 - Reset"
 	    PRINT "2 - About"
-	    PRINT "3 - CMOS Info Viewer"
-	    PRINT "4 - Exit"
+	    PRINT "3 - Exit"
 126 INPUT ">"; set
 	    IF set = 1 THEN
 		CLS
 		COLOR 15, 4
 		CLS
-		PRINT "SETTINGS > RESET"
+		PRINT "Settings > RESET"
 		PRINT "================================================================================"
 		PRINT ""
 		PLAY "D"
@@ -181,7 +180,7 @@ CLOSE #1
 		END IF
 	    ELSEIF set = 2 THEN
 		CLS
-		PRINT "SETTINGS > About"
+		PRINT "Settings > About"
 		PRINT "================================================================================"
 		PRINT ""
 		PRINT "About Everytab System/7:-"
@@ -189,82 +188,17 @@ CLOSE #1
 		PRINT "The Everytab System/7 Version "; Ver$
 		PRINT "OS Build "; Build$
 		PRINT ""
-		PRINT "Changelog :"
+		PRINT "Credits :"
 		PRINT ""
-		PRINT "Major UI Changes, Bug fixes"
+		PRINT "Developers : Everytab, JayTheCoderX, greenland, Mark_ & CoroX_
 		PRINT ""
 		PRINT "Press any key to continue ..."
 		PRINT
 		DO
 		LOOP UNTIL INKEY$ <> ""
 		GOTO 125
+
 	    ELSEIF set = 3 THEN
-
-'DEFINT A-Z
-' CMOS.BAS
-' Reads the contents of the CMOS
-'
-'DEFINT A-Z
-'
-'CLS
-'PRINT "RAW CMOS Contents:"
-'FOR i = 0 TO &H7F
-' OUT &H70, i
-' PRINT USING "\   \"; HEX$(INP(&H71));
-'NEXT i
-'PRINT " "
-'PRINT "CMOS Battery State: ";
-'IF CMOSBattery% THEN PRINT "Good" ELSE PRINT "Battery Dead"
-'PRINT
-'k% = DriveType%(1)
-'PRINT "Drive A: ";
-'IF k% = 0 THEN PRINT "None"
-'IF k% = 1 THEN PRINT "5"; CHR$(172); " 360K"
-'IF k% = 2 THEN PRINT "5"; CHR$(172); " 1.2M"
-'IF k% = 3 THEN PRINT "3"; CHR$(171); " 720K"
-'IF k% = 4 THEN PRINT "3"; CHR$(171); " 1.44M"
-'k% = DriveType%(2)
-'PRINT "Drive B: ";
-'IF k% = 0 THEN PRINT "None"
-'IF k% = 1 THEN PRINT "5"; CHR$(172); " 360K"
-'IF k% = 2 THEN PRINT "5"; CHR$(172); " 1.2M"
-'IF k% = 3 THEN PRINT "3"; CHR$(171); " 720K"
-'IF k% = 4 THEN PRINT "3"; CHR$(171); " 1.44M"
-'PRINT
-'OUT &H70, &H19
-'b% = INP(&H71)
-'PRINT "Hard Disk 0 Type:";
-'IF b <> 0 THEN PRINT b% ELSE PRINT " Not Installed"
-'OUT &H70, &H1A
-'b% = INP(&H71)
-'PRINT "Hard Disk 1 Type:";
-'IF b <> 0 THEN PRINT b% ELSE PRINT " Not Installed"
-'PRINT
-'
-'OUT &H70, &H15
-'b% = INP(&H71)
-'OUT &H70, &H16
-'b1% = INP(&H71)
-'PRINT "Base Memory:"; RTRIM$(STR$(CVI(CHR$(b) + CHR$(b1%)))); "K"
-'
-'OUT &H70, &H17
-'b% = INP(&H71)
-'OUT &H70, &H18
-'b1% = INP(&H71)
-'PRINT "Extended Memory:"; RTRIM$(STR$(CVI(CHR$(b) + CHR$(b1%)))); "K"
-'
-'PRINT "Total System Memory:"; RTRIM$(STR$(TotalMem%)); "K"
-CLS
-PRINT "SETTINGS > CMOS Viewer"
-PRINT "================================================================================"
-SLEEP 2
-CLS
-PRINT "CMOS Viewer Has Commited an Illegal action and has been stopped"
-PLAY "A"
-DELAY 4
-GOTO 125
-
-	    ELSEIF set = 4 THEN
 		GOTO 124
 	    ELSE
 		BEEP
@@ -272,21 +206,6 @@ GOTO 125
 
 	    END IF
 	ELSEIF app = 2 THEN
-	    CLS
-	    PRINT "Browser Demo"
-	    PRINT "================================================================================"
-	    PRINT "Checking connection..."
-	    DELAY 3
-	    PRINT ""
-	    PRINT "NO connection, Terminating session"
-	    DELAY 3
-	    GOTO 124
-	ELSEIF app = 3 THEN
-	CLS
-	PRINT "Not yet Implemented :("
-	SLEEP 5
-	GOTO 124
-	ELSEIF app = 4 THEN
 	    REM binary
 CLS
 PRINT "Binary Coder"
@@ -325,46 +244,7 @@ PRINT ""
 PRINT "Binary code is reversed"
 DELAY 5
 GOTO 124
-	ELSEIF app = 5 THEN
-10
-CLS
-RANDOMIZE TIMER
-cor = RND * 150
-cor2 = CINT(cor)
-IF cor2 < 30 AND cor2 > -30 THEN GOTO 10
-
-PRINT "The TIE Fighter is at"; cor2
-
-INPUT "enter velocity"; V
-INPUT "enter angle"; A
-D = ((V ^ 2) * SIN(2 * A)) / 10
-PRINT "Hit on:"
-PRINT CINT(-D)
-
-IF CINT(-D) < cor2 + 30 AND CINT(-D) > cor2 - 30 THEN
-    PRINT "Target Destroyed"
-ELSEIF CINT(-D) < 30 AND CINT(-D) > -30 THEN PRINT "Affirmative Hit"
-ELSE PRINT "Miss"
-END IF
-PRINT " 0 to exit, 1 to play again"
-786 INPUT C
-IF C = 0 THEN
-GOTO 124
-ELSEIF C = 1 THEN
-GOTO 10
-ELSE
-GOTO 786
-END IF
-ELSEIF app = 6 THEN
-SHELL "C:"
-CHDIR "\"
-ON ERROR GOTO 111
-CHDIR "WORD"
-ON ERROR GOTO 111
-SHELL "WORD"
-ON ERROR GOTO 111
-GOTO 123
-	ELSEIF app = 7 THEN
+ELSEIF app = 3 THEN
 	    CLS
 200 PRINT "Legacy Calculator"
 	    PRINT ("+,-,x,_(Divide)")
@@ -376,7 +256,7 @@ GOTO 123
 		PRINT "SECOND.NO"
 		INPUT "TRICALC>"; B
 		PRINT (A + B)
-		DELAY 5
+		SLEEP 5
 		GOTO 124.5
 	      
 	    ELSEIF os$ = "-" THEN
@@ -385,7 +265,7 @@ GOTO 123
 		PRINT "SECOND.NO"
 		INPUT "TRICALC>"; B
 		PRINT (A - B)
-		DELAY 5
+		SLEEP 5
 		GOTO 124.5
 	      
 	    ELSEIF os$ = "x" THEN
@@ -593,56 +473,6 @@ ELSE
 END IF
 END IF
 
-FUNCTION BitOn (which, IntVal)
-   BitOn = 0
-   SELECT CASE which
-      CASE 1: IF (IntVal AND 128) THEN BitOn = (-1)
-      CASE 2: IF (IntVal AND 64) THEN BitOn = (-1)
-      CASE 3: IF (IntVal AND 32) THEN BitOn = (-1)
-      CASE 4: IF (IntVal AND 16) THEN BitOn = (-1)
-      CASE 5: IF (IntVal AND 8) THEN BitOn = (-1)
-      CASE 6: IF (IntVal AND 4) THEN BitOn = (-1)
-      CASE 7: IF (IntVal AND 2) THEN BitOn = (-1)
-      CASE 8: IF (IntVal AND 1) THEN BitOn = (-1)
-      CASE 9: IF (IntVal AND (-32768)) THEN BitOn = (-1)
-      CASE 10: IF (IntVal AND 16384) THEN BitOn = (-1)
-      CASE 11: IF (IntVal AND 8192) THEN BitOn = (-1)
-      CASE 12: IF (IntVal AND 4096) THEN BitOn = (-1)
-      CASE 13: IF (IntVal AND 2048) THEN BitOn = (-1)
-      CASE 14: IF (IntVal AND 1024) THEN BitOn = (-1)
-      CASE 15: IF (IntVal AND 512) THEN BitOn = (-1)
-      CASE 16: IF (IntVal AND 256) THEN BitOn = (-1)
-   END SELECT
-END FUNCTION
-
-FUNCTION CMOSBattery%
-	OUT &H70, &HD
-	B% = INP(&H71)
-	C = BitOn%(1, B%)
-	CMOSBattery% = C
-END FUNCTION
-
-SUB DELAY (dlay!)
-    start! = TIMER
-    DO WHILE start! + dlay! >= TIMER
-	IF start! > TIMER THEN start! = start! - 86400
-    LOOP
-END SUB
-
-FUNCTION DriveType% (Drv%)
-	OUT &H70, &H10
-	B% = INP(&H71)
-	IF Drv% = 1 THEN
-		t$ = LEFT$(Hex2Bin$(LTRIM$(RTRIM$(HEX$(B%)))), 4)
-	ELSE
-		t$ = MID$(Hex2Bin$(LTRIM$(RTRIM$(HEX$(B%)))), 5, 4)
-	END IF
-	IF t$ = "0001" THEN DriveType% = 1
-	IF t$ = "0010" THEN DriveType% = 2
-	IF t$ = "0011" THEN DriveType% = 3
-	IF t$ = "0100" THEN DriveType% = 4
-END FUNCTION
-
 FUNCTION Hex2Bin$ (Hcs$)
    Hcs$ = UCASE$(Hcs$)
    lc = LEN(Hcs$)
@@ -684,60 +514,3 @@ FUNCTION Hex2Bin$ (Hcs$)
    NEXT
    Hex2Bin$ = Out$
 END FUNCTION
-
-SUB Mousedriver (ax%, bx%, cx%, dx%, rmouse%)
-   DEF SEG = VARSEG(rmouse$)
-   rmouse% = SADD(rmouse$)
-END SUB
-
-FUNCTION Mouseinit%
-   ax% = 0
-   Mousedriver ax%, 0, 0, 0, rmouse%
-   Mouseinit% = ax%
-END FUNCTION
-
-SUB mouseshow
-   ax% = 1
-   Mousedriver ax%, 0, 0, 0, rmouse%
-END SUB
-
-SUB Mousestat (lb%, mb&, rb%, xmouse%, ymouse%)
-   ax% = 3
-   Mousedriver ax%, bx%, cx%, dx%, rmouse%
-   lb% = ((bx% AND 1) <> 0)
-   rb% = ((bx% AND 1) <> 0)
-   mb% = -((bx% AND 4) \ 4)
-   ymouse% = dx%
-   xmouse% = cx%
-END SUB
-
-FUNCTION TotalMem%
-	OUT &H70, &H15
-	B% = INP(&H71)
-	OUT &H70, &H16
-	b1% = INP(&H71)
-	a1% = CVI(CHR$(B) + CHR$(b1%))
-	OUT &H70, &H17
-	B% = INP(&H71)
-	OUT &H70, &H18
-	b1% = INP(&H71)
-	a2% = CVI(CHR$(B) + CHR$(b1%))
-	TotalMem% = a1% + a2%
-END FUNCTION
-
-FUNCTION VidMem%
- 
-' Returns the amount of Video Memory
-' PC's BIOS only reports up to 256K, though.
-'------------------------------------------------------------------------
- 
-DEF SEG = 0
-vm = PEEK(&H487)
-vm = Byte AND 96
-vm = vm \ 32
-vm = (vm + 1) * 64
-DEF SEG
-VidMem% = vm
- 
-END FUNCTION
-
