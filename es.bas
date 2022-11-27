@@ -1,196 +1,53 @@
-DECLARE SUB Mousedriver (ax%, bx%, cx%, dx%, rmouse%)
-DECLARE SUB mouseshow ()
-DECLARE FUNCTION Mouseinit% ()
 DEFINT A-Z
-
-DECLARE SUB DELAY (dlay!)
-DECLARE FUNCTION VidMem% ()
-DECLARE FUNCTION CMOSBattery% ()
-DECLARE FUNCTION BitOn% (which%, IntVal%)
-DECLARE FUNCTION DriveType% (Drv%)
 DECLARE FUNCTION Hex2Bin$ (Hcs$)
-DECLARE FUNCTION TotalMem% ()
 90 CLS
 CLS
 COLOR 7, 0
 
 SHELL "C:"
 SHELL "CD \"
-PRINT "ES/7 Loader for DOS v.1"
-DELAY 4
+PRINT "ES/7 Loader for Raspberry Pi"
+SLEEP 4
 CLS
-PRINT "Registry Check v.1"
-PRINT "Reading Registry and Loading into Memory"
-DELAY 3
-OPEN "sys.dat" FOR BINARY AS #1
+PRINT ""
+PRINT "Loading User File"
+SLEEP 3
+OPEN "/home/pi/sys.dat" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
-OPEN "sys.dat" FOR OUTPUT AS #1
+OPEN "/home/pi/sys.dat" FOR OUTPUT AS #1
 WRITE #1, 0
 WRITE #1, 0
 WRITE #1, 0
-PRINT "WARNING!!! : Registry was not found, had to be rebuilt"
-DELAY 1
+PRINT "New User File Created"
+SLEEP 1
 END IF
 CLOSE #1
-OPEN "sys.dat" FOR INPUT AS #1
+OPEN "/home/pi/sys.dat" FOR INPUT AS #1
 INPUT #1, e
 INPUT #1, f$
 INPUT #1, PASSE$
 CLOSE #1
-PRINT "The Read of the registry was succesful"
-DELAY 2
-DELAY 1
-Build$ = "14.10.255"
-Ver$ = "Alpha 1 Release (0.11)"
+PRINT "User File loaded"
+SLEEP 2
+Build$ = "15.02.318"
+Ver$ = "Raspberry Pi, initial test (based on 14.10 code)"
  CLS
-164 DELAY .1
+164 SLEEP 1
 CLS
 PRINT "ES/7 init..."
-DELAY 3
+SLEEP 3
 CLS
 CLS
 CLS
 CLS
-PRINT "The Everytab System/7 for DOS based Systems "; Ver$
-DELAY 1
+PRINT "The Everytab System/7 for "; Ver$
+SLEEP 1
 PRINT "OS Build "; Build$
-DELAY 1.5
+SLEEP 2
 PRINT "Loading"
-DELAY 3
-CLS
-PRINT "[          ]"
-DELAY .2
-CLS
-PRINT "[=         ]"
-DELAY .2
-CLS
-PRINT "[ =        ]"
-DELAY .2
-CLS
-PRINT "[  =       ]"
-DELAY .2
-CLS
-PRINT "[   =      ]"
-DELAY .2
-CLS
-PRINT "[    =     ]"
-DELAY .2
-CLS
-PRINT "[     =    ]"
-DELAY .2
-CLS
-PRINT "[      =   ]"
-DELAY .2
-CLS
-PRINT "[       =  ]"
-DELAY .2
-CLS
-PRINT "[        = ]"
-DELAY .2
-CLS
-PRINT "[         =]"
-DELAY .2
-CLS
-PRINT "[          ]"
-DELAY .2
-CLS
-PRINT "[=         ]"
-DELAY .2
-CLS
-PRINT "[ =        ]"
-DELAY .2
-CLS
-PRINT "[  =       ]"
-DELAY .2
-CLS
-PRINT "[   =      ]"
-DELAY .2
-CLS
-PRINT "[    =     ]"
-DELAY .2
-CLS
-PRINT "[     =    ]"
-DELAY .2
-CLS
-PRINT "[      =   ]"
-DELAY .2
-CLS
-PRINT "[       =  ]"
-DELAY .2
-CLS
-PRINT "[        = ]"
-DELAY .2
-CLS
-PRINT "[         =]"
-DELAY .2
-CLS
-PRINT "[          ]"
-DELAY .2
-CLS
-PRINT "[=         ]"
-DELAY .2
-CLS
-PRINT "[ =        ]"
-DELAY .2
-CLS
-PRINT "[  =       ]"
-DELAY .2
-CLS
-PRINT "[   =      ]"
-DELAY .2
-CLS
-PRINT "[    =     ]"
-DELAY .2
-CLS
-PRINT "[     =    ]"
-DELAY .2
-CLS
-PRINT "[      =   ]"
-DELAY .2
-CLS
-PRINT "[       =  ]"
-DELAY .2
-CLS
-PRINT "[        = ]"
-DELAY .2
-CLS
-PRINT "[         =]"
-DELAY .2
-CLS
-PRINT "[          ]"
-DELAY .2
-CLS
-PRINT "[=         ]"
-DELAY .2
-CLS
-PRINT "[ =        ]"
-DELAY .2
-CLS
-PRINT "[  =       ]"
-DELAY .2
-CLS
-PRINT "[   =      ]"
-DELAY .2
-CLS
-PRINT "[    =     ]"
-DELAY .2
-CLS
-PRINT "[     =    ]"
-DELAY .2
-CLS
-PRINT "[      =   ]"
-DELAY .2
-CLS
-PRINT "[       =  ]"
-DELAY .2
-CLS
-PRINT "[        = ]"
-DELAY .2
-CLS
-PRINT "[         =]"
-DELAY .2
-
+SLEEP 3
+SLEEP 1
 
 PRINT e
 IF e = 0 THEN
@@ -211,7 +68,7 @@ INPUT "Enter your name"; nanme$
 INPUT "Enter your password"; non$
 PRINT "Ready to Write"
 PRINT "Press any key to continue ..."
-OPEN "sys.dat" FOR OUTPUT AS #1
+OPEN "/home/pi/sys.dat" FOR OUTPUT AS #1
 WRITE #1, 1
 PRINT
 DO
@@ -228,9 +85,9 @@ GOTO 90
 ELSE
 CLS
 PRINT "Starting Login Session, Please Wait..."
-DELAY 2.5
+SLEEP 2
 CLS
-DELAY 1
+SLEEP 1
 CLS
 COLOR 15, 1
 CLS
@@ -245,15 +102,8 @@ PRINT ""
 PRINT "Username : "; f$
 PRINT "Enter the password"
 PRINT ""
-97 INPUT "PASSWORD>"; PASS$
+97 INPUT ">"; PASS$
 98 IF PASS$ = PASSE$ THEN
-    DELAY 1
-    CLS
-    PRINT "GPClient : Checking for connections"
-    DELAY 1
-    PRINT "GPClient : No connection found"
-    DELAY 1
-    CLS
     PLAY "C"
     PLAY "D"
     PLAY "E"
@@ -267,46 +117,10 @@ PRINT ""
     PRINT "Please choose an task"
     PRINT ""
     PRINT "1) Built-in tasks"
-    PRINT "2) Run an DOS App"
-    PRINT "3) Command line"
-    PRINT "4) End Session"
-    mouseshow
+    PRINT "2) Command line"
+    PRINT "3) End Session"
 106 INPUT ">"; op
-    IF op = 2 THEN
-	    CLS
-	    PRINT "RUNAPP"
-	    PRINT "================================================================================"
-	    PRINT "AVAILABLE COMMANDS :- DIR (SHOWS DIRECTORY LISTING), CD (ALLOWS TO CHANGE DIRECTORY), RUN (RUNS THE FILE), EXIT"
-	    PRINT "Due to limitations, only commands with UPPERCASE are supported"
-99 INPUT "APPRUN>"; ap4p$
-	    IF ap4p$ = "DIR" THEN
-	    SHELL "DIR /w"
-	    GOTO 99
-	    ELSEIF ap4p$ = "CD" THEN
-	    INPUT "Choose the directory to change to"; CD$
-	    ON ERROR GOTO 111
-	    CHDIR CD$
-	    ON ERROR GOTO 111
-	    GOTO 99
-	    ELSEIF ap4p$ = "DRIVE" THEN
-	    INPUT "Choose the Drive to change to"; D$
-	    ON ERROR GOTO 111
-	    SHELL D$
-	    ON ERROR GOTO 111
-	    GOTO 99
-	    ELSEIF ap4p$ = "RUN" THEN
-	    INPUT "Type the file name of the program"; r$
-	    ON ERROR GOTO 111
-	    SHELL r$
-	    ON ERROR GOTO 111
-	    GOTO 99
-	    ELSEIF ap4p$ = "EXIT" THEN
-	    GOTO 123
-	    ELSE
-	    PLAY "A"
-	    GOTO 99
-	    END IF
-	    END IF
+
     IF op = 1 THEN
 124 CLS
 PRINT "Built-in tasks"
