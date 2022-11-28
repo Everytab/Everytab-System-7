@@ -55,11 +55,6 @@ CLS
 CLS
 COLOR 15, 6
 CLS
-    PLAY "C"
-    PLAY "D"
-    PLAY "E"
-    PLAY "F"
-    PLAY "A"
 PRINT "Post-Install Setup"
 PRINT "================================================================================"
 PRINT ""
@@ -104,11 +99,6 @@ PRINT "Enter the password"
 PRINT ""
 97 INPUT ">"; PASS$
 98 IF PASS$ = PASSE$ THEN
-    PLAY "C"
-    PLAY "D"
-    PLAY "E"
-    PLAY "E"
-    PLAY "A"
 123 CLS
     PRINT "Welcome "; f$
     PRINT "================================================================================"
@@ -128,7 +118,7 @@ PRINT "=========================================================================
 	PRINT "Tasks :-"
 	PRINT ""
 	PRINT "1) Settings"
-	PRINT "2) Decimal to Binary Converter
+	PRINT "2) Decimal to Binary Converter"
 	PRINT "3) Legacy Calculator"
 	PRINT "4) PlayIt! (Sound test)"
 	PRINT "5) < Return Back"
@@ -151,9 +141,7 @@ PRINT "=========================================================================
 		PRINT "Settings > RESET"
 		PRINT "================================================================================"
 		PRINT ""
-		PLAY "D"
-		PLAY "A"
-		PLAY "D"
+		
 444 INPUT "***WARNING!!!*** THIS WILL RESET YOUR PASSWORD, ARE YOU SURE?(Y/N)"; e$
 		IF e$ = "Y" THEN
 OPEN "sys.dat" FOR OUTPUT AS #1
@@ -239,7 +227,7 @@ WEND
 PRINT ""
 PRINT ""
 PRINT "Binary code is reversed"
-DELAY 5
+SLEEP 5
 GOTO 124
 ELSEIF app = 3 THEN
 	    CLS
@@ -271,7 +259,7 @@ ELSEIF app = 3 THEN
 		PRINT "SECOND.NO"
 		INPUT "TRICALC>"; B
 		PRINT (A * B)
-		DELAY 5
+		SLEEP 5
 		GOTO 124.5
 	       
 	    ELSEIF os$ = "_" THEN
@@ -280,45 +268,18 @@ ELSEIF app = 3 THEN
 		PRINT "SECOND.NO"
 		INPUT "TRICALC>"; B
 		PRINT (A \ B)
-		DELAY 5
+		SLEEP 5
 		GOTO 124.5
 	    ELSE
 		PRINT "INVALID VALUE"
-		DELAY 1
+		SLEEP 1
 		GOTO 200
 
 	    END IF
 	    GOTO 124.5
 	ELSEIF app = 4 THEN
-	    do 
-note$ = inkey$
-select case ucase$(note$)
-case "A"
-Play "A"
-
-case "B"
-Play "B"
-
-case "C"
-Play "C"
-
-case "D"
-Play "D"
-
-case "E"
-Play "E"
-
-case "F"
-Play "F"
-
-case "G"
-Play "G"
-
-end select 
-
-loop until ucase$(note$) = "Q"
-
-end
+	    PRINT "DISABLED (BUG)"
+            SLEEP 2
 	    GOTO 124.5
 	ELSEIF app = 5 THEN
 	  GOTO 123
@@ -326,7 +287,7 @@ end
 	    BEEP
 	    GOTO 124.5
 	END IF
-    ELSEIF op = 3 THEN
+    ELSEIF op = 2 THEN
 	CLS
 	COLOR 7, 0
 	CLS
@@ -375,29 +336,22 @@ end
 	ELSEIF COMAND$ = "LETSCRASH" THEN
 111 CLS
 	    
-	    DELAY 1.5
-	    COLOR 7, 4
-	    PLAY "A"
+	    SLEEP 1
+	    COLOR 7,4
 	    CLS
 	    CLS
-	    PRINT "FAIL 0000 ERRCD=fns ERAAC=**** ERLIM=********"
-	    PRINT "EAX=00000000  EBX=fa00000 ECX=00000000 EDX=00000000"
-	    PRINT "ESI=8rs29vn2 EDI=sk928=21 EBP=2993828 FLG=*********"
-	    PRINT "CS:ES=0000:000000cc"
-	    PRINT ""
-	    PRINT ""
 	    PRINT "The system detected an processing"
-	    PRINT "error at location DOSAPPRUN:01"
+	    PRINT "error at location DOSRUN"
 	    PRINT ""
-	    PRINT "00000000"
+	    PRINT "FAIL Code : 00000001"
 	    PRINT "OS Revision "; Build$
 	    PRINT ""
 	    PRINT ""
 	    PRINT "The system has halted. Record the FAIL code"
 	    PRINT "of the error and contact an Everytab System/7 Developer"
-	    DELAY 5
+	    SLEEP 5
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    GOTO 90
 	ELSEIF COMAND$ = "" THEN
 	    GOTO 100
@@ -406,13 +360,13 @@ end
 	    GOTO 100
 
 	ELSE
-	    PRINT "0001 :- THE COMMAND ENTERED IS INVALID"
+	    SHELL COMAND$
 	    GOTO 100
 
 
 
 	END IF
-    ELSEIF op = 4 THEN
+    ELSEIF op = 3 THEN
 	CLS
 	PRINT "SHUTDOWN"
 	PRINT "================================================================================"
@@ -425,54 +379,39 @@ end
 6465 INPUT ">"; shut
 	IF shut = 1 THEN
 	    PRINT "Preparing to Exit"
-	    DELAY 2
+	    SLEEP 2
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    COLOR 7, 0
 	    CLS
 	    CLS
 	    PRINT "Ending ES/7 Session"
-	    PLAY "A"
-	    PLAY "E"
-	    PLAY "E"
-	    PLAY "D"
-	    PLAY "C"
-	    DELAY 5
+	    SLEEP 5
 	    CLS
-	    DELAY 1.5
+	    SLEEP 1
 	    PRINT "System shutdown is complete"
 	    PRINT "It is now safe to turn off the computer"
 	    CLOSE #1
+            SHELL ("SHUTDOWN 0")
 423
 GOTO 423
 	ELSEIF shut = 2 THEN
 	    PRINT "Preparing to restart session"
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    CLS
 	    COLOR 7, 0
 	    CLS
 	    CLS
 	    PRINT "Restarting ES/7"
-	    PLAY "A"
-	    PLAY "E"
-	    PLAY "E"
-	    PLAY "D"
-	    PLAY "C"
 
-	    DELAY 5
+	    SLEEP 5
 	    CLS
-	    DELAY 1
+	    SLEEP 1
 	    GOTO 90
 	ELSEIF shut = 3 THEN
 	CLS
-	    PLAY "A"
-	    PLAY "E"
-	    PLAY "E"
-	    PLAY "D"
-	    PLAY "C"
-
-	GOTO 95
+	    GOTO 95
 	ELSEIF shut = 4 THEN
 	    GOTO 123
 	ELSE
@@ -489,8 +428,7 @@ ELSE
     PRINT "================================================================================"
     PRINT ""
     PRINT "The Password which was entered is invalid for the user specified"
-    PLAY "A"
-    DELAY 3
+    SLEEP 3
     CLS
     GOTO 95
 END IF
