@@ -128,13 +128,10 @@ PRINT "=========================================================================
 	PRINT "Tasks :-"
 	PRINT ""
 	PRINT "1) Settings"
-	PRINT "2) Browser Demo (no functionality)"
-	PRINT "3) Decimal to Binary Converter"
-	PRINT "4) X-Wing (Velocity and Angle)"
-	PRINT "5) Microsoft Word for MS-DOS (External)"
-	PRINT "6) Legacy Calculator"
-	PRINT "7) Plus Pak Launcher"
-	PRINT "8) < Return Back"
+	PRINT "2) Decimal to Binary Converter
+	PRINT "3) Legacy Calculator"
+	PRINT "4) PlayIt! (Sound test)"
+	PRINT "5) < Return Back"
 124.5 INPUT ">"; app
 	IF app = 1 THEN
 125 CLS
@@ -292,12 +289,38 @@ ELSEIF app = 3 THEN
 
 	    END IF
 	    GOTO 124.5
-	ELSEIF app = 8 THEN
-	    SHELL "C:"
-	    CHDIR "\"
-	    SHELL "PLUS.EXE"
+	ELSEIF app = 4 THEN
+	    do 
+note$ = inkey$
+select case ucase$(note$)
+case "A"
+Play "A"
+
+case "B"
+Play "B"
+
+case "C"
+Play "C"
+
+case "D"
+Play "D"
+
+case "E"
+Play "E"
+
+case "F"
+Play "F"
+
+case "G"
+Play "G"
+
+end select 
+
+loop until ucase$(note$) = "Q"
+
+end
 	    GOTO 124.5
-	ELSEIF app = 9 THEN
+	ELSEIF app = 5 THEN
 	  GOTO 123
 	ELSE
 	    BEEP
