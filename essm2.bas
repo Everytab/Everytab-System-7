@@ -53,8 +53,8 @@ PRINT "The Read of the User File was succesful"
 SLEEP 1
 ESID = 0
 SMID = 0
-Build$ = "15.02.318"
-Ver$ = "Alpha Next"
+Build$ = "15.03.318"
+Ver$ = "December Release (Still in testing)"
  CLS
 164 SLEEP .1
 CLS
@@ -68,7 +68,7 @@ BMP$ = "C:\boot.bmp"
 OPEN BMP$ FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
-PRINT "ES/7 15.02.318"
+PRINT "ES/7 15.03.318"
 DELAY 10
 ELSE
 '=== Set the screen mode for a 640x480, 16 color BMP
@@ -152,8 +152,8 @@ SHELL "fdapm warmboot"
 ELSEIF fes = 2 THEN
 PRINT "Post-Install Setup"
 PRINT "================================================================================"
-PRINT "Insert the disk with the backup"
-PRINT "If this operation fails, do not worry. The Post-Install Setup will start again"
+PRINT "Insert the floppy disk with the user data backup into Drive A"
+PRINT "If the copying fails, the Post-Install Setup will start again on reboot"
 PRINT ""
 PRINT "Press any key to continue"
 DO
@@ -194,8 +194,8 @@ PRINT ""
     SHELL "CD \"
     CLS
 98.25 CLS
-EMenuItem$(1) = "Session Manager (Text-based GUI)"
-EMenuItem$(2) = "Application Chooser (CUI)"
+EMenuItem$(1) = "Session Manager (Mouse Based - GUI)"
+EMenuItem$(2) = "Application Chooser (Arrow Key Based)"
     PRINT "Session Picker"
     PRINT "================================================================================"
     PRINT "Choose an session :-"
@@ -354,19 +354,19 @@ ope$ = MenuItem(ChooseItem)
             99 cls
 	    PRINT "Current Folder :"
             SHELL "DIR /w"
-	    PRINT "Commands :- dir (shows files), cd (change directory), run, exit"
+	    PRINT "Commands - listfiles, cd (change folder), drive (change drive), run, exit"
             INPUT "Run App >"; ap4p$
-	    IF ap4p$ = "dir" THEN
+	    IF ap4p$ = "listfiles" THEN
 	    SHELL "DIR /p"
 	    GOTO 99
 	    ELSEIF ap4p$ = "cd" THEN
-	    INPUT "Choose the directory to change to"; CD$
+	    INPUT "Choose the directory to change to (To abort, type . )"; CD$
 	    ON ERROR GOTO 111
 	    CHDIR CD$
 	    ON ERROR GOTO 111
 	    GOTO 99
 	    ELSEIF ap4p$ = "drive" THEN
-	    INPUT "Choose the Drive to change to"; D$
+	    INPUT "Type the Drive colon to change to "; D$
 	    ON ERROR GOTO 111
 	    SHELL D$
 	    ON ERROR GOTO 111
@@ -678,8 +678,14 @@ GOTO 124
 	ELSEIF app$ = "Backup and Restore User File" THEN
 	    SHELL "C:"
 	    CHDIR "\"
-	    CHAIN "PLUS.EXE"
-ON ERROR GOTO 113
+	    SHELL "PLUS.EXE"
+            CLS
+            PRINT "Backup and Restore was terminated unexpectedly,"
+            PRINT "or was not found"
+            PRINT "FAIL Code : 00000004"
+            PRINT "Please Contact an ES/7 DevPartner"
+            SLEEP 3
+            GOTO 124
 	ELSEIF app$ = "< Return Back" THEN
 	  GOTO 123
 	ELSE
@@ -778,6 +784,7 @@ PRINT ""
 
 	ELSE
 	    SHELL COMAND$
+            ON ERROR GOTO 1233
 	    GOTO 100
 	    ON ERROR GOTO 1233
 1233 PRINT "Invalid Command"
