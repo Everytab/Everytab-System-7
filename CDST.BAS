@@ -11,7 +11,7 @@ PRINT "_______________________"
 PRINT ""
 PRINT ""
 PRINT "Welcome to Everytab System/7 Setup"
-PRINT "The Version on this disk is - December Release
+PRINT "The Version on this disk is - December Release"
 PRINT "This program shall go through the following"
 PRINT ""
 PRINT "1) Preparing your Hard Disk through the FDISK Utility (Standard Setup)"
@@ -156,7 +156,7 @@ SHELL ("C:")
 SHELL ("DEL C:\ESTEMP\SYS.DAT")
 SHELL ("RMDIR ESTEMP")
 SHELL ("MKDIR ESTEMP")
-SHELL ("COPY C:\SYS.DAT C:\ESTEMP\")
+SHELL ("COPY C:\SYS.DAT C:\ES7\CONFIG\ADMIN.SYS")
 SHELL ("REN AUTOEXEC.BAT AUTOEXEC.OL")
 SHELL ("DEL COMMAND.COM")
 SHELL ("DEL CONTROLP.INI")
@@ -169,7 +169,6 @@ SHELL ("DEL IO.SYS")
 SHELL ("DEL MSDOS.SYS")
 SHELL ("DEL SM.EXE")
 SHELL ("DEL *.*")
-SHELL ("COPY C:\ESTEMP\SYS.DAT C:\")
 SHELL ("DEL C:\ESTEMP\SYS.DAT")
 SHELL ("RMDIR ESTEMP")
 SHELL ("A:")
@@ -184,6 +183,7 @@ PRINT "[FreeDOS] Saving old AUTOEXEC.BAT and FDAUTO.BAT"
 SHELL ("C:")
 SHELL ("REN AUTOEXEC.BAT AUTOEXEC.OL1")
 SHELL ("REN FDAUTO.BAT FDAUTO.OL1")
+SHELL ("DEL ESSM.EXE")
 SLEEP 2
 ELSE
 GOTO 1112
@@ -191,6 +191,8 @@ END IF
 1112
 SHELL ("D:")
 SHELL ("PKUNZIP -e -o -d ES7.ZIP C:\")
+SHELL ("COPY C:\SYS.DAT C:\ES7\CONFIG\0.SYS")
+SHELL ("COPY C:\SYS.DAT C:\ES7\CONFIG\NULL.SYS")
 ON ERROR GOTO 11111
 SLEEP 5
 CLS
