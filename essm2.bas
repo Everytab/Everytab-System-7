@@ -73,7 +73,7 @@ CLS
 CLS
 CLS
 CLS
-BMP$ = "C:\boot.bmp"
+BMP$ = "C:\ES7\BMP\BOOT.BMP"
 OPEN BMP$ FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
@@ -403,7 +403,7 @@ END IF
 RETURN
     99.25 
     IF erj$ = "Session Manager (Text-based GUI)" THEN
-    SHELL "C:\SM.EXE"
+    SHELL "C:\ES7\BIN\SM.EXE"
 	    SLEEP 1.5
 	    COLOR 15, 4
 	    PLAY "A"
@@ -821,9 +821,7 @@ CLOSE #1
 END IF
 
 END IF
-	    SHELL "C:"
-	    CHDIR "\"
-	    SHELL "PLUS.EXE"
+	    SHELL ("C:\ES7\BIN\PLUS.EXE")
 	    
 	    SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
             CLS
