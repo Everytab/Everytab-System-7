@@ -8,7 +8,7 @@ DIM BMenuItem(7) AS STRING
 DIM BChooseItem AS INTEGER
 DIM BXMenuPosn AS INTEGER
 DIM BYMenuPosn AS INTEGER
-DIM CMenuItem(3) AS STRING
+DIM CMenuItem(5) AS STRING
 DIM CChooseItem AS INTEGER
 DIM CXMenuPosn AS INTEGER
 DIM CYMenuPosn AS INTEGER
@@ -30,31 +30,40 @@ SHELL "CD \"
 PRINT "ES/7 Loader for FreeDOS"
 SLEEP 1
 CLS
-PRINT "REGLOAD"
-PRINT "Reading User File and Loading into Memory"
+PRINT ""
+PRINT "Checking /CONFIG for needed files"
 DELAY .1
-OPEN "C:\sys.dat" FOR BINARY AS #1
+SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
+OPEN "C:\ES7\CONFIG\0.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
-OPEN "C:\sys.dat" FOR OUTPUT AS #1
+OPEN "C:\ES7\CONFIG\NULL.SYS" FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+CLOSE #1
+OPEN "C:\ES7\CONFIG\0.SYS" FOR OUTPUT AS #1
 WRITE #1, 0
 WRITE #1, 0
 WRITE #1, 0
-PRINT "WARNING!!! : User File was not found, had to be rebuilt"
+PRINT "Made new SuperUser File"
 DELAY .1
 END IF
 CLOSE #1
-OPEN "C:\sys.dat" FOR INPUT AS #1
+ELSE
+Print "The System has been tampered with, ES/7 cannot continue. The System has halted"
+23
+GOTO 23
+END IF
+OPEN "C:\ES7\CONFIG\0.SYS" FOR INPUT AS #1
 INPUT #1, e
 INPUT #1, f$
 INPUT #1, PASSE$
 CLOSE #1
-PRINT "The Read of the User File was succesful"
+PRINT "System state has been verified"
 SLEEP 1
 ESID = 0
 SMID = 0
-Build$ = "15.03.318"
-Ver$ = "December Release (Still in testing)"
+Build$ = "15.03.319"
+Ver$ = "December Release (16-12 Beta)"
  CLS
 164 SLEEP .1
 CLS
@@ -136,11 +145,16 @@ INPUT "Enter your name"; nanme$
 INPUT "Enter your password"; non$
 PRINT "Ready to Write"
 PRINT "Press any key to write the values ..."
-OPEN "C:\sys.dat" FOR OUTPUT AS #1
+OPEN "C:\ES7\CONFIG\0.SYS" FOR OUTPUT AS #1
 WRITE #1, 1
 PRINT
 DO
 LOOP UNTIL INKEY$ <> ""
+WRITE #1, nanme$
+WRITE #1, non$
+CLOSE #1
+OPEN "C:\ES7\CONFIG\NULL.SYS" FOR OUTPUT AS #1
+WRITE #1, 1
 WRITE #1, nanme$
 WRITE #1, non$
 CLOSE #1
@@ -158,7 +172,11 @@ PRINT ""
 PRINT "Press any key to continue"
 DO
 LOOP UNTIL INKEY$ <> ""
-SHELL ("COPY A:\SYS.DAT C:\")
+SHELL ("COPY A:\SYS.DAT C:\ES7\CONFIG\NULL.SYS")
+CLS
+PRINT "Preparing to copy files"
+SLEEP 1
+SHELL ("COPY A:\SYS.DAT C:\ES7\CONFIG\0.SYS")
 PRINT "Results shown above"
 PRINT "Restarting in 5 seconds"
 SLEEP 5
@@ -177,18 +195,150 @@ CLS
 COLOR 15, 1
 CLS
 95 CLS
+PRINT "UserChooser v1"
+PRINT "Choose a User"
+OPEN "C:\ES7\CONFIG\1.SYS" FOR INPUT AS #1
+INPUT #1, e1
+INPUT #1, f1$
+INPUT #1, PASSE1$
+INPUT #1, a1
+CLOSE #1
+OPEN "C:\ES7\CONFIG\2.SYS" FOR INPUT AS #1
+INPUT #1, e2
+INPUT #1, f2$
+INPUT #1, PASSE2$
+INPUT #1, a2
+CLOSE #1
+OPEN "C:\ES7\CONFIG\3.SYS" FOR INPUT AS #1
+INPUT #1, e3
+INPUT #1, f3$
+INPUT #1, PASSE3$
+INPUT #1, a3
+CLOSE #1
+OPEN "C:\ES7\CONFIG\4.SYS" FOR INPUT AS #1
+INPUT #1, e4
+INPUT #1, f4$
+INPUT #1, PASSE4$
+INPUT #1, a4
+CLOSE #1
+OPEN "C:\ES7\CONFIG\5.SYS" FOR INPUT AS #1
+INPUT #1, e5
+INPUT #1, f5$
+INPUT #1, PASSE5$
+INPUT #1, a5
+CLOSE #1
+CMenuItem$(1) = f$
+CMenuItem$(2) = f1$
+CMenuItem$(3) = f2$
+CMenuItem$(4) = f3$
+CMenuItem$(5) = f4$
+CMenuItem$(6) = f5$
+  CChooseItem = 1
+CXMenuPosn = 1
+CYMenuPosn = 6
 
+GOSUB CDrawMenu
+
+'get cursor key movements and redraw menu
+DO
+	CCmmnd$ = INKEY$
+
+	IF LEN(CCmmnd$) = 2 THEN CCmmnd$ = RIGHT$(CCmmnd$, 1)
+      
+	IF CCmmnd$ = "8" OR CCmmnd$ = CHR$(72) THEN GOSUB CMoveUp
+	IF CCmmnd$ = "2" OR CCmmnd$ = CHR$(80) THEN GOSUB CMoveDown
+	IF CCmmnd$ = "7" OR CCmmnd$ = CHR$(71) THEN CChooseItem = 1
+	IF CCmmnd$ = "1" OR CCmmnd$ = CHR$(79) THEN CChooseItem = UBOUND(MenuItem)
+
+	GOSUB CDrawMenu
+LOOP UNTIL CCmmnd$ = CHR$(13)
+
+PRINT
+COLOR 15, 1
+PRINT "User chosen ="; CMenuItem(CChooseItem)
+log$ = CMenuItem(CChooseItem)
+SLEEP 1
+GOTO 126
+
+CDrawMenu:
+'Draw the menu
+LOCATE CYMenuPosn, CXMenuPosn
+FOR Count = 1 TO UBOUND(CMenuItem$)
+	IF Count = CChooseItem THEN COLOR 1, 7 ELSE COLOR 15, 1
+	PRINT CMenuItem$(Count)
+	LOCATE CSRLIN, CXMenuPosn
+NEXT Count
+RETURN
+
+CMoveUp:
+IF CChooseItem = 1 THEN
+	CChooseItem = UBOUND(CMenuItem$)
+ELSE
+	CChooseItem = CChooseItem - 1
+END IF
+RETURN
+
+CMoveDown:
+IF CChooseItem = UBOUND(CMenuItem$) THEN
+	CChooseItem = 1
+ELSE
+	CChooseItem = CChooseItem + 1
+END IF
+RETURN
+126
+IF log$ = f$ THEN
+feee$ = f$
+PASSEe$ = PASSE$
+ELSEIF log$ = f1$ THEN
+IF e1 = 0 THEN
+PRINT "The User has not been initialised"
+ELSE
+feee$ = f1$
+PASSEe$ = PASSE1$
+END IF
+ELSEIF log$ = f2$ THEN
+IF e2 = 0 THEN
+PRINT "The User has not been initialised"
+ELSE
+feee$ = f2$
+PASSEe$ = PASSE2$
+END IF
+ELSEIF log$ = f3$ THEN
+IF e3 = 0 THEN
+PRINT "The User has not been initialised"
+ELSE
+feee$ = f3$
+PASSEe$ = PASSE3$
+END IF
+ELSEIF log$ = f4$ THEN
+IF e4 = 0 THEN
+PRINT "The User has not been initialised"
+ELSE
+feee$ = f4$
+PASSEe$ = PASSE4$
+END IF
+ELSEIF log$ = f5$ THEN
+IF e5 = 0 THEN
+PRINT "The User has not been initialised"
+ELSE
+feee$ = f5$
+PASSEe$ = PASSE5$
+END IF
+ELSE
+GOTO 112
+END IF
+CLS
 PRINT "Login"
 PRINT "================================================================================"
 PRINT ""
 PRINT ""
 PRINT "Please Login"
 PRINT ""
-PRINT "Username : "; f$
+PRINT "Username : "; feee$
 PRINT "Enter the password"
 PRINT ""
 97 INPUT ">"; PASS$
-98 IF PASS$ = PASSE$ THEN
+98 IF PASS$ = PASSEe$ THEN
     SLEEP 1
     SHELL "C:"
     SHELL "CD \"
@@ -354,7 +504,7 @@ ope$ = MenuItem(ChooseItem)
             99 cls
 	    PRINT "Current Folder :"
             SHELL "DIR /w"
-	    PRINT "Commands - listfiles, cd (change folder), drive (change drive), run, exit"
+	    PRINT "Commands- ls (shows files), cd (change folder), drive (change drive), run, exit"
             INPUT "Run App >"; ap4p$
 	    IF ap4p$ = "listfiles" THEN
 	    SHELL "DIR /p"
@@ -452,126 +602,66 @@ RETURN
 124.5
 	IF app$ = "Settings" THEN
 125 CLS
-CMenuItem$(1) = "Reset User File"
-CMenuItem$(2) = "About"
-CMenuItem$(3) = "Exit"
-	    PRINT "Settings"
-	    PRINT "================================================================================"
-	    PRINT ""
-	    PRINT "Options available are :-"
-   CChooseItem = 1
-CXMenuPosn = 1
-CYMenuPosn = 6
-
-GOSUB CDrawMenu
-
-'get cursor key movements and redraw menu
-DO
-	CCmmnd$ = INKEY$
-
-	IF LEN(CCmmnd$) = 2 THEN CCmmnd$ = RIGHT$(CCmmnd$, 1)
-      
-	IF CCmmnd$ = "8" OR CCmmnd$ = CHR$(72) THEN GOSUB CMoveUp
-	IF CCmmnd$ = "2" OR CCmmnd$ = CHR$(80) THEN GOSUB CMoveDown
-	IF CCmmnd$ = "7" OR CCmmnd$ = CHR$(71) THEN CChooseItem = 1
-	IF CCmmnd$ = "1" OR CCmmnd$ = CHR$(79) THEN CChooseItem = UBOUND(MenuItem)
-
-	GOSUB CDrawMenu
-LOOP UNTIL CCmmnd$ = CHR$(13)
-
-PRINT
-COLOR 15, 1
-PRINT "Item chosen ="; CMenuItem(CChooseItem)
-set$ = CMenuItem(CChooseItem)
-SLEEP 1
-GOTO 126
-
-CDrawMenu:
-'Draw the menu
-LOCATE CYMenuPosn, CXMenuPosn
-FOR Count = 1 TO UBOUND(CMenuItem$)
-	IF Count = CChooseItem THEN COLOR 1, 7 ELSE COLOR 15, 1
-	PRINT CMenuItem$(Count)
-	LOCATE CSRLIN, CXMenuPosn
-NEXT Count
-RETURN
-
-CMoveUp:
-IF CChooseItem = 1 THEN
-	CChooseItem = UBOUND(CMenuItem$)
-ELSE
-	CChooseItem = CChooseItem - 1
-END IF
-RETURN
-
-CMoveDown:
-IF CChooseItem = UBOUND(CMenuItem$) THEN
-	CChooseItem = 1
-ELSE
-	CChooseItem = CChooseItem + 1
-END IF
-RETURN
-126 
-	    IF set$ = "Reset User File" THEN
-444 CLS
-		COLOR 15, 4
-		CLS
-		PRINT "Settings > Reset User File"
-		PRINT "================================================================================"
-		PRINT ""
-		PLAY "D"
-		PLAY "A"
-		PLAY "D"
-INPUT "***WARNING!!!*** THIS WILL RESET YOUR PASSWORD, ARE YOU SURE?(Y/N)"; e$
-		IF e$ = "Y" THEN
-OPEN "sys.dat" FOR OUTPUT AS #1
-WRITE #1, 0
-WRITE #1, 0
+IF log$ = f$ THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
 WRITE #1, 0
 CLOSE #1
-		PRINT "Press any key to restart ..."
-		PRINT
-		DO
-		LOOP UNTIL INKEY$ <> ""
-		GOTO 90
-		ELSEIF e$ = "N" THEN
-		CLS
-		COLOR 15, 1
-		CLS
-		GOTO 125
-		ELSE
-		CLS
-		GOTO 444
-		END IF
-	    ELSEIF set$ = "About" THEN
-		CLS
-		PRINT "Settings > About"
-		PRINT "================================================================================"
-		PRINT ""
-		PRINT "About Everytab System/7:-"
-		PRINT ""
-		PRINT "The Everytab System/7 Version "; Ver$
-		PRINT "OS Build "; Build$
-		PRINT ""
-		PRINT "Credits :"
-		PRINT "Developers - Everytab, JayTheCoderX, greenland, Mark_ & CoroX_"
-                PRINT "Graphic Designers - JayTheCoderX"
-		PRINT "Everytab System/7 runs on a modified FreeDOS Install"
-		PRINT ""
-		PRINT "Press any key to continue ..."
-		PRINT
-		DO
-		LOOP UNTIL INKEY$ <> ""
-		GOTO 125
-	    ELSEIF set$ = "Exit" THEN
-		GOTO 124
-	    ELSE
-		BEEP
-		GOTO 112
+ELSEIF log$ = f$ THEN
 
-	    END IF
+IF a1 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f1$ THEN
+IF a1 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f2$ THEN
+IF a2 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f3$ THEN
+IF a3 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f4$ THEN
+IF a4 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f5$ THEN
+IF a5 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+END IF
+SHELL ("C:\ES7\BIN\SET.EXE")
+SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
+GOTO 124
 	ELSEIF app$ = "DOSLynx Web Browser" THEN
 	    CLS
+	    OPEN "C:\ES7\CONFIG\WEB.SYS" FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+CLOSE#1
+PRINT "The Web Browser has been disabled"
+SLEEP 2
+GOTO 124
+END IF
 	    SHELL ("C:")
 	    CHDIR ("LYNX")
           ON ERROR GOTO 113
@@ -619,6 +709,13 @@ SLEEP 5
 GOTO 124
 
 ELSEIF app$ = "Microsoft Word for MS-DOS (External)" THEN
+	   	    OPEN "C:\ES7\CONFIG\WORD.SYS" FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+CLOSE#1
+PRINT "The Web Browser has been disabled"
+SLEEP 2
+GOTO 124
+END IF
 SHELL "C:"
 CHDIR "\"
 ON ERROR GOTO 113
@@ -676,9 +773,59 @@ GOTO 124
 	    END IF
 	    GOTO 124
 	ELSEIF app$ = "Backup and Restore User File" THEN
+	IF log$ = f$ THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+ELSEIF log$ = f$ THEN
+
+IF a1 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f1$ THEN
+IF a1 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f2$ THEN
+IF a2 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f3$ THEN
+IF a3 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f4$ THEN
+IF a4 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+ELSEIF log$ = f5$ THEN
+IF a5 = 1 THEN
+OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+WRITE #1, 0
+CLOSE #1
+END IF
+
+END IF
 	    SHELL "C:"
 	    CHDIR "\"
 	    SHELL "PLUS.EXE"
+	    
+	    SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
             CLS
             PRINT "Backup and Restore was terminated unexpectedly,"
             PRINT "or was not found"
@@ -693,6 +840,13 @@ GOTO 124
 	    GOTO 112
 	END IF
     ELSEIF ope$ = "Command line" THEN
+    	    OPEN "C:\ES7\CONFIG\CONSOLE.SYS" FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+CLOSE#1
+PRINT "The Console has been disabled"
+SLEEP 2
+GOTO 123
+END IF
 	CLS
 	COLOR 7, 0
 	CLS
