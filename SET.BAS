@@ -2,30 +2,47 @@ DIM CMenuItem(5) AS STRING
 DIM CChooseItem AS INTEGER
 DIM CXMenuPosn AS INTEGER
 DIM CYMenuPosn AS INTEGER
-DIM MenuItem(6) AS STRING
+DIM MenuItem(5) AS STRING
 DIM ChooseItem AS INTEGER
 DIM XMenuPosn AS INTEGER
 DIM YMenuPosn AS INTEGER
-DIM DMenuItem(3) AS STRING
-DIM DChooseItem AS INTEGER
-DIM DXMenuPosn AS INTEGER
-DIM DYMenuPosn AS INTEGER
-	    OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR BINARY AS #1
+DIM BMenuItem(3) AS STRING
+DIM BChooseItem AS INTEGER
+DIM BXMenuPosn AS INTEGER
+DIM BYMenuPosn AS INTEGER
+Build$ = "15.02.319 (v319)"
+Ver$ = "16-12 Internal Beta"
+COLOR 15, 1
+CLS
+CLS
+CLS
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+		OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
-CLOSE#1
+CLOSE #1
 PRINT "Settings is only available for Admins"
 SLEEP 2
 GOTO 124
 END IF
+125
+CLS
+CLS
+CLS
 CMenuItem$(1) = "Reset Full System"
 CMenuItem$(2) = "About"
 CMenuItem$(3) = "User Settings"
 CMenuItem$(4) = "Enable and disable apps"
 CMenuItem$(5) = "Exit"
-	    PRINT "Settings"
-	    PRINT "================================================================================"
-	    PRINT ""
-	    PRINT "Options available are :-"
+		PRINT "Settings"
+		PRINT "================================================================================"
+		PRINT ""
+		PRINT "Options available are :-"
    CChooseItem = 1
 CXMenuPosn = 1
 CYMenuPosn = 6
@@ -37,7 +54,7 @@ DO
 	CCmmnd$ = INKEY$
 
 	IF LEN(CCmmnd$) = 2 THEN CCmmnd$ = RIGHT$(CCmmnd$, 1)
-      
+	  
 	IF CCmmnd$ = "8" OR CCmmnd$ = CHR$(72) THEN GOSUB CMoveUp
 	IF CCmmnd$ = "2" OR CCmmnd$ = CHR$(80) THEN GOSUB CMoveDown
 	IF CCmmnd$ = "7" OR CCmmnd$ = CHR$(71) THEN CChooseItem = 1
@@ -78,8 +95,8 @@ ELSE
 	CChooseItem = CChooseItem + 1
 END IF
 RETURN
-126 
-	    IF set$ = "Reset Full System" THEN
+126
+		IF set$ = "Reset Full System" THEN
 444 CLS
 		COLOR 15, 4
 		CLS
@@ -110,7 +127,7 @@ CLOSE #1
 		CLS
 		GOTO 444
 		END IF
-	    ELSEIF set$ = "About" THEN
+		ELSEIF set$ = "About" THEN
 		CLS
 		PRINT "Settings > About"
 		PRINT "================================================================================"
@@ -122,7 +139,7 @@ CLOSE #1
 		PRINT ""
 		PRINT "Credits :"
 		PRINT "Developers - Everytab, JayTheCoderX, greenland, Mark_ & CoroX_"
-                PRINT "Graphic Designers - JayTheCoderX"
+				PRINT "Graphic Designers - JayTheCoderX"
 		PRINT "Everytab System/7 runs on a modified FreeDOS Install"
 		PRINT ""
 		PRINT "Press any key to continue ..."
@@ -130,12 +147,19 @@ CLOSE #1
 		DO
 		LOOP UNTIL INKEY$ <> ""
 		GOTO 125
-	    ELSEIF set$ = "Exit" THEN
+		ELSEIF set$ = "Exit" THEN
 		GOTO 124
-            ELSEIF set$ = "User Settings"
-	    CLS
-	    PRINT "UserChooser v1"
+			ELSEIF set$ = "User Settings" THEN
+		CLS
+		PRINT "UserChooser v1"
+PRINT "-------------"
 PRINT "Choose a User"
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
 OPEN "C:\ES7\CONFIG\1.SYS" FOR INPUT AS #1
 INPUT #1, e1
 INPUT #1, f1$
@@ -166,12 +190,11 @@ INPUT #1, f5$
 INPUT #1, PASSE5$
 INPUT #1, a5
 CLOSE #1
-MenuItem$(1) = f$
-MenuItem$(2) = f1$
-MenuItem$(3) = f2$
-MenuItem$(4) = f3$
-MenuItem$(5) = f4$
-MenuItem$(6) = f5$
+MenuItem$(1) = f1$
+MenuItem$(2) = f2$
+MenuItem$(3) = f3$
+MenuItem$(4) = f4$
+MenuItem$(5) = f5$
    ChooseItem = 1
 XMenuPosn = 1
 YMenuPosn = 7
@@ -183,7 +206,7 @@ DO
 	Cmmnd$ = INKEY$
 
 	IF LEN(Cmmnd$) = 2 THEN Cmmnd$ = RIGHT$(Cmmnd$, 1)
-      
+	  
 	IF Cmmnd$ = "8" OR Cmmnd$ = CHR$(72) THEN GOSUB MoveUp
 	IF Cmmnd$ = "2" OR Cmmnd$ = CHR$(80) THEN GOSUB MoveDown
 	IF Cmmnd$ = "7" OR Cmmnd$ = CHR$(71) THEN ChooseItem = 1
@@ -224,8 +247,24 @@ ELSE
 END IF
 RETURN
 106
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
 ope$ = MenuItem(ChooseItem)
 IF ope$ = f1$ THEN
+CLS
 PRINT "User 1"
 PRINT "================================================================================"
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
@@ -237,6 +276,11 @@ PRINT "Press any key to write the values ..."
 PRINT
 DO
 LOOP UNTIL INKEY$ <> ""
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
 OPEN "C:\ES7\CONFIG\1.SYS" FOR OUTPUT AS #1
 WRITE #1, 1
 WRITE #1, nanme$
@@ -250,6 +294,7 @@ LOOP UNTIL INKEY$ <> ""
 SHELL "fdapm warmboot"
 
 ELSEIF ope$ = f2$ THEN
+CLS
 PRINT "User 2"
 PRINT "================================================================================"
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
@@ -274,6 +319,7 @@ LOOP UNTIL INKEY$ <> ""
 SHELL "fdapm warmboot"
 
 ELSEIF ope$ = f3$ THEN
+CLS
 PRINT "User 3"
 PRINT "================================================================================"
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
@@ -298,6 +344,7 @@ LOOP UNTIL INKEY$ <> ""
 SHELL "fdapm warmboot"
 
 ELSEIF ope$ = f4$ THEN
+CLS
 PRINT "User 4"
 PRINT "================================================================================"
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
@@ -322,6 +369,7 @@ LOOP UNTIL INKEY$ <> ""
 SHELL "fdapm warmboot"
 
 ELSEIF ope$ = f5$ THEN
+CLS
 PRINT "User 5"
 PRINT "================================================================================"
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
@@ -348,8 +396,44 @@ ELSE
 BEEP
 GOTO 124
 END IF
-ELSEIF set$ = "Enable and disable apps"
+
+ELSEIF set$ = "Enable and disable apps" THEN
 CLS
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
+CLOSE #1
 PRINT "Choose app (Will enable/disable)"
 BMenuItem$(1) = "Console"
 BMenuItem$(2) = "DOSLynx Web Browser"
@@ -365,7 +449,7 @@ DO
 	BCmmnd$ = INKEY$
 
 	IF LEN(BCmmnd$) = 2 THEN BCmmnd$ = RIGHT$(BCmmnd$, 1)
-      
+	  
 	IF BCmmnd$ = "8" OR BCmmnd$ = CHR$(72) THEN GOSUB BMoveUp
 	IF BCmmnd$ = "2" OR BCmmnd$ = CHR$(80) THEN GOSUB BMoveDown
 	IF BCmmnd$ = "7" OR BCmmnd$ = CHR$(71) THEN BChooseItem = 1
@@ -410,47 +494,52 @@ RETURN
 	IF app$ = "Console" THEN
 	 OPEN "C:\ES7\CONFIG\CONSOLE.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
-CLOSE#1
+CLOSE #1
 OPEN "C:\ES7\CONFIG\CONSOLE.SYS" FOR OUTPUT AS #1
 WRITE #1, 0
 CLOSE #1
+PRINT "Console Enabled"
 ELSE
 SHELL ("DEL C:\ES7\CONFIG\CONSOLE.SYS")
+PRINT "Console Disabled"
 END IF
-PRINT "OPERATION COMPLETED"
 SLEEP 2
-GOTO 124
+GOTO 125
 
 ELSEIF app$ = "DOSLynx Web Browser" THEN
 	 OPEN "C:\ES7\CONFIG\WEB.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
-CLOSE#1
+CLOSE #1
 OPEN "C:\ES7\CONFIG\WEB.SYS" FOR OUTPUT AS #1
 WRITE #1, 0
 CLOSE #1
+PRINT "Web Browser Enabled"
 ELSE
 SHELL ("DEL C:\ES7\CONFIG\WEB.SYS")
+PRINT "Web Browser Disabled"
 END IF
-PRINT "OPERATION COMPLETED"
 SLEEP 2
-GOTO 124
+GOTO 125
 
 ELSEIF app$ = "Microsoft Word" THEN
 	 OPEN "C:\ES7\CONFIG\WORD.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
-CLOSE#1
+CLOSE #1
 OPEN "C:\ES7\CONFIG\WORD.SYS" FOR OUTPUT AS #1
 WRITE #1, 0
 CLOSE #1
+PRINT "Microsoft Word Enabled"
 ELSE
-SHELL ("DEL C:\ES7\CONFIG\WEB.SYS")
+SHELL ("DEL C:\ES7\CONFIG\WORD.SYS")
 END IF
-PRINT "OPERATION COMPLETED"
+PRINT "Microsoft Word Disabled"
 SLEEP 2
-GOTO 124
-	    ELSE
+GOTO 125
+		ELSE
 		BEEP
-		GOTO 112
+		GOTO 125
 
-	    END IF
+		END IF
+		END IF
 124 END
+
