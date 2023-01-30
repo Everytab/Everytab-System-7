@@ -1,4 +1,4 @@
-OPTION BASE 1
+2OPTION BASE 1
 REM Load MENU Variables
 DIM MenuItem(4) AS STRING
 DIM ChooseItem AS INTEGER
@@ -116,8 +116,8 @@ PRINT "System state has been verified"
 SLEEP 1
 ESID = 0
 SMID = 0
-Build$ = "15.03.319"
-Ver$ = "December Release (16-12 Beta)"
+Build$ = "15.05.321"
+Ver$ = "Hydrogen Dev Period"
 CLS
 164 SLEEP 1
 CLS
