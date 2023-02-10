@@ -6,16 +6,16 @@ COLOR 7, 0
 
 SHELL "C:"
 SHELL "CD \"
-PRINT "ES/7 Loader for Raspberry Pi"
+PRINT "ES/7 Loader (Open-Source Edition)"
 SLEEP 4
 CLS
 PRINT ""
 PRINT "Loading User File"
 SLEEP 3
-OPEN "/home/pi/sys.dat" FOR BINARY AS #1
+OPEN "sys.dat" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
-OPEN "/home/pi/sys.dat" FOR OUTPUT AS #1
+OPEN "sys.dat" FOR OUTPUT AS #1
 WRITE #1, 0
 WRITE #1, 0
 WRITE #1, 0
@@ -23,15 +23,15 @@ PRINT "New User File Created"
 SLEEP 1
 END IF
 CLOSE #1
-OPEN "/home/pi/sys.dat" FOR INPUT AS #1
+OPEN "sys.dat" FOR INPUT AS #1
 INPUT #1, e
 INPUT #1, f$
 INPUT #1, PASSE$
 CLOSE #1
 PRINT "User File loaded"
 SLEEP 2
-Build$ = "15.02.318"
-Ver$ = "Raspberry Pi, initial test (based on 14.10 code)"
+Build$ = "15.05.321"
+Ver$ = "Open Source Edition (Based on 14.10 Code)"
  CLS
 164 SLEEP 1
 CLS
@@ -63,7 +63,7 @@ INPUT "Enter your name"; nanme$
 INPUT "Enter your password"; non$
 PRINT "Ready to Write"
 PRINT "Press any key to continue ..."
-OPEN "/home/pi/sys.dat" FOR OUTPUT AS #1
+OPEN "sys.dat" FOR OUTPUT AS #1
 WRITE #1, 1
 PRINT
 DO
