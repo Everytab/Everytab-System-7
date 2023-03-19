@@ -10,8 +10,29 @@ DIM BMenuItem(3) AS STRING
 DIM BChooseItem AS INTEGER
 DIM BXMenuPosn AS INTEGER
 DIM BYMenuPosn AS INTEGER
-Build$ = "15.02.319 (v319)"
-Ver$ = "16-12 Internal Beta"
+Build$ = "15.07.326"
+Ver$ = ""
+OPEN "C:\ES7\CONFIG\SETVAR.SYS" FOR INPUT AS #1
+INPUT #1, SVAR1$
+INPUT #1, SVAR2$
+INPUT #1, SVAR3$
+INPUT #1, SVAR4$
+INPUT #1, SVAR5$
+INPUT #1, SVAR6$
+INPUT #1, SVAR7$
+INPUT #1, SVAR8$
+INPUT #1, SVAR9$
+INPUT #1, SVAR10$
+INPUT #1, SVAR11$
+INPUT #1, SVAR12$
+INPUT #1, SVAR13$
+INPUT #1, SVAR14$
+INPUT #1, SVAR15$
+INPUT #1, SVAR16$
+INPUT #1, SVAR17$
+
+CLOSE #1
+CLOSE #1
 COLOR 15, 1
 CLS
 CLS
@@ -26,7 +47,7 @@ CLOSE #1
 		OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
-PRINT "Settings is only available for Admins"
+PRINT SVAR1$
 SLEEP 2
 GOTO 124
 END IF
@@ -34,13 +55,13 @@ END IF
 CLS
 CLS
 CLS
-CMenuItem$(1) = "Reset Full System"
-CMenuItem$(2) = "About"
-CMenuItem$(3) = "User Settings"
-CMenuItem$(4) = "Enable and disable apps"
-CMenuItem$(5) = "Exit"
-		PRINT "Settings"
-		PRINT "================================================================================"
+CMenuItem$(1) = SVAR2$
+CMenuItem$(2) = SVAR3$
+CMenuItem$(3) = SVAR4$
+CMenuItem$(4) = SVAR5$
+CMenuItem$(5) = SVAR6$
+		PRINT SVAR7$
+		PRINT SVAR9$
 		PRINT ""
 		PRINT "Options available are :-"
    CChooseItem = 1
@@ -65,7 +86,7 @@ LOOP UNTIL CCmmnd$ = CHR$(13)
 
 PRINT
 COLOR 15, 1
-PRINT "Item chosen ="; CMenuItem(CChooseItem)
+PRINT ">"; CMenuItem(CChooseItem)
 set$ = CMenuItem(CChooseItem)
 SLEEP 1
 GOTO 126
@@ -101,7 +122,7 @@ RETURN
 		COLOR 15, 4
 		CLS
 		PRINT "Settings > Reset User File"
-		PRINT "================================================================================"
+		PRINT SVAR9$
 		PRINT ""
 		PLAY "D"
 		PLAY "A"
@@ -130,7 +151,7 @@ CLOSE #1
 		ELSEIF set$ = "About" THEN
 		CLS
 		PRINT "Settings > About"
-		PRINT "================================================================================"
+		PRINT SVAR9$
 		PRINT ""
 		PRINT "About Everytab System/7:-"
 		PRINT ""
@@ -151,9 +172,9 @@ CLOSE #1
 		GOTO 124
 			ELSEIF set$ = "User Settings" THEN
 		CLS
-		PRINT "UserChooser v1"
-PRINT "-------------"
-PRINT "Choose a User"
+		PRINT "User Settings"
+PRINT SVAR9$
+PRINT "Choose a User to modify"
 CLOSE #1
 CLOSE #1
 CLOSE #1
@@ -266,7 +287,7 @@ ope$ = MenuItem(ChooseItem)
 IF ope$ = f1$ THEN
 CLS
 PRINT "User 1"
-PRINT "================================================================================"
+PRINT SVAR9$
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
 INPUT "Enter your name"; nanme$
 INPUT "Enter your password"; non$
@@ -296,7 +317,7 @@ SHELL "fdapm warmboot"
 ELSEIF ope$ = f2$ THEN
 CLS
 PRINT "User 2"
-PRINT "================================================================================"
+PRINT SVAR9$
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
 INPUT "Enter your name"; nanme$
 INPUT "Enter your password"; non$
@@ -321,7 +342,7 @@ SHELL "fdapm warmboot"
 ELSEIF ope$ = f3$ THEN
 CLS
 PRINT "User 3"
-PRINT "================================================================================"
+PRINT SVAR9$
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
 INPUT "Enter your name"; nanme$
 INPUT "Enter your password"; non$
@@ -346,7 +367,7 @@ SHELL "fdapm warmboot"
 ELSEIF ope$ = f4$ THEN
 CLS
 PRINT "User 4"
-PRINT "================================================================================"
+PRINT SVAR9$
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
 INPUT "Enter your name"; nanme$
 INPUT "Enter your password"; non$
@@ -371,7 +392,7 @@ SHELL "fdapm warmboot"
 ELSEIF ope$ = f5$ THEN
 CLS
 PRINT "User 5"
-PRINT "================================================================================"
+PRINT SVAR9$
 INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
 INPUT "Enter your name"; nanme$
 INPUT "Enter your password"; non$

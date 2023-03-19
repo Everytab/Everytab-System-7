@@ -1,3 +1,4 @@
+WIDTH 80, 50
 OPTION BASE 1
 DIM MenuItem(3) AS STRING
 DIM ChooseItem AS INTEGER
@@ -11,7 +12,7 @@ PRINT "_______________________"
 PRINT ""
 PRINT ""
 PRINT "Welcome to Everytab System/7 Setup"
-PRINT "The Version on this disk is - December Release"
+PRINT "The Version on this disk is - April Release"
 PRINT "This program shall go through the following"
 PRINT ""
 PRINT "1) Preparing your Hard Disk through the FDISK Utility (Standard Setup)"
@@ -26,7 +27,7 @@ LOOP UNTIL INKEY$ <> ""
 145 CLS
 MenuItem$(1) = "Fresh Install - FDISK and format"
 MenuItem$(2) = "Upgrade from MS-DOS or ES/7 September Release"
-MenuItem$(3) = "Upgrade from FreeDOS"
+MenuItem$(3) = "Upgrade from FreeDOS based build"
 PRINT "Everytab System/7 Setup"
 PRINT "_______________________"
 PRINT ""
@@ -34,7 +35,7 @@ PRINT ""
 PRINT "Choose Fresh Setup if you have just partitioned the disk and restarted"
 PRINT "DO NOT TRY UPGRADE SETUP IF YOU HAVE JUST MADE THE PARTITION"
 PRINT "Use MS-DOS upgrades to upgrade older ES/7 (September Alpha and before)"
-PRINT "For reinstalling after corruptions, use FreeDOS upgrade
+PRINT "For reinstalling after corruptions or for upgrading from the October Build, Use FreeDOS Upgrade (In testing)"
 
     ChooseItem = 1
 XMenuPosn = 1
@@ -91,9 +92,9 @@ RETURN
 1123
 IF eeee$ = "Fresh Install - FDISK and format" THEN
 GOTO 144
-ELSEIF eeee$ = "Upgrade from MS-DOS or ES/7 SepAlpha" THEN
+ELSEIF eeee$ = "Upgrade from MS-DOS or ES/7 September Release" THEN
 GOTO 146
-ELSEIF eeee$ = "Upgrade from FreeDOS" THEN
+ELSEIF eeee$ = "Upgrade from FreeDOS based build" THEN
 GOTO 146
 ELSE
 BEEP
@@ -117,7 +118,7 @@ DO
 LOOP UNTIL INKEY$ <> ""
 SHELL "FDISK"
 CLS
-PRINT "If you have just made a partition, Press ctrl+alt+delete"
+PRINT "If you have just made a partition, Press Ctrl+Alt+Delete to restart the system"
 PRINT "Else, Press any key to continue"
 CLS
 PRINT "Everytab System/7 Setup"
@@ -153,10 +154,10 @@ LOOP UNTIL INKEY$ <> ""
 IF eeee = 1 THEN
 PRINT "[MS-DOS] Deleting previous System files and saving old AUTOEXEC.BAT"
 SHELL ("C:")
-SHELL ("DEL C:\ESTEMP\SYS.DAT")
-SHELL ("RMDIR ESTEMP")
-SHELL ("MKDIR ESTEMP")
-SHELL ("COPY C:\SYS.DAT C:\ES7\CONFIG\ADMIN.SYS")
+SHELL ("DEL C:\ESBACK\SYS.DAT")
+SHELL ("RMDIR ESBACK")
+SHELL ("MKDIR ESBACK")
+SHELL ("COPY C:\SYS.DAT C:\ESBACK\SYS.DAT")
 SHELL ("REN AUTOEXEC.BAT AUTOEXEC.OL")
 SHELL ("DEL COMMAND.COM")
 SHELL ("DEL CONTROLP.INI")
@@ -169,8 +170,6 @@ SHELL ("DEL IO.SYS")
 SHELL ("DEL MSDOS.SYS")
 SHELL ("DEL SM.EXE")
 SHELL ("DEL *.*")
-SHELL ("DEL C:\ESTEMP\SYS.DAT")
-SHELL ("RMDIR ESTEMP")
 SHELL ("A:")
 SHELL ("CD FREEDOS")
 SHELL ("CD BIN")
@@ -181,6 +180,10 @@ GOTO 1112
 ELSEIF eeee = 2 THEN
 PRINT "[FreeDOS] Saving old AUTOEXEC.BAT and FDAUTO.BAT"
 SHELL ("C:")
+SHELL ("DEL C:\ESBACK\SYS.DAT")
+SHELL ("RMDIR ESBACK")
+SHELL ("MKDIR ESBACK")
+SHELL ("COPY C:\SYS.DAT C:\ESBACK\SYS.DAT")
 SHELL ("REN AUTOEXEC.BAT AUTOEXEC.OL1")
 SHELL ("REN FDAUTO.BAT FDAUTO.OL1")
 SHELL ("DEL ESSM.EXE")
@@ -191,8 +194,6 @@ END IF
 1112
 SHELL ("D:")
 SHELL ("PKUNZIP -e -o -d ES7.ZIP C:\")
-SHELL ("COPY C:\SYS.DAT C:\ES7\CONFIG\0.SYS")
-SHELL ("COPY C:\SYS.DAT C:\ES7\CONFIG\NULL.SYS")
 ON ERROR GOTO 11111
 SLEEP 5
 CLS
