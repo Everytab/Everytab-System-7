@@ -122,8 +122,8 @@ CLOSE #1
 SLEEP 3
 ESID = 0
 SMID = 0
-Build$ = "15.06.326"
-Ver$ = "Release Candidate 3.1"
+Build$ = "15.07.326.AP.01"
+Ver$ = "Professional Premium Release Candidate"
 164 SLEEP 1
 PRINT VAR4$
 SLEEP 1
@@ -146,6 +146,33 @@ CLOSE #1
 CLOSE #1
 CLOSE #1
 CLOSE #1
+CLS
+PRINT "Everytab System/7 Professional Premium Setup"
+PRINT VAR17$
+
+INPUT product_key$
+IF product_key$ = "" THEN GOTO 927
+IF LEN(product_key$) <> 11 THEN GOTO 927
+IF product_key$ < "000-0000000" OR product_key$ > "999-9999999" THEN GOTO 927
+IF VAL(MID$(product_key$, 5, 1)) <> 0 THEN GOTO 927
+IF VAL(MID$(product_key$, 6, 1)) <> 0 THEN GOTO 927
+IF VAL(MID$(product_key$, 7, 1)) <> 0 THEN GOTO 927
+IF VAL(MID$(product_key$, 8, 1)) <> 0 THEN GOTO 927
+IF VAL(MID$(product_key$, 9, 1)) <> 0 THEN GOTO 927
+IF VAL(MID$(product_key$, 10, 1)) <> 0 THEN GOTO 927
+IF VAL(MID$(product_key$, 11, 1)) <> 0 THEN GOTO 927
+sum = VAL(MID$(product_key$, 1, 1)) + VAL(MID$(product_key$, 2, 1)) + VAL(MID$(product_key$, 3, 1))
+IF sum = 9 OR sum = 18 OR sum = 27 THEN
+    PRINT "Product key is valid. Continuing boot..."
+    SLEEP 10
+ELSE
+    927 PRINT "The product key entered is invalid, the system cannot continue."
+928
+GOTO 928
+END IF
+END
+
+
 BMP$ = "C:\ES7\BMP\BOOT.BMP"
 OPEN BMP$ FOR BINARY AS #1
 IF LOF(1) = 0 THEN
