@@ -6,7 +6,7 @@ PRINT "-----------------------"
 PRINT ""
 PRINT ""
 PRINT "Welcome to Everytab System/7 Setup"
-PRINT "The Version on this disk is - 15.00.300"
+PRINT "The Version on this disk is - 15.06.326"
 PRINT "This program shall go through the following"
 PRINT ""
 PRINT "1) Preparing your Hard Disk through the FDISK Utility"
@@ -18,19 +18,6 @@ PRINT ""
 PRINT "Press any key to continue"
 DO
 LOOP UNTIL INKEY$ <> ""
-145 CLS
-PRINT "QUICK SETTINGS"
-PRINT "1 - UPGRADE"
-PRINT "2 - FRESH"
-INPUT eeee
-IF eeee = 1 THEN
-GOTO 146
-ELSEIF eeee = 2 THEN
-GOTO 144
-ELSE
-BEEP
-GOTO 145
-END IF
 
 144 CLS
 PRINT "Everytab System/7 Setup"
