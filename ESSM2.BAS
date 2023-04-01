@@ -175,7 +175,8 @@ sum = VAL(MID$(product_key$, 5, 1)) + _
       VAL(MID$(product_key$, 11, 1))
 IF sum MOD 7 = 0 THEN
     PRINT "Product key is valid. Continuing boot..."
-    SLEEP 10
+    SLEEP 5
+    GOTO 929
 ELSE
     927 PRINT "The product key entered is invalid, the system cannot continue."
 928
@@ -183,7 +184,7 @@ GOTO 928
 END IF
 END
 
-
+929
 BMP$ = "C:\ES7\BMP\BOOT.BMP"
 OPEN BMP$ FOR BINARY AS #1
 IF LOF(1) = 0 THEN
