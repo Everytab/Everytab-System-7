@@ -122,8 +122,8 @@ CLOSE #1
 SLEEP 3
 ESID = 0
 SMID = 0
-Build$ = "15.07.326.AP.01"
-Ver$ = "Professional Premium"
+Build$ = "15.07.326.AP.02"
+Ver$ = "Professional Premium Demo"
 164 SLEEP 1
 PRINT VAR4$
 SLEEP 1
@@ -149,13 +149,12 @@ CLOSE #1
 CLS
 PRINT "Everytab System/7 Professional Premium Setup"
 PRINT VAR17$
-CLS
 date$ = DATE$
 PRINT "Current date is "; date$
 IF date$ = "04-01-2023" THEN
     PRINT "In timebomb period, continue"
 ELSE
-    PRINT "APRIL FOOLS BUILD LOL, PLEASE UPGRADE"
+    PRINT "The demo period has already expired, halted."
 574584
 GOTO 574584
 END IF
