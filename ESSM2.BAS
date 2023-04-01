@@ -162,15 +162,18 @@ INPUT product_key$
 IF product_key$ = "" THEN GOTO 927
 IF LEN(product_key$) <> 11 THEN GOTO 927
 IF product_key$ < "000-0000000" OR product_key$ > "999-9999999" THEN GOTO 927
-IF VAL(MID$(product_key$, 5, 1)) <> 0 THEN GOTO 927
-IF VAL(MID$(product_key$, 6, 1)) <> 0 THEN GOTO 927
-IF VAL(MID$(product_key$, 7, 1)) <> 0 THEN GOTO 927
-IF VAL(MID$(product_key$, 8, 1)) <> 0 THEN GOTO 927
-IF VAL(MID$(product_key$, 9, 1)) <> 0 THEN GOTO 927
-IF VAL(MID$(product_key$, 10, 1)) <> 0 THEN GOTO 927
-IF VAL(MID$(product_key$, 11, 1)) <> 0 THEN GOTO 927
-sum = VAL(MID$(product_key$, 1, 1)) + VAL(MID$(product_key$, 2, 1)) + VAL(MID$(product_key$, 3, 1))
-IF sum = 9 OR sum = 18 OR sum = 27 THEN
+first_three = VAL(LEFT$(product_key$, 3))
+IF first_three = 333 OR first_three = 444 OR first_three = 555 OR _
+first_three = 666 OR first_three = 777 OR first_three = 888 OR _
+first_three = 999 THEN GOTO 927
+sum = VAL(MID$(product_key$, 5, 1)) + _
+      VAL(MID$(product_key$, 6, 1)) + _
+      VAL(MID$(product_key$, 7, 1)) + _
+      VAL(MID$(product_key$, 8, 1)) + _
+      VAL(MID$(product_key$, 9, 1)) + _
+      VAL(MID$(product_key$, 10, 1)) + _
+      VAL(MID$(product_key$, 11, 1))
+IF sum MOD 7 = 0 THEN
     PRINT "Product key is valid. Continuing boot..."
     SLEEP 10
 ELSE
