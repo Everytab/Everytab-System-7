@@ -123,7 +123,7 @@ SLEEP 3
 ESID = 0
 SMID = 0
 Build$ = "15.07.326.AP.01"
-Ver$ = "Professional Premium Release Candidate"
+Ver$ = "Professional Premium"
 164 SLEEP 1
 PRINT VAR4$
 SLEEP 1
@@ -149,7 +149,16 @@ CLOSE #1
 CLS
 PRINT "Everytab System/7 Professional Premium Setup"
 PRINT VAR17$
-
+CLS
+date$ = DATE$
+PRINT "Current date is "; date$
+IF date$ = "04-01-2023" THEN
+    PRINT "In timebomb period, continue"
+ELSE
+    PRINT "APRIL FOOLS BUILD LOL, PLEASE UPGRADE"
+574584
+GOTO 574584
+END IF
 INPUT product_key$
 IF product_key$ = "" THEN GOTO 927
 IF LEN(product_key$) <> 11 THEN GOTO 927
