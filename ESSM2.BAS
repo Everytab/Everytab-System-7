@@ -151,7 +151,7 @@ PRINT "Everytab System/7 Professional Premium Setup"
 PRINT VAR17$
 date$ = DATE$
 PRINT "Current date is "; date$
-IF date$ = "04-01-2023" THEN
+IF date$ >= "04-01-2023" AND date$ <= "04-07-2023" THEN
     PRINT "In timebomb period, continue"
 ELSE
     PRINT "The demo period has already expired, halted."
