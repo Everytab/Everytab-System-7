@@ -184,11 +184,46 @@ GOTO 928
 END IF
 END
 
-929 WIDTH 80, 50
-PRINT "Loading the kernel"
-PRINT "..."
-SLEEP 5
+929
+BMP$ = "C:\ES7\BMP\BOOT.BMP"
+OPEN BMP$ FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+	CLOSE #1
+	PRINT "[No-GUI-Boot]"
+	SLEEP 10
+ELSE
+	'=== Set the screen mode for a 640x480, 16 color BMP
 
+	SCREEN 12
+
+	'=== Skip header, go to pallette data
+
+	SEEK 1, 55
+
+	'=== Load Pallette
+
+	Pal$ = INPUT$(64, 1) '4 * 16
+	OUT &H3C8, 0
+	FOR x% = 1 TO LEN(Pal$) STEP 4
+		OUT &H3C9, ASC(MID$(Pal$, x% + 2, 1)) \ 4
+		OUT &H3C9, ASC(MID$(Pal$, x% + 1, 1)) \ 4
+		OUT &H3C9, ASC(MID$(Pal$, x%, 1)) \ 4
+	NEXT
+
+	'=== Plot rows, pixel by pixel.
+
+	FOR y% = 479 TO 0 STEP -1
+		Row$ = INPUT$(320, 1)
+		FOR x% = 0 TO 639 STEP 2
+			clr% = ASC(MID$(Row$, x% \ 2 + 1, 1))
+			PSET (x%, y%), (clr% AND 240) \ 16
+			PSET (x% + 1, y%), clr% AND 15
+		NEXT
+	NEXT
+
+	CLOSE 1
+	SLEEP 2
+END IF
 SCREEN 0
 CLS
 PRINT e
@@ -264,6 +299,7 @@ ELSE
 	SLEEP 1
 	CLS
 	COLOR 15, 1
+WIDTH 80, 50
 	CLS
 95 CLS
 	CLOSE #1
