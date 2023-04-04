@@ -1,5 +1,7 @@
 OPTION BASE 1
 REM Load MENU Variables
+REM The Everytab System/7
+REM Maintained by Everytab and greenland mainly.
 DIM MenuItem(4) AS STRING
 DIM ChooseItem AS INTEGER
 DIM XMenuPosn AS INTEGER
@@ -22,6 +24,7 @@ DIM EXMenuPosn AS INTEGER
 DIM EYMenuPosn AS INTEGER
 DECLARE FUNCTION Hex2Bin$ (Hcs$)
 90 CLS
+REM Loading the Language files
 OPEN "C:\ES7\CONFIG\VAR.SYS" FOR INPUT AS #1
 INPUT #1, VAR1$
 INPUT #1, VAR2$
@@ -73,6 +76,7 @@ INPUT #1, VAR47$
 CLOSE #1
 CLOSE #1
 CLS
+REM Setting colour
 COLOR 7, 0
 CLS
 SHELL "C:"
@@ -82,7 +86,9 @@ SLEEP 3
 PRINT ""
 PRINT VAR2$
 SLEEP 1
+REM the anti admin abuse checker
 SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
+REM checking if system has been initialized.
 OPEN "C:\ES7\CONFIG\0.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 	ased = 1
@@ -120,10 +126,18 @@ CLOSE #1
 CLOSE #1
 CLOSE #1
 SLEEP 3
+
+REM --Very important--
+REM
+REM Build$ - Build no.
+REM Ver$ - Version name
+REM ESID - no use yet, will prolly be used for updater once that exists (if that will ever exist)
+REM SMID - useless, might repurpose (was going to be the updater check for Session Manager, but session manager is gone now)
+
 ESID = 0
 SMID = 0
-Build$ = "15.06.326"
-Ver$ = "Release Candidate 3.1"
+Build$ = "15.07.326"
+Ver$ = "April `23 Stable Release"
 164 SLEEP 1
 PRINT VAR4$
 SLEEP 1
@@ -146,6 +160,7 @@ CLOSE #1
 CLOSE #1
 CLOSE #1
 CLOSE #1
+REM 4KUHD boot screen display in 16 colours
 BMP$ = "C:\ES7\BMP\BOOT.BMP"
 OPEN BMP$ FOR BINARY AS #1
 IF LOF(1) = 0 THEN
@@ -187,8 +202,10 @@ ELSE
 END IF
 SCREEN 0
 CLS
+REM is the system ready?
 PRINT e
 IF e = 0 THEN
+REM doesn't look like that, time for OOBE
 	CLS
 	CLS
 	COLOR 15, 6
@@ -231,6 +248,7 @@ IF e = 0 THEN
 		LOOP UNTIL INKEY$ <> ""
 		SHELL "fdapm warmboot"
 	ELSEIF fes = 2 THEN
+                REM prolly going to remove this
 		PRINT "Post-Install Setup"
 		PRINT VAR17$
 		PRINT "This will restore the User File from C:\ESBACK"
@@ -253,6 +271,7 @@ IF e = 0 THEN
 		GOTO 1232
 	END IF
 ELSE
+REM alright system ready, lesgo
 	CLS
 	PRINT VAR13$
 	SLEEP 2.5
@@ -293,6 +312,7 @@ WIDTH 80, 50
 	CLOSE #1
 	CLOSE #1
 	CLOSE #1
+REM Getting multi user logins was PAIN
 	PRINT "Login"
 PRINT VAR17$
 	PRINT VAR14$
@@ -450,6 +470,7 @@ CMoveDown:
 98 IF PASS$ = PASSEe$ THEN
 		GOTO 99282
 	ELSE
+            REM extra long label cause why not, not like the program will crash if the user enters the wwrong password too many times.
 		GOTO 112345
 
 	END IF
@@ -459,10 +480,12 @@ CMoveDown:
 	SHELL "CD \"
 	CLS
 	CLS
+        REM very high quality startup sound
 	PLAY "C"
 	PLAY "F"
 	PLAY "F"
 123 CLS
+        REM OS/2 menu clone lego
 	MenuItem$(1) = VAR20$
 	MenuItem$(2) = VAR21$
 	MenuItem$(3) = VAR22$
@@ -525,7 +548,8 @@ MoveDown:
 	END IF
 	RETURN
 106
-	ope$ = MenuItem(ChooseItem)
+	REM DON'T NUKE THE BELOW LINES, IT BREAKS THE PROGRAM EVEN THOUGH ITS NOT USED.
+ope$ = MenuItem(ChooseItem)
 
 	IF ope$ = VAR21$ THEN
 		CLS
@@ -551,6 +575,7 @@ MoveDown:
 		ON ERROR GOTO 111
 
 		ELSEIF ap4p$ = "GUI" THEN
+                  REM one of the Session Manager leftovers... Quite useful tho
 		  SHELL ("C:\ES7\BIN\OP.EXE")
 		GOTO 123
 		ELSE
@@ -560,6 +585,7 @@ MoveDown:
 		END IF
 	IF ope$ = VAR20$ THEN
 124 CLS
+REM idk if I m replacing thing with user defined programs, but that would be painful.
 		BMenuItem$(1) = VAR25$
 		BMenuItem$(2) = VAR26$
 		BMenuItem$(3) = VAR28$
@@ -642,7 +668,7 @@ BMoveDown:
 			CLOSE #1
 			CLOSE #1
 			CLOSE #1
-
+                        REM admin check worked flawlessly for some reason, idk why.
 			IF log$ = f$ THEN
 				OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
 				WRITE #1, 0
@@ -691,6 +717,7 @@ BMoveDown:
 				END IF
 
 			END IF
+                        REM also don't worry, settings checks for SUPER.sys
 			SHELL ("C:\ES7\BIN\SET.EXE")
 			SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
 			GOTO 124
@@ -712,7 +739,7 @@ BMoveDown:
 			CLOSE #1
 			CLOSE #1
 			CLOSE #1
-
+                        REM the browser be broken tho
 			CLS
 			OPEN "C:\ES7\CONFIG\WEB.SYS" FOR BINARY AS #1
 			IF LOF(1) = 0 THEN
@@ -737,6 +764,7 @@ BMoveDown:
 			CLOSE #1
 			CLOSE #1
 			CLOSE #1
+                        REM we really need a new text editor...
 			OPEN "C:\ES7\CONFIG\WORD.SYS" FOR BINARY AS #1
 			IF LOF(1) = 0 THEN
 				CLOSE #1
@@ -755,6 +783,7 @@ BMoveDown:
 			END IF
 		ELSEIF app$ = VAR29$ THEN
 			CLS
+                        REM another relic from Session manager, the calculator is far better now.
 			SHELL ("C:\ES7\BIN\CALC.EXE")
 			GOTO 124
 		ELSEIF app$ = VAR30$ THEN
