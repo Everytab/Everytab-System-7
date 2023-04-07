@@ -206,8 +206,6 @@ PRINT ""
 PRINT "During the OOBE, you can restore backed up user data"
 PRINT "Please eject all removable disks and restart the computer"
 PRINT ""
-SLEEP 5
-CLS
 50
 GOTO 50
 ON ERROR GOTO 11114
