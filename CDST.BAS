@@ -281,7 +281,9 @@ SLEEP 1.5
 	    SLEEP 5
 	    CLS
 	    SLEEP 1
-	  SHELL "A:\freedos\bin\fdapm warmboot"
+	 PRINT "Press CTRL + ALT + DELETE to restart"
+	    SLEEP 5
+GOTO 50
 	ON ERROR GOTO 11114
 11114
 SLEEP 1.5
