@@ -6,12 +6,19 @@ How to use
 Get DOSBox
 set the work environment in a folder having Visual Basic for MS-DOS 
 
+**How to compile**
+Open VBDOS, then go to file > add file and select the desired bas file (REMEMBER, MAKE SURE ONLY ONE BAS FILE IS LOADED WHILE COMPILING)
+go to run > Make an exe
+Select - no debug, no need of runtime and i486 maths
+Compile and see the exe in the same directory as VBDOS
+
 **How to make an install**
 
 Requirements
 1) Compiled ESSM2.bas and CDST.bas
 2) PowerISO
 
+Steps
 1) Modify the ES7.zip and replace the needed files
 2) Modify the boot image file of the ISO (option in PowerISO) and add CDST
 
