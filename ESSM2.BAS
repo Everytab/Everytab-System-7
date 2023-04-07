@@ -994,12 +994,10 @@ BMoveDown:
 		PRINT VAR17$
 		PRINT VAR45$
 		PRINT ""
-		LOCATE 25, 1
-		PRINT "Arrow Keys - Navigate up and down   Enter - Select Item"
 		DChooseItem = 1
 		DXMenuPosn = 1
 		DYMenuPosn = 5
-
+	
 		GOSUB DDrawMenu
 
 		'get cursor key movements and redraw menu
