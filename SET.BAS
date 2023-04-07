@@ -10,8 +10,8 @@ DIM BMenuItem(3) AS STRING
 DIM BChooseItem AS INTEGER
 DIM BXMenuPosn AS INTEGER
 DIM BYMenuPosn AS INTEGER
-Build$ = "15.07.326"
-Ver$ = ""
+Build$ = "15.07.330"
+Ver$ = "April '23 Stable Release"
 OPEN "C:\ES7\CONFIG\SETVAR.SYS" FOR INPUT AS #1
 INPUT #1, SVAR1$
 INPUT #1, SVAR2$
