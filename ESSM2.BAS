@@ -136,7 +136,7 @@ REM SMID - useless, might repurpose (was going to be the updater check for Sessi
 
 ESID = 0
 SMID = 0
-Build$ = "15.07.326"
+Build$ = "15.07.330"
 Ver$ = "April `23 Stable Release"
 164 SLEEP 1
 PRINT VAR4$
