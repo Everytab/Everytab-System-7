@@ -204,11 +204,11 @@ PRINT "Setup has completed"
 PRINT "All the files has been copied"
 PRINT ""
 PRINT "During the OOBE, you can restore backed up user data"
-PRINT "The computer will restart in 5 seconds"
+PRINT "Please eject all removable disks and restart the computer"
 PRINT ""
 SLEEP 5
 CLS
-SHELL "A:\freedos\bin\fdapm warmboot"
+SYSTEM
 ON ERROR GOTO 11114
 11111
 SLEEP 1.5
