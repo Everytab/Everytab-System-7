@@ -208,7 +208,7 @@ PRINT "The computer will restart in 5 seconds"
 PRINT ""
 SLEEP 5
 CLS
-SHELL "A:\freedos\bin\fdapm warmboot"
+SYSTEM "/RB"
 ON ERROR GOTO 11114
 11111
 SLEEP 1.5
