@@ -1,10 +1,15 @@
-# Everytab-System-7
-A small program in Q-Basic to make interaction with DOS easier
+# Project Apollo
+The branch of ES/7 dedicated for a custom FreeDOS kernel
 
-How to use
+
+TODO : Insert FreeDOS instructions here
+
+
+
+How to use (compiling ES/7)
 
 Get DOSBox
-set the work environment in a folder having Visual Basic for MS-DOS 
+set the work environment in a folder having Visual Basic for MS-DOS (Use VBDOS.7Z)
 
 **How to compile**
 Open VBDOS, then go to file > add file and select the desired bas file (REMEMBER, MAKE SURE ONLY ONE BAS FILE IS LOADED WHILE COMPILING)
