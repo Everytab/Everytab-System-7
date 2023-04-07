@@ -4,9 +4,9 @@ A small program in Q-Basic to make interaction with DOS easier
 How to use
 
 Get DOSBox
-set the work environment in a folder having QBasic 4.5 (Given in the repo)
+set the work environment in a folder having Visual Basic for MS-DOS 
 
-How to make an install
+**How to make an install**
 
 Requirements
 1) Compiled ESSM2.bas and CDST.bas
@@ -28,4 +28,4 @@ Files which are depricated (Useless)
 - the base images
 
 
-Also sussycamel will log tha changes
+Also sussycamel will log all changes
