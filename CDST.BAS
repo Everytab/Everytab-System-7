@@ -208,7 +208,8 @@ PRINT "Please eject all removable disks and restart the computer"
 PRINT ""
 SLEEP 5
 CLS
-SYSTEM
+50
+GOTO 50
 ON ERROR GOTO 11114
 11111
 SLEEP 1.5
