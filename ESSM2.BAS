@@ -91,10 +91,10 @@ SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
 REM checking if system has been initialized.
 OPEN "C:\ES7\CONFIG\0.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
-	ased = 1
+	state = 1
 	CLOSE #1
 END IF
-IF ased = 1 THEN
+	IF state = 1 THEN
 	CLOSE #1
 	CLOSE #1
 	OPEN "C:\ES7\CONFIG\0.SYS" FOR OUTPUT AS #1
@@ -136,8 +136,8 @@ REM SMID - useless, might repurpose (was going to be the updater check for Sessi
 
 ESID = 0
 SMID = 0
-Build$ = "15.07.330"
-Ver$ = "April `23 Stable Release"
+Build$ = "15.09.335"
+Ver$ = "Apollo - Pre-Alpha 1 "
 164 SLEEP 1
 PRINT VAR4$
 SLEEP 1
@@ -457,6 +457,8 @@ CMoveDown:
 		GOTO 112
 	END IF
 	CLS
+	
+                                               					
 	PRINT VAR16$
 	PRINT VAR17$
 	PRINT ""
