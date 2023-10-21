@@ -10,8 +10,8 @@ DIM BMenuItem(3) AS STRING
 DIM BChooseItem AS INTEGER
 DIM BXMenuPosn AS INTEGER
 DIM BYMenuPosn AS INTEGER
-Build$ = "15.07.330"
-Ver$ = "April '23 Stable Release"
+Build$ = "16.01.337"
+Ver$ = "Project Alpha"
 OPEN "C:\ES7\CONFIG\SETVAR.SYS" FOR INPUT AS #1
 INPUT #1, SVAR1$
 INPUT #1, SVAR2$
@@ -153,15 +153,14 @@ CLOSE #1
 		PRINT "Settings > About"
 		PRINT SVAR9$
 		PRINT ""
-		PRINT "About Everytab System/7:-"
+		PRINT "About DOS/7:-"
 		PRINT ""
-		PRINT "The Everytab System/7 Version "; Ver$
+		PRINT "The DOS/7 Version "; Ver$
 		PRINT "OS Build "; Build$
 		PRINT ""
 		PRINT "Credits :"
-		PRINT "Developers - Everytab, JayTheCoderX, greenland, Mark_ & CoroX_"
-				PRINT "Graphic Designers - JayTheCoderX"
-		PRINT "Everytab System/7 runs on a modified FreeDOS Install"
+		PRINT "Developers - Everytab, greenland"
+		PRINT "DOS/7 runs on a modified FreeDOS Install"
 		PRINT ""
 		PRINT "Press any key to continue ..."
 		PRINT
@@ -457,7 +456,7 @@ CLOSE #1
 CLOSE #1
 PRINT "Choose app (Will enable/disable)"
 BMenuItem$(1) = "Console"
-BMenuItem$(2) = "DOSLynx Web Browser"
+BMenuItem$(2) = "Trident Shell Manager"
 BMenuItem$(3) = "Microsoft Word"
    BChooseItem = 1
 BXMenuPosn = 1
@@ -527,33 +526,33 @@ END IF
 SLEEP 2
 GOTO 125
 
-ELSEIF app$ = "DOSLynx Web Browser" THEN
-	 OPEN "C:\ES7\CONFIG\WEB.SYS" FOR BINARY AS #1
+ELSEIF app$ = "Trident Shell Manager" THEN
+	 OPEN "C:\ES7\CONFIG\SM.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
-OPEN "C:\ES7\CONFIG\WEB.SYS" FOR OUTPUT AS #1
+OPEN "C:\ES7\CONFIG\SM.SYS" FOR OUTPUT AS #1
 WRITE #1, 0
 CLOSE #1
-PRINT "Web Browser Enabled"
+PRINT "Trident Shell Manager Enabled"
 ELSE
-SHELL ("DEL C:\ES7\CONFIG\WEB.SYS")
-PRINT "Web Browser Disabled"
+SHELL ("DEL C:\ES7\CONFIG\SM.SYS")
+PRINT "Trident Shell Manager Disabled"
 END IF
 SLEEP 2
 GOTO 125
 
-ELSEIF app$ = "Microsoft Word" THEN
+ELSEIF app$ = "Edit" THEN
 	 OPEN "C:\ES7\CONFIG\WORD.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
 CLOSE #1
 OPEN "C:\ES7\CONFIG\WORD.SYS" FOR OUTPUT AS #1
 WRITE #1, 0
 CLOSE #1
-PRINT "Microsoft Word Enabled"
+PRINT "Edit Enabled"
 ELSE
 SHELL ("DEL C:\ES7\CONFIG\WORD.SYS")
 END IF
-PRINT "Microsoft Word Disabled"
+PRINT "Edit Disabled"
 SLEEP 2
 GOTO 125
 		ELSE

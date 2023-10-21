@@ -1,12 +1,11 @@
 COLOR 15, 1
 CLS
 CLS
-PRINT "Everytab System/7 Setup"
-PRINT "_______________________"
+PRINT "Everytab System/7 Recovery"
+
 PRINT ""
 PRINT ""
-PRINT "Welcome to the Everytab System/7 Updater"
-PRINT "Your system will be updated to Build 324"
+PRINT "Your System could not start, This will reinstall ES/7"
 PRINT ""
 PRINT "1) Copying Everytab System/7 Files"
 PRINT ""
@@ -16,9 +15,8 @@ PRINT "Press any key to continue"
 DO
 LOOP UNTIL INKEY$ <> ""
 146 CLS
-PRINT "Everytab System/7 Setup"
-PRINT "_______________________"
-PRINT ""
+PRINT "Everytab System/7 Recovery"
+
 PRINT ""
 PRINT "Step 1 of Step 1"
 PRINT "Copying Everytab System/7 files"
@@ -31,17 +29,17 @@ DO
 LOOP UNTIL INKEY$ <> ""
 SLEEP 2
 1112
-SHELL ("A:")
-SHELL ("CD ES7SETUP")
-SHELL ("PKUNZIP -e -o -d ES7U.ZIP C:\")
+SHELL ("C:")
+SHELL ("CD ES7REC")
+SHELL ("PKUNZIP -e -o -d ES7R.ZIP C:\")
 ON ERROR GOTO 11111
 SLEEP 5
 CLS
-PRINT "Everytab System/7 Setup"
-PRINT "_______________________"
+PRINT "Everytab System/7 Recovery"
+
 PRINT ""
 PRINT ""
-PRINT "The upgrade has completed"
+PRINT "The Recovery was completed"
 PRINT "All the files has been copied"
 PRINT ""
 PRINT "The system will reboot into ES/7 in 5 seconds"
@@ -51,7 +49,7 @@ PRINT "The system will reboot into ES/7 in 5 seconds"
         COLOR 15, 1
 SLEEP 5
 CLS
-SHELL "A:\freedos\bin\fdapm warmboot"
+SHELL "C:\freedos\bin\fdapm warmboot"
 ON ERROR GOTO 11114
 11111
 SLEEP 1.5
@@ -75,7 +73,7 @@ PRINT "The files couldn't be copied"
 		SLEEP 5
 		CLS
 		SLEEP 1
-SHELL "A:\freedos\bin\fdapm warmboot"
+SHELL "C:\freedos\bin\fdapm warmboot"
 ON ERROR GOTO 11114
 11112
 SLEEP 1.5
@@ -99,7 +97,7 @@ SLEEP 1.5
 		SLEEP 5
 		CLS
 		SLEEP 1
-	  SHELL "A:\freedos\bin\fdapm warmboot"
+	  SHELL "C:\freedos\bin\fdapm warmboot"
 ON ERROR GOTO 11114
 11113
 SLEEP 1.5
@@ -123,7 +121,7 @@ SLEEP 1.5
 		SLEEP 5
 		CLS
 		SLEEP 1
-	  SHELL "A:\freedos\bin\fdapm warmboot"
+	  SHELL "C:\freedos\bin\fdapm warmboot"
 	ON ERROR GOTO 11114
 11114
 SLEEP 1.5
@@ -171,6 +169,6 @@ GOTO 111115
 		SLEEP 5
 		CLS
 		SLEEP 1
-	  SHELL "A:\freedos\bin\fdapm warmboot"
+	  SHELL "C:\freedos\bin\fdapm warmboot"
 	ON ERROR GOTO 11114
 

@@ -32,7 +32,7 @@ LOOP UNTIL INKEY$ <> ""
 SLEEP 2
 1112
 SHELL ("C:")
-SHELL ("CD ES7SETUP")
+SHELL ("CD ES7REC")
 SHELL ("PKUNZIP -e -o -d ES7R.ZIP C:\")
 ON ERROR GOTO 11111
 SLEEP 5
@@ -47,7 +47,7 @@ PRINT ""
 PRINT "The system will reboot into ES/7 in 5 seconds"
 SLEEP 5
 CLS
-SHELL "A:\freedos\bin\fdapm warmboot"
+SHELL "C:\freedos\bin\fdapm warmboot"
 ON ERROR GOTO 11114
 11111
 SLEEP 1.5
@@ -71,7 +71,7 @@ PRINT "The files couldn't be copied"
 	    SLEEP 5
 	    CLS
 	    SLEEP 1
-SHELL "A:\freedos\bin\fdapm warmboot"
+SHELL "C:\freedos\bin\fdapm warmboot"
 ON ERROR GOTO 11114
 11112
 SLEEP 1.5
@@ -95,7 +95,7 @@ SLEEP 1.5
 	    SLEEP 5
 	    CLS
 	    SLEEP 1
-	  SHELL "A:\freedos\bin\fdapm warmboot"
+	  SHELL "C:\freedos\bin\fdapm warmboot"
 ON ERROR GOTO 11114
 11113
 SLEEP 1.5
@@ -119,7 +119,7 @@ SLEEP 1.5
 	    SLEEP 5
 	    CLS
 	    SLEEP 1
-	  SHELL "A:\freedos\bin\fdapm warmboot"
+	  SHELL "C:\freedos\bin\fdapm warmboot"
 	ON ERROR GOTO 11114
 11114
 SLEEP 1.5
@@ -167,5 +167,5 @@ GOTO 111115
 	    SLEEP 5
 	    CLS
 	    SLEEP 1
-	  SHELL "A:\freedos\bin\fdapm warmboot"
+	  SHELL "C:\freedos\bin\fdapm warmboot"
 	ON ERROR GOTO 11114

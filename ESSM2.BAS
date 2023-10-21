@@ -1,6 +1,6 @@
 OPTION BASE 1
 REM Load MENU Variables
-REM The Everytab System/7
+REM The Everytab System/7 (Possible rename to DOS/7)
 REM Maintained by Everytab and greenland mainly.
 DIM MenuItem(4) AS STRING
 DIM ChooseItem AS INTEGER
@@ -26,6 +26,7 @@ DECLARE FUNCTION Hex2Bin$ (Hcs$)
 90 CLS
 REM Loading the Language files
 OPEN "C:\ES7\CONFIG\VAR.SYS" FOR INPUT AS #1
+ON ERROR GOTO 7773
 INPUT #1, VAR1$
 INPUT #1, VAR2$
 INPUT #1, VAR3$
@@ -112,6 +113,7 @@ CLOSE #1
 CLOSE #1
 CLOSE #1
 OPEN "C:\ES7\CONFIG\0.SYS" FOR INPUT AS #1
+
 INPUT #1, e
 INPUT #1, f$
 INPUT #1, PASSE$
@@ -132,12 +134,12 @@ REM
 REM Build$ - Build no.
 REM Ver$ - Version name
 REM ESID - no use yet, will prolly be used for updater once that exists (if that will ever exist)
-REM SMID - useless, might repurpose (was going to be the updater check for Session Manager, but session manager is gone now)
+REM SMID - useless, might repurpose
 
 ESID = 0
 SMID = 0
-Build$ = "15.07.330"
-Ver$ = "April `23 Stable Release"
+Build$ = "16.00.337"
+Ver$ = "Project Alpha"
 164 SLEEP 1
 PRINT VAR4$
 SLEEP 1
@@ -160,46 +162,11 @@ CLOSE #1
 CLOSE #1
 CLOSE #1
 CLOSE #1
-REM 4KUHD boot screen display in 16 colours
-BMP$ = "C:\ES7\BMP\BOOT.BMP"
-OPEN BMP$ FOR BINARY AS #1
-IF LOF(1) = 0 THEN
 	CLOSE #1
-	PRINT "[No-GUI-Boot]"
-	SLEEP 10
-ELSE
-	'=== Set the screen mode for a 640x480, 16 color BMP
+	PRINT "DOS/7 "; Ver$
+		PRINT "Version 16.00.336"
 
-	SCREEN 12
-
-	'=== Skip header, go to pallette data
-
-	SEEK 1, 55
-
-	'=== Load Pallette
-
-	Pal$ = INPUT$(64, 1) '4 * 16
-	OUT &H3C8, 0
-	FOR x% = 1 TO LEN(Pal$) STEP 4
-		OUT &H3C9, ASC(MID$(Pal$, x% + 2, 1)) \ 4
-		OUT &H3C9, ASC(MID$(Pal$, x% + 1, 1)) \ 4
-		OUT &H3C9, ASC(MID$(Pal$, x%, 1)) \ 4
-	NEXT
-
-	'=== Plot rows, pixel by pixel.
-
-	FOR y% = 479 TO 0 STEP -1
-		Row$ = INPUT$(320, 1)
-		FOR x% = 0 TO 639 STEP 2
-			clr% = ASC(MID$(Row$, x% \ 2 + 1, 1))
-			PSET (x%, y%), (clr% AND 240) \ 16
-			PSET (x% + 1, y%), clr% AND 15
-		NEXT
-	NEXT
-
-	CLOSE 1
-	SLEEP 2
-END IF
+	SLEEP 5
 SCREEN 0
 CLS
 REM is the system ready?
@@ -242,13 +209,13 @@ REM doesn't look like that, time for OOBE
 		CLOSE #1
 		CLOSE #1
 		SHELL ("COPY C:\ES7\CONFIG\0.SYS C:\ES7\CONFIG\NULL.SYS")
+				CLS
 		PRINT VAR12$
 		PRINT
-		DO
-		LOOP UNTIL INKEY$ <> ""
-		SHELL "fdapm warmboot"
+7201
+				GOTO 7201
 	ELSEIF fes = 2 THEN
-                REM prolly going to remove this
+				REM prolly going to remove this
 		PRINT "Post-Install Setup"
 		PRINT VAR17$
 		PRINT "This will restore the User File from C:\ESBACK"
@@ -263,9 +230,9 @@ REM doesn't look like that, time for OOBE
 		SLEEP 1
 		SHELL ("COPY A:\SYS.DAT C:\ES7\CONFIG\0.SYS")
 		PRINT "Results shown above"
-		PRINT "Restarting in 5 seconds"
-		SLEEP 5
-		SHELL "fdapm warmboot"
+		PRINT "Restart by using ctrl + alt + del"
+				GOTO 7201
+		
 	ELSE
 		BEEP
 		GOTO 1232
@@ -470,7 +437,7 @@ CMoveDown:
 98 IF PASS$ = PASSEe$ THEN
 		GOTO 99282
 	ELSE
-            REM extra long label cause why not, not like the program will crash if the user enters the wwrong password too many times.
+			REM extra long label cause why not, not like the program will crash if the user enters the wwrong password too many times.
 		GOTO 112345
 
 	END IF
@@ -478,14 +445,21 @@ CMoveDown:
 	SLEEP 1
 	SHELL "C:"
 	SHELL "CD \"
+		OPEN "C:\ES7\CONFIG\SM.SYS" FOR BINARY AS #1
+		IF LOF(1) = 0 THEN
+			CLOSE #1
+			GOTO 123
+ELSE
+SHELL ("C:\ES7\BIN\SM.EXE")
+PRINT "Unfortunately, TSM has unexpectedly stopped, Please report"
+SLEEP 5
+GOTO 123
+END IF
 	CLS
 	CLS
-        REM very high quality startup sound
-	PLAY "C"
-	PLAY "F"
-	PLAY "F"
 123 CLS
-        REM OS/2 menu clone lego
+CLS
+		REM OS/2 menu clone lego
 	MenuItem$(1) = VAR20$
 	MenuItem$(2) = VAR21$
 	MenuItem$(3) = VAR22$
@@ -575,7 +549,7 @@ ope$ = MenuItem(ChooseItem)
 		ON ERROR GOTO 111
 
 		ELSEIF ap4p$ = "GUI" THEN
-                  REM one of the Session Manager leftovers... Quite useful tho
+				  REM one of the Session Manager leftovers... Quite useful tho
 		  SHELL ("C:\ES7\BIN\OP.EXE")
 		GOTO 123
 		ELSE
@@ -587,13 +561,12 @@ ope$ = MenuItem(ChooseItem)
 124 CLS
 REM idk if I m replacing thing with user defined programs, but that would be painful.
 		BMenuItem$(1) = VAR25$
-		BMenuItem$(2) = VAR26$
-		BMenuItem$(3) = VAR28$
-		BMenuItem$(4) = VAR29$
-		BMenuItem$(5) = VAR30$
-		BMenuItem$(6) = VAR31$
+		BMenuItem$(2) = VAR28$
+		BMenuItem$(3) = VAR29$
+		BMenuItem$(4) = VAR30$
+		BMenuItem$(5) = VAR31$
 		PRINT VAR20$
-		PRINT "........................................................................."
+		PRINT VAR17$
 		PRINT "Tasks :-"
 		PRINT ""
 		
@@ -668,7 +641,7 @@ BMoveDown:
 			CLOSE #1
 			CLOSE #1
 			CLOSE #1
-                        REM admin check worked flawlessly for some reason, idk why.
+						REM admin check worked flawlessly for some reason, idk why.
 			IF log$ = f$ THEN
 				OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
 				WRITE #1, 0
@@ -717,44 +690,10 @@ BMoveDown:
 				END IF
 
 			END IF
-                        REM also don't worry, settings checks for SUPER.sys
+						REM also don't worry, settings checks for SUPER.sys
 			SHELL ("C:\ES7\BIN\SET.EXE")
 			SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
 			GOTO 124
-		ELSEIF app$ = VAR26$ THEN
-
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-
-
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-			CLOSE #1
-                        REM the browser be broken tho
-			CLS
-			OPEN "C:\ES7\CONFIG\WEB.SYS" FOR BINARY AS #1
-			IF LOF(1) = 0 THEN
-				CLOSE #1
-				PRINT VAR32$
-				SLEEP 2
-				GOTO 124
-			ELSE
-				SHELL ("C:")
-				CHDIR ("LYNX")
-				ON ERROR GOTO 113
-				SHELL ("DOSLYNX.EXE")
-				ON ERROR GOTO 113
-				GOTO 124
-			END IF
 		ELSEIF app$ = VAR28$ THEN
 
 			CLOSE #1
@@ -764,7 +703,6 @@ BMoveDown:
 			CLOSE #1
 			CLOSE #1
 			CLOSE #1
-                        REM we really need a new text editor...
 			OPEN "C:\ES7\CONFIG\WORD.SYS" FOR BINARY AS #1
 			IF LOF(1) = 0 THEN
 				CLOSE #1
@@ -772,18 +710,13 @@ BMoveDown:
 				SLEEP 2
 				GOTO 124
 			ELSE
-				SHELL "C:"
-				CHDIR "\"
-				ON ERROR GOTO 113
-				CHDIR "WORD"
-				ON ERROR GOTO 113
-				SHELL "C:\WORD\WORD.COM"
+				SHELL "C:\OPENDOS\EDIT.EXE"
 				ON ERROR GOTO 113
 				GOTO 124
 			END IF
 		ELSEIF app$ = VAR29$ THEN
 			CLS
-                        REM another relic from Session manager, the calculator is far better now.
+						REM another relic from Session manager, the calculator is far better now.
 			SHELL ("C:\ES7\BIN\CALC.EXE")
 			GOTO 124
 		ELSEIF app$ = VAR30$ THEN
@@ -854,12 +787,7 @@ BMoveDown:
 			SHELL ("C:\ES7\BIN\PLUS.EXE")
 		
 			SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
-			CLS
-			PRINT VAR36$
-			PRINT "FAIL Code : 00000004"
-			PRINT VAR38$
-			SLEEP 3
-			GOTO 124
+			GOTO 7773
 		ELSEIF app$ = VAR31$ THEN
 			GOTO 123
 		ELSE
@@ -886,7 +814,7 @@ BMoveDown:
 			CLS
 			COLOR 7, 0
 			CLS
-			PRINT VAR34$
+			SHELL ("VER")
 			PRINT ""
 100 INPUT ">"; COMAND$
 			IF COMAND$ = "EGG" THEN
@@ -1063,28 +991,25 @@ DMoveDown:
 			CLS
 			CLOSE #1
 			SLEEP 1.5
-			SHELL "fdapm poweroff"
-			ON ERROR GOTO 113
 			PRINT VAR36$
 			PRINT ""
 			PRINT "FAIL : 00000000"
 			PRINT "OS Revision "; Build$
 			PRINT ""
 			PRINT ""
-			PRINT "The system has reached a point where shutdown using ACPI has failed"
 			PRINT "The system has halted, it is now safe to turn off the computer"
 	   
 423
 			GOTO 423
 		ELSEIF shut$ = VAR41$ THEN
-			PRINT "Preparing to restart session"
+			PRINT "Preparing to restart ES/7 session"
 			CLS
 			SLEEP 1
 			CLS
 			COLOR 7, 0
 			CLS
 			CLS
-			PRINT "Restarting the system"
+			PRINT "Restarting session"
 		   PLAY "E"
 		   PLAY "F"
 		   PLAY "C"
@@ -1092,8 +1017,8 @@ DMoveDown:
 			SLEEP 5
 			CLS
 			SLEEP 1
-			SHELL ("fdapm warmboot")
-			ON ERROR GOTO 113
+			GOTO 90
+			
 		ELSEIF shut$ = VAR42$ THEN
 			CLS
 			PLAY "A"
@@ -1125,48 +1050,24 @@ CLS
 GOTO 95
 
 
+7773
+PRINT "FAIL : 0000004"
+			PRINT "OS Revision "; Build$
+			PRINT ""
+			PRINT ""
+			PRINT "The System cannot continue"
+			PRINT "Starting Recovery"
+						CHAIN "C:\ES7REC\HDST.EXE"
+						ON ERROR GOTO 10101010
+
+
+
+
+10101010
+PRINT "FATAL : Recovery not found"
+1000000000
+GOTO 1000000000
+
 
 DEFINT A-Z
-
-FUNCTION Hex2Bin$ (Hcs$)
-	Hcs$ = UCASE$(Hcs$)
-	lc = LEN(Hcs$)
-	FOR x = 1 TO lc
-		SELECT CASE MID$(Hcs$, x, 1)
-			CASE "0"
-				Out$ = Out$ + "0000"
-			CASE "1"
-				Out$ = Out$ + "0001"
-			CASE "2"
-				Out$ = Out$ + "0010"
-			CASE "3"
-				Out$ = Out$ + "0011"
-			CASE "4"
-				Out$ = Out$ + "0100"
-			CASE "5"
-				Out$ = Out$ + "0101"
-			CASE "6"
-				Out$ = Out$ + "0110"
-			CASE "7"
-				Out$ = Out$ + "0111"
-			CASE "8"
-				Out$ = Out$ + "1000"
-			CASE "9"
-				Out$ = Out$ + "1001"
-			CASE "A"
-				Out$ = Out$ + "1010"
-			CASE "B"
-				Out$ = Out$ + "1011"
-			CASE "C"
-				Out$ = Out$ + "1100"
-			CASE "D"
-				Out$ = Out$ + "1101"
-			CASE "E"
-				Out$ = Out$ + "1110"
-			CASE "F"
-				Out$ = Out$ + "1111"
-		END SELECT
-	NEXT
-	Hex2Bin$ = Out$
-END FUNCTION
 
