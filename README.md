@@ -11,8 +11,11 @@ set the work environment in a folder having Visual Basic for MS-DOS
 Open VBDOS, then go to file > add file and select the desired bas file 
 
 (REMEMBER, MAKE SURE ONLY ONE BAS FILE IS LOADED WHILE COMPILING)
+
 Go to run > Make an exe
+
 Select - no debug, no need of runtime and i486 maths
+
 Compile and see the exe in the same directory as VBDOS
 
 **How to make an install**
