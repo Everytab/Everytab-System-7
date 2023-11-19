@@ -981,7 +981,7 @@ DMoveDown:
 423
         GOTO 423
     ELSEIF shut$ = VAR41$ THEN
-        PRINT "Preparing to restart ES/7 session"
+        PRINT "Preparing to restart the ES/7 session"
         CLS
         SLEEP 1
         CLS
