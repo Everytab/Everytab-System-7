@@ -23,10 +23,6 @@ DIM EChooseItem AS INTEGER
 DIM EXMenuPosn AS INTEGER
 DIM EYMenuPosn AS INTEGER
 DECLARE FUNCTION Hex2Bin$ (Hcs$)
-WIDTH 80, 35
-OPEN "CONS:" FOR OUTPUT AS #7
-PRINT #7, "Everytab System/7 Serial Debug Test"
-CLOSE #7
 90 CLS
 WIDTH 80, 35
 OPEN "C:\ES7\CONFIG\SM.SYS" FOR BINARY AS #1
@@ -470,7 +466,7 @@ MenuItem$(1) = VAR20$
 MenuItem$(2) = VAR21$
 MenuItem$(3) = VAR22$
 MenuItem$(4) = VAR23$
-PRINT "Welcome "; f$
+PRINT "Welcome to MENU Manager, "; f$
 PRINT VAR17$
 PRINT ""
 PRINT ""
@@ -1040,15 +1036,12 @@ PRINT ""
 PRINT "The System cannot continue"
 PRINT "Starting Recovery"
 CHAIN "C:\ES7REC\HDST.EXE"
-ON ERROR GOTO 10101010
-
-
-
-
-10101010
+ON ERROR GOTO 1010
+1010
 PRINT "FATAL : Recovery not found"
-1000000000
-GOTO 1000000000
+PRINT "Please reinstall from the ES/7 CD-ROM"
+10000
+GOTO 10000
 
 
 DEFINT A-Z
