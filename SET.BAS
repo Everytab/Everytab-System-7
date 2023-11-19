@@ -10,7 +10,7 @@ DIM BMenuItem(3) AS STRING
 DIM BChooseItem AS INTEGER
 DIM BXMenuPosn AS INTEGER
 DIM BYMenuPosn AS INTEGER
-Build$ = "16.01.337"
+Build$ = "16.01.338"
 Ver$ = "Project Alpha"
 OPEN "C:\ES7\CONFIG\SETVAR.SYS" FOR INPUT AS #1
 INPUT #1, SVAR1$
@@ -153,14 +153,14 @@ CLOSE #1
 		PRINT "Settings > About"
 		PRINT SVAR9$
 		PRINT ""
-		PRINT "About DOS/7:-"
+		PRINT "About Everytab System/7:-"
 		PRINT ""
-		PRINT "The DOS/7 Version "; Ver$
+		PRINT "The Everytab System/7 Version "; Ver$
 		PRINT "OS Build "; Build$
 		PRINT ""
 		PRINT "Credits :"
 		PRINT "Developers - Everytab, greenland"
-		PRINT "DOS/7 runs on a modified FreeDOS Install"
+		PRINT "Everytab System/7 runs on a modified FreeDOS Install"
 		PRINT ""
 		PRINT "Press any key to continue ..."
 		PRINT

@@ -124,7 +124,6 @@ DO
 LOOP UNTIL INKEY$ <> ""
 SHELL "FDISK"
 CLS
-BEEP
 PRINT "If you have just made a partition, Press Ctrl+Alt+Delete to restart the system"
 PRINT "Then, select the fresh install option and skip FDISK"
 PRINT "If you have already completed this, Press any key to continue"
