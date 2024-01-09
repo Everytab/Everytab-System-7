@@ -1,3 +1,6 @@
+# Experiment Branch
+The experiment branch is for all experimental features. **None** of these features have been **tested in any way**. After successful tests, this will be merged with main.
+
 # Everytab-System-7
 System/7 is a small DOS-Based program meant to make interacting with your computer a bit more easier. System/7 is meant to be a CUI, and **not** a GUI (Apart from Session Manager). This is just a hobbyist project, and is **not meant to be used in anything critical or mainstream**
 
