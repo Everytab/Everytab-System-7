@@ -19,9 +19,9 @@ System/7 is a small DOS-Based program meant to make interacting with your comput
 - Open Visual Basic for MS-DOS,
 - Go to File > Add File and select the desired source file. (Remember to only load one source file at a time)
 - To make an executable go to Run > Make an EXE. Select the following options-
- * No Debug
- * No Runtime
- * i486 Maths
+  * No Debug
+  * No Runtime
+  * i486 Maths
 - After compiling, the executable will be in the same directory as the Visual Basic IDE.
 
 # How to make an installation media (Incomplete Guide)
