@@ -33,7 +33,7 @@ ELSE
 END IF
 REM Loading the Language files
 OPEN "C:\ES7\CONFIG\VAR.SYS" FOR INPUT AS #1
-ON ERROR GOTO 7773
+ON ERROR GOSUB FAIL4
 INPUT #1, VAR1$
 INPUT #1, VAR2$
 INPUT #1, VAR3$
@@ -820,77 +820,6 @@ ELSEIF ope$ = VAR22$ THEN
         SHELL ("C:\COMMAND.COM")
         GOTO 123
     END IF
-111 CLS
-        
-    SLEEP 1.5
-    COLOR 15, 4
-    PLAY "A"
-    CLS
-    CLS
-    PRINT ""
-    PRINT ""
-    PRINT VAR36$
-    PRINT ""
-    PRINT "FAIL : 00000001"
-    PRINT "OS Revision "; Build$
-    PRINT ""
-    PRINT ""
-    PRINT VAR37$
-    PRINT VAR38$
-    SLEEP 5
-    CLS
-    SLEEP 1
-    GOTO 90
-112 CLS
-        
-    SLEEP 1.5
-    COLOR 15, 4
-    PLAY "A"
-    CLS
-    CLS
-    PRINT ""
-    PRINT ""
-    PRINT VAR36$
-    PRINT ""
-    PRINT "FAIL : 00000002"
-    PRINT "OS Revision "; Build$
-    PRINT ""
-    PRINT ""
-    PRINT VAR37$
-    PRINT VAR38$
-    SLEEP 5
-    CLS
-    SLEEP 1
-    GOTO 90
-113 CLS
-        
-    SLEEP 1.5
-    COLOR 15, 4
-    PLAY "A"
-    CLS
-    CLS
-    PRINT ""
-    PRINT ""
-    PRINT VAR36$
-    PRINT ""
-    PRINT "FAIL : 00000004"
-    PRINT "OS Revision "; Build$
-    PRINT ""
-    PRINT ""
-    PRINT VAR37$
-    PRINT VAR38$
-    SLEEP 5
-    CLS
-    SLEEP 1
-    GOTO 90
-    
-
-114
-        
-    SLEEP 1.5
-    PRINT "FAIL : 00000010"
-    PRINT VAR37$
-    PRINT "The system has been corrupted, Please reinstall"
 ELSEIF ope$ = VAR23$ THEN
     CLS
     DMenuItem$(1) = VAR40$
@@ -1027,8 +956,84 @@ SLEEP 3
 CLS
 GOTO 95
 
+SUB FAIL1        
+    SLEEP 1.5
+    COLOR 15, 4
+    PLAY "A"
+    CLS
+    CLS
+    PRINT ""
+    PRINT ""
+    PRINT VAR36$
+    PRINT ""
+    PRINT "FAIL : 00000001"
+    PRINT "OS Revision "; Build$
+    PRINT ""
+    PRINT ""
+    PRINT VAR37$
+    PRINT VAR38$
+    SLEEP 5
+    CLS
+    SLEEP 1
+    GOTO 90
+END SUB
 
-7773
+SUB FAIL2
+        
+    SLEEP 1.5
+    COLOR 15, 4
+    PLAY "A"
+    CLS
+    CLS
+    PRINT ""
+    PRINT ""
+    PRINT VAR36$
+    PRINT ""
+    PRINT "FAIL : 00000002"
+    PRINT "OS Revision "; Build$
+    PRINT ""
+    PRINT ""
+    PRINT VAR37$
+    PRINT VAR38$
+    SLEEP 5
+    CLS
+    SLEEP 1
+    GOTO 90
+END SUB
+
+SUB FAIL3        
+    SLEEP 1.5
+    COLOR 15, 4
+    PLAY "A"
+    CLS
+    CLS
+    PRINT ""
+    PRINT ""
+    PRINT VAR36$
+    PRINT ""
+    PRINT "FAIL : 00000004"
+    PRINT "OS Revision "; Build$
+    PRINT ""
+    PRINT ""
+    PRINT VAR37$
+    PRINT VAR38$
+    SLEEP 5
+    CLS
+    SLEEP 1
+    GOTO 90
+    END SUB
+
+SUB FAIL10
+        
+    SLEEP 1.5
+    PRINT "FAIL : 00000010"
+    PRINT VAR37$
+    PRINT "The system has been corrupted, Please reinstall"
+    GOTO 10000
+END SUB
+
+
+SUB FAIL4
 PRINT "FAIL : 0000004"
 PRINT "OS Revision "; Build$
 PRINT ""
@@ -1042,7 +1047,7 @@ PRINT "FATAL : Recovery not found"
 PRINT "Please reinstall from the ES/7 CD-ROM"
 10000
 GOTO 10000
-
+END SUB
 
 DEFINT A-Z
 
