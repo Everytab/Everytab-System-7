@@ -115,23 +115,14 @@ IF ased = 1 THEN
 ELSE
     GOTO 1123456
 END IF
+
+
 1123456
 CLOSE #1
-CLOSE #1
-CLOSE #1
 OPEN "C:\ES7\CONFIG\0.SYS" FOR INPUT AS #1
-
 INPUT #1, e
 INPUT #1, f$
 INPUT #1, PASSE$
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
 CLOSE #1
 CLOSE #1
 SLEEP 3
@@ -147,30 +138,16 @@ ESID = 0
 SMID = 0
 Build$ = "16.00.339"
 Ver$ = "Project Alpha"
+
+
 164 SLEEP 1
 PRINT VAR4$
 SLEEP 1
 CLS
 CLS
-CLS
-CLS
 CLOSE #1
 CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-PRINT "Everytab System/7 "; Ver$
+PRINT "System/7 "; Ver$
 PRINT "Version "; Build$
 SLEEP 2
 PRINT "Starting MENU Manager..."
@@ -179,73 +156,10 @@ SLEEP 3
 SCREEN 0
 CLS
 REM is the system ready?
+
 PRINT e
 IF e = 0 THEN
-    REM doesn't look like that, time for OOBE
-    CLS
-    CLS
-    COLOR 15, 6
-    CLS
-    PLAY "C"
-    PLAY "F"
-    PLAY "F"
-1232 CLS
-    PRINT VAR5$
-    PRINT VAR17$
-    PRINT ""
-    PRINT VAR6$
-    PRINT VAR7$
-    PRINT VAR8$
-    PRINT VAR9$
-    INPUT fes
-    IF fes = 1 THEN
-        CLS
-        PRINT VAR5$
-        PRINT VAR17$
-        PRINT VAR10$
-        INPUT "Enter your name"; nanme$
-        INPUT "Enter your password"; non$
-        PRINT VAR11$
-        OPEN "C:\ES7\CONFIG\0.SYS" FOR OUTPUT AS #1
-        WRITE #1, 1
-        PRINT
-        DO
-        LOOP UNTIL INKEY$ <> ""
-        WRITE #1, nanme$
-        WRITE #1, non$
-        CLOSE #1
-        CLOSE #1
-        CLOSE #1
-        CLOSE #1
-        SHELL ("COPY C:\ES7\CONFIG\0.SYS C:\ES7\CONFIG\NULL.SYS")
-        CLS
-        PRINT VAR12$
-        PRINT
-7201
-        GOTO 7201
-    ELSEIF fes = 2 THEN
-        REM prolly going to remove this
-        PRINT "Post-Install Setup"
-        PRINT VAR17$
-        PRINT "This will restore the User File from C:\ESBACK"
-        PRINT "If the copying fails, the Post-Install Setup will start again on reboot"
-        PRINT ""
-        PRINT "Press any key to continue"
-        DO
-        LOOP UNTIL INKEY$ <> ""
-        SHELL ("COPY A:\SYS.DAT C:\ES7\CONFIG\NULL.SYS")
-        CLS
-        PRINT "Preparing to copy files"
-        SLEEP 1
-        SHELL ("COPY A:\SYS.DAT C:\ES7\CONFIG\0.SYS")
-        PRINT "Results shown above"
-        PRINT "Restart by using ctrl + alt + del"
-        GOTO 7201
-        
-    ELSE
-        BEEP
-        GOTO 1232
-    END IF
+    GOSUB OOBE
 ELSE
     REM alright system ready, lesgo
     CLS
@@ -258,34 +172,6 @@ ELSE
     WIDTH 80, 50
     CLS
 95 CLS
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
     CLOSE #1
     CLOSE #1
     REM Getting multi user logins was PAIN
@@ -382,7 +268,7 @@ CMoveDown:
     RETURN
 126
     IF log$ = f$ THEN
-        feee$ = f$
+        initUser$ = f$
         PASSEe$ = PASSE$
     ELSEIF log$ = f1$ THEN
         IF e1 = 0 THEN
@@ -390,7 +276,7 @@ CMoveDown:
             SLEEP 3
             GOTO 95
         ELSE
-            feee$ = f1$
+            initUser$ = f1$
             PASSEe$ = PASSE1$
         END IF
     ELSEIF log$ = f2$ THEN
@@ -399,7 +285,7 @@ CMoveDown:
             SLEEP 3
             GOTO 95
         ELSE
-            feee$ = f2$
+            initUser$ = f2$
             PASSEe$ = PASSE2$
         END IF
     ELSEIF log$ = f3$ THEN
@@ -408,7 +294,7 @@ CMoveDown:
             SLEEP 3
             GOTO 95
         ELSE
-            feee$ = f3$
+            initUser$ = f3$
             PASSEe$ = PASSE3$
         END IF
     ELSEIF log$ = f4$ THEN
@@ -417,7 +303,7 @@ CMoveDown:
             SLEEP 3
             GOTO 95
         ELSE
-            feee$ = f4$
+            initUser$ = f4$
             PASSEe$ = PASSE4$
         END IF
     ELSEIF log$ = f5$ THEN
@@ -426,11 +312,11 @@ CMoveDown:
             SLEEP 3
             GOTO 95
         ELSE
-            feee$ = f5$
+            initUser$ = f5$
             PASSEe$ = PASSE5$
         END IF
     ELSE
-        GOTO 112
+        GOSUB FAIL2
     END IF
     CLS
     PRINT VAR16$
@@ -439,7 +325,7 @@ CMoveDown:
     PRINT ""
     PRINT VAR18$
     PRINT ""
-    PRINT "Username : "; feee$
+    PRINT "Username : "; initUser$
     PRINT VAR19$
     PRINT ""
 97 INPUT ">"; PASS$
@@ -447,7 +333,7 @@ CMoveDown:
         GOTO 99282
     ELSE
         REM extra long label cause why not, not like the program will crash if the user enters the wwrong password too many times.
-        GOTO 112345
+        GOSUB PassWrong
 
     END IF
 99282
@@ -535,20 +421,20 @@ IF ope$ = VAR21$ THEN
 
     ELSEIF ap4p$ = "CD" THEN
         INPUT "Choose the directory to change to"; CD$
-        ON ERROR GOTO 111
+        ON ERROR GOSUB FAIL1
         CHDIR CD$
-        ON ERROR GOTO 111
+        ON ERROR GOSUB FAIL1
     ELSEIF ap4p$ = "DRIVE" THEN
         INPUT "Choose the Drive to change to"; D$
-        ON ERROR GOTO 111
+        ON ERROR GOSUB FAIL1
         SHELL D$
-        ON ERROR GOTO 111
+        ON ERROR GOSUB FAIL1
 
     ELSEIF ap4p$ = "RUN" THEN
         INPUT "Type the file name of the program"; r$
-        ON ERROR GOTO 111
+        ON ERROR GOSUB FAIL1
         SHELL r$
-        ON ERROR GOTO 111
+        ON ERROR GOSUB FAIL1
 
     ELSEIF ap4p$ = "GUI" THEN
         REM one of the Session Manager leftovers... Quite useful tho
@@ -626,20 +512,6 @@ BMoveDown:
 124.5
     IF app$ = VAR25$ THEN
 125 CLS
-
-        CLOSE #1
-        CLOSE #1
-        CLOSE #1
-        CLOSE #1
-        CLOSE #1
-        CLOSE #1
-        CLOSE #1
-
-
-        CLOSE #1
-        CLOSE #1
-        CLOSE #1
-        CLOSE #1
         CLOSE #1
         CLOSE #1
         CLOSE #1
@@ -713,7 +585,7 @@ BMoveDown:
             GOTO 124
         ELSE
             SHELL ("C:\OPENDOS\EDIT.COM")
-            ON ERROR GOTO 113
+            ON ERROR GOSUB FAIL3
             GOTO 124
         END IF
     ELSEIF app$ = VAR29$ THEN
@@ -794,32 +666,11 @@ BMoveDown:
         GOTO 123
     ELSE
         BEEP
-        GOTO 112
+        GOSUB FAIL2
     END IF
 ELSEIF ope$ = VAR22$ THEN
+GOSUB CMD
 
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-    CLOSE #1
-
-    OPEN "C:\ES7\CONFIG\CONSOLE.SYS" FOR BINARY AS #1
-    IF LOF(1) = 0 THEN
-        CLOSE #1
-        PRINT VAR34$
-        SLEEP 2
-        GOTO 123
-    ELSE
-        CLS
-        COLOR 7, 0
-        CLS
-        PRINT ("Type Exit to return to ES/7")
-        SHELL ("C:\COMMAND.COM")
-        GOTO 123
-    END IF
 ELSEIF ope$ = VAR23$ THEN
     CLS
     DMenuItem$(1) = VAR40$
@@ -943,18 +794,9 @@ DMoveDown:
         GOTO 6465
     END IF
 ELSE
-    GOTO 112
+    GOSUB FAIL2
 END IF
-112345
-CLS
-PRINT VAR46$
-PRINT VAR17$
-PRINT ""
-PRINT VAR47$
-PLAY "A"
-SLEEP 3
-CLS
-GOTO 95
+
 
 SUB FAIL1        
     SLEEP 1.5
@@ -1049,5 +891,105 @@ PRINT "Please reinstall from the ES/7 CD-ROM"
 GOTO 10000
 END SUB
 
-DEFINT A-Z
+SUB OOBE
+REM doesn't look like that, time for OOBE
+    CLS
+    CLS
+    COLOR 15, 6
+    CLS
+    PLAY "C"
+    PLAY "F"
+    PLAY "F"
+1232 CLS
+    PRINT VAR5$
+    PRINT VAR17$
+    PRINT ""
+    PRINT VAR6$
+    PRINT VAR7$
+    PRINT VAR8$
+    PRINT VAR9$
+    INPUT fes
+    IF fes = 1 THEN
+        CLS
+        PRINT VAR5$
+        PRINT VAR17$
+        PRINT VAR10$
+        INPUT "Enter your name"; nanme$
+        INPUT "Enter your password"; non$
+        PRINT VAR11$
+        OPEN "C:\ES7\CONFIG\0.SYS" FOR OUTPUT AS #1
+        WRITE #1, 1
+        PRINT
+        DO
+        LOOP UNTIL INKEY$ <> ""
+        WRITE #1, nanme$
+        WRITE #1, non$
+        CLOSE #1
+        CLOSE #1
+        CLOSE #1
+        CLOSE #1
+        SHELL ("COPY C:\ES7\CONFIG\0.SYS C:\ES7\CONFIG\NULL.SYS")
+        CLS
+        PRINT VAR12$
+        PRINT
+7201
+        GOTO 7201
+    ELSEIF fes = 2 THEN
+        REM prolly going to remove this
+        PRINT "Post-Install Setup"
+        PRINT VAR17$
+        PRINT "This will restore the User File from C:\ESBACK"
+        PRINT "If the copying fails, the Post-Install Setup will start again on reboot"
+        PRINT ""
+        PRINT "Press any key to continue"
+        DO
+        LOOP UNTIL INKEY$ <> ""
+        SHELL ("COPY A:\SYS.DAT C:\ES7\CONFIG\NULL.SYS")
+        CLS
+        PRINT "Preparing to copy files"
+        SLEEP 1
+        SHELL ("COPY A:\SYS.DAT C:\ES7\CONFIG\0.SYS")
+        PRINT "Results shown above"
+        PRINT "Restart by using ctrl + alt + del"
+        GOTO 7201
+        
+    ELSE
+        BEEP
+        GOTO 1232
+    END IF
+END SUB
 
+SUB PassWrong
+CLS
+PRINT VAR46$
+PRINT VAR17$
+PRINT ""
+PRINT VAR47$
+PLAY "A"
+SLEEP 3
+CLS
+GOTO 95
+END SUB
+
+SUB CMD
+
+CLOSE #1
+CLOSE #1
+
+    OPEN "C:\ES7\CONFIG\CONSOLE.SYS" FOR BINARY AS #1
+    IF LOF(1) = 0 THEN
+        CLOSE #1
+        PRINT VAR34$
+        SLEEP 2
+        GOTO 123
+    ELSE
+        CLS
+        COLOR 7, 0
+        CLS
+        PRINT ("Type Exit to return to ES/7")
+        SHELL ("C:\COMMAND.COM")
+        GOTO 123
+    END IF
+END SUB
+
+DEFINT A-Z
