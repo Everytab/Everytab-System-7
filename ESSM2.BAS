@@ -1,7 +1,13 @@
+REM System/7 Source Code
+REM (c) 2022-2024, System/7 Developers
+REM
+REM TODO : Add some stuff here
+REM
+REM
+REM
+REM
+
 OPTION BASE 1
-REM Load MENU Variables
-REM The Everytab System/7 (Possible rename to DOS/7)
-REM Maintained by Everytab and greenland mainly.
 DIM MenuItem(4) AS STRING
 DIM ChooseItem AS INTEGER
 DIM XMenuPosn AS INTEGER
@@ -23,16 +29,27 @@ DIM EChooseItem AS INTEGER
 DIM EXMenuPosn AS INTEGER
 DIM EYMenuPosn AS INTEGER
 DECLARE FUNCTION Hex2Bin$ (Hcs$)
+OPEN "DRIVE.SYS" FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+CLOSE #1
+DRV$ = "C"
+PRINT "WARNING : DRIVE.SYS was not found, assuming root as C:\"
+ELSE
+OPEN "DRIVE.SYS" FOR INPUT AS #2
+INPUT #2, DRV$
+CLOSE #2
+CLOSE #2
+END IF
 90 CLS
 WIDTH 80, 35
-OPEN "C:\ES7\CONFIG\SM.SYS" FOR BINARY AS #1
+OPEN DRV$ + ":\ES7\CONFIG\SM.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
     CLOSE #1
 ELSE
-    SHELL ("C:\ES7\BIN\TLPM.EXE")
+    SHELL (DRV$ + ":\ES7\BIN\TLPM.EXE")
 END IF
 REM Loading the Language files
-OPEN "C:\ES7\CONFIG\VAR.SYS" FOR INPUT AS #1
+OPEN DRV$ + ":\ES7\CONFIG\VAR.SYS" FOR INPUT AS #1
 ON ERROR GOTO 7773
 INPUT #1, VAR1$
 INPUT #1, VAR2$
@@ -87,7 +104,7 @@ CLS
 REM Setting colour
 COLOR 7, 0
 CLS
-SHELL "C:"
+SHELL DRV$ + ":"
 SHELL "CD \"
 PRINT VAR1$
 SLEEP 3
@@ -95,9 +112,9 @@ PRINT ""
 PRINT VAR2$
 SLEEP 1
 REM the anti admin abuse checker
-SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
+SHELL ("DEL " + DRV$ + ":\ES7\CONFIG\SUPER.SYS")
 REM checking if system has been initialized.
-OPEN "C:\ES7\CONFIG\0.SYS" FOR BINARY AS #1
+OPEN DRV$ + ":\ES7\CONFIG\0.SYS" FOR BINARY AS #1
 IF LOF(1) = 0 THEN
     ased = 1
     CLOSE #1
@@ -105,7 +122,7 @@ END IF
 IF ased = 1 THEN
     CLOSE #1
     CLOSE #1
-    OPEN "C:\ES7\CONFIG\0.SYS" FOR OUTPUT AS #1
+    OPEN DRV$ + ":\ES7\CONFIG\0.SYS" FOR OUTPUT AS #1
     WRITE #1, 0
     WRITE #1, 0
     WRITE #1, 0
@@ -119,7 +136,7 @@ END IF
 CLOSE #1
 CLOSE #1
 CLOSE #1
-OPEN "C:\ES7\CONFIG\0.SYS" FOR INPUT AS #1
+OPEN DRV$ + ":\ES7\CONFIG\0.SYS" FOR INPUT AS #1
 
 INPUT #1, e
 INPUT #1, f$
@@ -206,7 +223,7 @@ IF e = 0 THEN
         INPUT "Enter your name"; nanme$
         INPUT "Enter your password"; non$
         PRINT VAR11$
-        OPEN "C:\ES7\CONFIG\0.SYS" FOR OUTPUT AS #1
+        OPEN DRV$ + ":\ES7\CONFIG\0.SYS" FOR OUTPUT AS #1
         WRITE #1, 1
         PRINT
         DO
@@ -217,7 +234,7 @@ IF e = 0 THEN
         CLOSE #1
         CLOSE #1
         CLOSE #1
-        SHELL ("COPY C:\ES7\CONFIG\0.SYS C:\ES7\CONFIG\NULL.SYS")
+        SHELL ("COPY " + DRV$ + ":\ES7\CONFIG\0.SYS " + DRV$ + ":\ES7\CONFIG\NULL.SYS")
         CLS
         PRINT VAR12$
         PRINT
@@ -227,17 +244,17 @@ IF e = 0 THEN
         REM prolly going to remove this
         PRINT "Post-Install Setup"
         PRINT VAR17$
-        PRINT "This will restore the User File from C:\ESBACK"
+        PRINT "This will restore the User File from " + DRV$ + ":\ESBACK"
         PRINT "If the copying fails, the Post-Install Setup will start again on reboot"
         PRINT ""
         PRINT "Press any key to continue"
         DO
         LOOP UNTIL INKEY$ <> ""
-        SHELL ("COPY A:\SYS.DAT C:\ES7\CONFIG\NULL.SYS")
+        SHELL ("COPY A:\SYS.DAT " + DRV$ + ":\ES7\CONFIG\NULL.SYS")
         CLS
         PRINT "Preparing to copy files"
         SLEEP 1
-        SHELL ("COPY A:\SYS.DAT C:\ES7\CONFIG\0.SYS")
+        SHELL ("COPY A:\SYS.DAT " + DRV$ + ":\ES7\CONFIG\0.SYS")
         PRINT "Results shown above"
         PRINT "Restart by using ctrl + alt + del"
         GOTO 7201
@@ -293,31 +310,31 @@ ELSE
     PRINT VAR17$
     PRINT VAR14$
     
-    OPEN "C:\ES7\CONFIG\1.SYS" FOR INPUT AS #1
+    OPEN DRV$ + ":\ES7\CONFIG\1.SYS" FOR INPUT AS #1
     INPUT #1, e1
     INPUT #1, f1$
     INPUT #1, PASSE1$
     INPUT #1, a1
     CLOSE #1
-    OPEN "C:\ES7\CONFIG\2.SYS" FOR INPUT AS #1
+    OPEN DRV$ + ":\ES7\CONFIG\2.SYS" FOR INPUT AS #1
     INPUT #1, e2
     INPUT #1, f2$
     INPUT #1, PASSE2$
     INPUT #1, a2
     CLOSE #1
-    OPEN "C:\ES7\CONFIG\3.SYS" FOR INPUT AS #1
+    OPEN DRV$ + ":\ES7\CONFIG\3.SYS" FOR INPUT AS #1
     INPUT #1, e3
     INPUT #1, f3$
     INPUT #1, PASSE3$
     INPUT #1, a3
     CLOSE #1
-    OPEN "C:\ES7\CONFIG\4.SYS" FOR INPUT AS #1
+    OPEN DRV$ + ":\ES7\CONFIG\4.SYS" FOR INPUT AS #1
     INPUT #1, e4
     INPUT #1, f4$
     INPUT #1, PASSE4$
     INPUT #1, a4
     CLOSE #1
-    OPEN "C:\ES7\CONFIG\5.SYS" FOR INPUT AS #1
+    OPEN DRV$ + ":\ES7\CONFIG\5.SYS" FOR INPUT AS #1
     INPUT #1, e5
     INPUT #1, f5$
     INPUT #1, PASSE5$
@@ -452,7 +469,7 @@ CMoveDown:
     END IF
 99282
     SLEEP 1
-    SHELL "C:"
+    SHELL DRV$ + ":"
     SHELL "CD \"
         
     GOTO 123
@@ -461,7 +478,6 @@ CLS
 CLS
 123 CLS
 CLS
-REM OS/2 menu clone lego
 MenuItem$(1) = VAR20$
 MenuItem$(2) = VAR21$
 MenuItem$(3) = VAR22$
@@ -552,7 +568,7 @@ IF ope$ = VAR21$ THEN
 
     ELSEIF ap4p$ = "GUI" THEN
         REM one of the Session Manager leftovers... Quite useful tho
-        SHELL ("C:\ES7\BIN\OP.EXE")
+        SHELL (DRV$ + ":\ES7\BIN\OP.EXE")
         GOTO 123
     ELSE
         PLAY "A"
@@ -645,56 +661,56 @@ BMoveDown:
         CLOSE #1
         REM admin check worked flawlessly for some reason, idk why.
         IF log$ = f$ THEN
-            OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+            OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
             WRITE #1, 0
             CLOSE #1
         ELSEIF log$ = f$ THEN
 
             IF a1 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f1$ THEN
             IF a1 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f2$ THEN
             IF a2 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f3$ THEN
             IF a3 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f4$ THEN
             IF a4 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f5$ THEN
             IF a5 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         END IF
         REM also don't worry, settings checks for SUPER.sys
-        SHELL ("C:\ES7\BIN\SET.EXE")
-        SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
+        SHELL (DRV$ + ":\ES7\BIN\SET.EXE")
+        SHELL ("DEL " + DRV$ + ":\ES7\CONFIG\SUPER.SYS")
         GOTO 124
     ELSEIF app$ = VAR28$ THEN
 
@@ -705,21 +721,21 @@ BMoveDown:
         CLOSE #1
         CLOSE #1
         CLOSE #1
-        OPEN "C:\ES7\CONFIG\WORD.SYS" FOR BINARY AS #1
+        OPEN DRV$ + ":\ES7\CONFIG\WORD.SYS" FOR BINARY AS #1
         IF LOF(1) = 0 THEN
             CLOSE #1
             PRINT VAR33$
             SLEEP 2
             GOTO 124
         ELSE
-            SHELL ("C:\OPENDOS\EDIT.COM")
+            SHELL (DRV$ + ":\OPENDOS\EDIT.COM")
             ON ERROR GOTO 113
             GOTO 124
         END IF
     ELSEIF app$ = VAR29$ THEN
         CLS
         REM another relic from Session manager, the calculator is far better now.
-        SHELL ("C:\ES7\BIN\CALC.EXE")
+        SHELL (DRV$ + ":\ES7\BIN\CALC.EXE")
         GOTO 124
     ELSEIF app$ = VAR30$ THEN
 
@@ -739,56 +755,56 @@ BMoveDown:
         CLOSE #1
 
         IF log$ = f$ THEN
-            OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+            OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
             WRITE #1, 0
             CLOSE #1
         ELSEIF log$ = f$ THEN
 
             IF a1 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f1$ THEN
             IF a1 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f2$ THEN
             IF a2 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f3$ THEN
             IF a3 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f4$ THEN
             IF a4 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         ELSEIF log$ = f5$ THEN
             IF a5 = 1 THEN
-                OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
+                OPEN DRV$ + ":\ES7\CONFIG\SUPER.SYS" FOR OUTPUT AS #1
                 WRITE #1, 0
                 CLOSE #1
             END IF
 
         END IF
-        SHELL ("C:\ES7\BIN\PLUS.EXE")
+        SHELL (DRV$ + ":\ES7\BIN\PLUS.EXE")
         
-        SHELL ("DEL C:\ES7\CONFIG\SUPER.SYS")
+        SHELL ("DEL " + DRV$ + ":\ES7\CONFIG\SUPER.SYS")
         GOTO 7773
     ELSEIF app$ = VAR31$ THEN
         GOTO 123
@@ -806,7 +822,7 @@ ELSEIF ope$ = VAR22$ THEN
     CLOSE #1
     CLOSE #1
 
-    OPEN "C:\ES7\CONFIG\CONSOLE.SYS" FOR BINARY AS #1
+    OPEN DRV$ + ":\ES7\CONFIG\CONSOLE.SYS" FOR BINARY AS #1
     IF LOF(1) = 0 THEN
         CLOSE #1
         PRINT VAR34$
@@ -817,7 +833,7 @@ ELSEIF ope$ = VAR22$ THEN
         COLOR 7, 0
         CLS
         PRINT ("Type Exit to return to ES/7")
-        SHELL ("C:\COMMAND.COM")
+        SHELL (DRV$ + ":\COMMAND.COM")
         GOTO 123
     END IF
 111 CLS
@@ -1035,7 +1051,7 @@ PRINT ""
 PRINT ""
 PRINT "The System cannot continue"
 PRINT "Starting Recovery"
-CHAIN "C:\ES7REC\HDST.EXE"
+CHAIN DRV$ + ":\ES7REC\HDST.EXE"
 ON ERROR GOTO 1010
 1010
 PRINT "FATAL : Recovery not found"
