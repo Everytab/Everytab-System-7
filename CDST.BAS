@@ -1,150 +1,153 @@
 OPTION BASE 1
-DIM MenuItem(3) AS STRING
-DIM ChooseItem AS INTEGER
-DIM XMenuPosn AS INTEGER
-DIM YMenuPosn AS INTEGER
-DIM tzar AS INTEGER
-DIM FreeItem(2) AS STRING
-DIM ChooseFree AS INTEGER
-DIM XFreePosn AS INTEGER
-DIM YFreePosn AS INTEGER
 CLS
 COLOR 15, 1
 CLS
-PRINT "Everytab System/7 Setup"
-PRINT "_______________________"
-PRINT ""
-PRINT ""
-PRINT "Welcome to Everytab System/7 Setup"
-PRINT "The Version on this disk is - Apollo (NewSetup)"
-PRINT "This program shall go through the following"
-PRINT ""
-PRINT "1) Preparing your Hard Disk through the FDISK Utility (Standard Setup)"
-PRINT "2) Formatting the Hard Disk and copying the base files (Standard Setup)"
-PRINT "3) Copying Everytab System/7 Files"
-PRINT ""
-PRINT ""
+COLOR 15, 7
+REM 20 - Introduction
+REM 50 - Exit
+REM 75 - Invalid Drive/Partition not found
+REM 80 - Set DRV$
+REM 85 - Format New Partition
+REM 100 - Hard disk options
+REM 102 - Start FDISK
+REM 107 - Enter command prompt
+REM 110 - Drive Selection
+REM 120 - Format
+REM 130 - Confirm Format
+REM 140 - Begin copy
+REM 150 - Copy done
 
+
+
+20
+PRINT "System/7 Setup"
+COLOR 15, 1
+PRINT "______________"
+PRINT ""
+PRINT ""
+PRINT "  Welcome to System/7 Setup"
+PRINT "  This version of setup is for - Build 340 (0.1)"
+PRINT "  This program shall go through the following"
+PRINT ""
+PRINT "  1) Preparing your hard drive"
+PRINT "  2) Copying System/7 Files"
+PRINT ""
+PRINT ""
+COLOR 0, 7
+PRINT "Continue - Space, F3 - Exit"
+DO
+LET E$ = INKEY$
+LOOP UNTIL E$ <> ""
+IF E$ = CHR$(32) THEN
+GOTO 100
+ELSEIF E$ = CHR$(0) + CHR$(61) THEN
+GOTO 50
+ELSE
+BEEP
+CLS
+GOTO 20
+END IF
+
+
+100
+CLS
+COLOR 15, 7
+PRINT "System/7 Setup"
+COLOR 15, 1
+PRINT "______________"
+PRINT ""
+PRINT ""
+PRINT "  Hard Drive Options"
+PRINT "  Please perform one of the following actions :-"
+PRINT "  "
+PRINT "  - To select a drive letter, press Space"
+PRINT "  - To partition a hard drive, press F1"
+PRINT "  - To enter a command prompt, press F2"
+PRINT "  - To exit System/7 setup, press F3
+PRINT ""
+DO
+LET F$ = INKEY$
+LOOP UNTIL F$ <> ""
+IF F$ = CHR$(32) THEN
+GOTO 110
+ELSEIF F$ = CHR$(0) + CHR$(61) THEN
+GOTO 50
+ELSEIF F$ = CHR$(0) + CHR$(60) THEN
+CLS
+SHELL ("A:\COMMAND.COM")
+GOTO 100
+ELSEIF F$ = CHR$(0) + CHR$(59) THEN
+CLS
+SHELL ("A:\FDISK.COM")
+CLS
+PRINT "If you have just made a partition, Press CTRL, ALT and DEL to restart the system"
 PRINT "Press any key to continue"
 DO
 LOOP UNTIL INKEY$ <> ""
-145 CLS
-MenuItem$(1) = "Fresh Install - FDISK and format"
-MenuItem$(2) = "Upgrade from MS-DOS or ES/7 September Release"
-MenuItem$(3) = "Upgrade from FreeDOS based build"
-PRINT "Everytab System/7 Setup"
-PRINT "_______________________"
-PRINT ""
-PRINT ""
-PRINT "Choose Fresh Setup if you have just partitioned the disk and restarted"
-PRINT "DO NOT TRY UPGRADE SETUP IF YOU HAVE JUST MADE THE PARTITION"
-PRINT "Use MS-DOS upgrades to upgrade older ES/7 (September Alpha and before)"
-PRINT "For reinstalling after corruptions or for upgrading from the October Build, Use OpenDOS/FreeDOS Upgrade"
-
-	ChooseItem = 1
-XMenuPosn = 1
-YMenuPosn = 11
-
-GOSUB DrawMenu
-
-'get cursor key movements and redraw menu
-DO
-	Cmmnd$ = INKEY$
-
-	IF LEN(Cmmnd$) = 2 THEN Cmmnd$ = RIGHT$(Cmmnd$, 1)
-	  
-	IF Cmmnd$ = "8" OR Cmmnd$ = CHR$(72) THEN GOSUB MoveUp
-	IF Cmmnd$ = "2" OR Cmmnd$ = CHR$(80) THEN GOSUB MoveDown
-	IF Cmmnd$ = "7" OR Cmmnd$ = CHR$(71) THEN ChooseItem = 1
-	IF Cmmnd$ = "1" OR Cmmnd$ = CHR$(79) THEN ChooseItem = UBOUND(MenuItem)
-
-	GOSUB DrawMenu
-LOOP UNTIL Cmmnd$ = CHR$(13)
-
-PRINT
-COLOR 15, 1
-PRINT "Item chosen ="; MenuItem(ChooseItem)
-eeee$ = MenuItem(ChooseItem)
-SLEEP 1
-GOTO 1123
-
-DrawMenu:
-'Draw the menu
-LOCATE YMenuPosn, XMenuPosn
-FOR Count = 1 TO UBOUND(MenuItem$)
-	IF Count = ChooseItem THEN COLOR 1, 7 ELSE COLOR 15, 1
-	PRINT MenuItem$(Count)
-	LOCATE CSRLIN, XMenuPosn
-NEXT Count
-RETURN
-
-MoveUp:
-IF ChooseItem = 1 THEN
-	ChooseItem = UBOUND(MenuItem$)
-ELSE
-	ChooseItem = ChooseItem - 1
-END IF
-RETURN
-
-MoveDown:
-IF ChooseItem = UBOUND(MenuItem$) THEN
-	ChooseItem = 1
-ELSE
-	ChooseItem = ChooseItem + 1
-END IF
-RETURN
-1123
-IF eeee$ = "Fresh Install - FDISK and format" THEN
-GOTO 144
-ELSEIF eeee$ = "Upgrade from MS-DOS or ES/7 September Release" THEN
-GOTO 146
-ELSEIF eeee$ = "Upgrade from FreeDOS based build" THEN
-GOTO 146
+GOTO 100
 ELSE
 BEEP
-GOTO 112
+CLS
+GOTO 100
 END IF
 
-144 CLS
+
+
+110 CLS
+PRINT "System/7 Setup"
+PRINT "_______________________"
+PRINT ""
+PRINT ""
+PRINT "  Please enter the letter of the drive you wish to install to"
+PRINT "  Do not add a semi-colon or slash"
+PRINT ""
+INPUT D$
+LET D1$ = MID$(D$, 1, 1)
+ON ERROR GOTO 75
+OPEN D1$ + ":\TEST.DAT" FOR OUTPUT AS #1
+    WRITE #1, 1
+CLOSE #1
+OPEN D1$ + ":\TEST.DAT" FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+    GOTO 75
+ELSE
+    GOTO 80
+END IF
+CLOSE #1
+
+80 LET DRV$ = D1$
+   GOTO 120
+
+120 CLS
 PRINT "Everytab System/7 Setup"
 PRINT "_______________________"
 PRINT ""
 PRINT ""
-PRINT "Step 1 of Step 3"
-PRINT "Preparing your Hard Disk"
+PRINT "Format Options"
 PRINT ""
-PRINT "FDISK shall be loaded to make a partition"
+PRINT "  Please perform one of the following actions :-"
+PRINT "  "
+PRINT "  - To format the target drive, press f"
+PRINT "  - To not format the target drive, press F1"
+PRINT "  - To exit System/7 setup, press F3
 
-PRINT "RESTART AFTER COMPLETING FDISK!!!"
 
-PRINT "If a partition exists, exit FDISK while doing no changes"
-PRINT ""
-PRINT "Press any key to start FDISK"
-DO
-LOOP UNTIL INKEY$ <> ""
-SHELL "FDISK"
-CLS
-PRINT "If you have just made a partition, Press Ctrl+Alt+Delete to restart the system"
-PRINT "Then, select the fresh install option and skip FDISK"
-PRINT "If you have already completed this, Press any key to continue"
-DO
-LOOP UNTIL INKEY$ <> ""
-CLS
+
+
+
 PRINT "Everytab System/7 Setup"
 PRINT "_______________________"
 PRINT ""
 PRINT ""
-PRINT "Step 2 of Step 3"
-PRINT "Formatting and copying base files"
+PRINT "Format Options"
 PRINT ""
-PRINT "Please restart the computer after partitioning if not already done"
-PRINT "WARNING : ALL DATA ON C: SHALL BE DESTROYED"
-PRINT "Restart the computer to choose the upgrade option"
-PRINT ""
-PRINT "Press any key to FORMAT ALL DATA ON C:"
-DO
-LOOP UNTIL INKEY$ <> ""
-SHELL "A:\FORMAT C: /U /S"
+PRINT "  WARNING : DRIVE " + DRV$ + ": WILL BE FORMATTED"
+PRINT "  "
+PRINT "  - To continue with the format, press c"
+PRINT "  - To cancel, press esc"
+PRINT "  - To exit System/7 setup, press F3
+
+SHELL ("A:\FORMAT " + DRV$ + ": /U /S")
 
 146 CLS
 
@@ -161,50 +164,11 @@ PRINT ""
 PRINT "Press any key to start copying files"
 DO
 LOOP UNTIL INKEY$ <> ""
-IF eeee = 1 THEN
-PRINT "[MS-DOS] Deleting previous System files and saving old AUTOEXEC.BAT"
-SHELL ("C:")
-SHELL ("DEL C:\ESBACK\SYS.DAT")
-SHELL ("RMDIR ESBACK")
-SHELL ("MKDIR ESBACK")
-SHELL ("COPY C:\SYS.DAT C:\ESBACK\SYS.DAT")
-SHELL ("REN AUTOEXEC.BAT AUTOEXEC.OL")
-SHELL ("DEL COMMAND.COM")
-SHELL ("DEL CONTROLP.INI")
-SHELL ("DEL CONFIG.SYS")
-SHELL ("DEL MOUSE.COM")
-SHELL ("DEL ESSM.EXE")
-SHELL ("ATTRIB IO.SYS -H -S -R")
-SHELL ("ATTRIB MSDOS.SYS -H -S -R")
-SHELL ("DEL IO.SYS")
-SHELL ("DEL MSDOS.SYS")
-SHELL ("DEL SM.EXE")
-SHELL ("DEL *.*")
-SHELL ("A:")
-SHELL ("CD FREEDOS")
-SHELL ("CD BIN")
-SHELL ("SYS C /BOOTONLY")
-ON ERROR GOTO 11112
-SLEEP 2
-GOTO 1112
-ELSEIF eeee = 2 THEN
-PRINT "[FreeDOS] Saving old AUTOEXEC.BAT and FDAUTO.BAT"
-SHELL ("C:")
-SHELL ("DEL C:\ESBACK\SYS.DAT")
-SHELL ("RMDIR ESBACK")
-SHELL ("MKDIR ESBACK")
-SHELL ("COPY C:\SYS.DAT C:\ESBACK\SYS.DAT")
-SHELL ("REN AUTOEXEC.BAT AUTOEXEC.OL1")
-SHELL ("REN FDAUTO.BAT FDAUTO.OL1")
-SHELL ("DEL ESSM.EXE")
-
 SLEEP 2
 ELSE
 GOTO 1112
 END IF
 1112
-FreeItem$(1) = "Normal FreeDOS Install"
-FreeItem$(2) = "Lite OpenDOS Install"
 SHELL ("D:")
 CLS
 PRINT "Everytab System/7 Setup"
@@ -217,72 +181,8 @@ PRINT ""
 PRINT ""
 PRINT ""
 PRINT ""
-
-	ChooseFree = 1
-XFreePosn = 1
-YFreePosn = 11
-
-GOSUB ZDrawMenu
-
-'get cursor key movements and redraw menu
-DO
-	Cmmnd$ = INKEY$
-
-	IF LEN(Cmmnd$) = 2 THEN Cmmnd$ = RIGHT$(Cmmnd$, 1)
-	  
-	IF Cmmnd$ = "8" OR Cmmnd$ = CHR$(72) THEN GOSUB ZMoveUp
-	IF Cmmnd$ = "2" OR Cmmnd$ = CHR$(80) THEN GOSUB ZMoveDown
-	IF Cmmnd$ = "7" OR Cmmnd$ = CHR$(71) THEN ChooseFree = 1
-	IF Cmmnd$ = "1" OR Cmmnd$ = CHR$(79) THEN ChooseFree = UBOUND(FreeItem)
-
-	GOSUB ZDrawMenu
-LOOP UNTIL Cmmnd$ = CHR$(13)
-
-PRINT
-COLOR 15, 1
-PRINT "Item chosen ="; FreeItem(ChooseFree)
-free$ = FreeItem(ChooseFree)
-SLEEP 1
-GOTO 797
-
-ZDrawMenu:
-'Draw the menu
-LOCATE YFreePosn, XFreePosn
-FOR Count = 1 TO UBOUND(FreeItem$)
-	IF Count = ChooseFree THEN COLOR 1, 7 ELSE COLOR 15, 1
-	PRINT FreeItem$(Count)
-	LOCATE CSRLIN, XFreePosn
-NEXT Count
-RETURN
-
-ZMoveUp:
-IF ChooseFree = 1 THEN
-	ChooseFree = UBOUND(FreeItem$)
-ELSE
-	ChooseFree = ChooseFree - 1
-END IF
-RETURN
-
-ZMoveDown:
-IF ChooseFree = UBOUND(FreeItem$) THEN
-	ChooseFree = 1
-ELSE
-	ChooseFree = ChooseFree + 1
-END IF
-RETURN
-
-
-
-
-
-
-797
-IF free$ = "Normal FreeDOS Install" THEN
-SHELL ("PKUNZIP -e -o -d FREE.ZIP C:\")
-ELSEIF free$ = "Lite OpenDOS Install" THEN
-SHELL ("PKUNZIP -e -o -d FREEL.ZIP C:\")
-END IF
-SHELL ("PKUNZIP -e -o -d ES7.ZIP C:\")
+SHELL ("PKUNZIP -e -o -d DOS.ZIP" + DRV$ + ":\")
+SHELL ("PKUNZIP -e -o -d ES7.ZIP" + DRV$ + ":\")
 ON ERROR GOTO 11111
 SLEEP 5
 CLS
@@ -296,129 +196,41 @@ PRINT ""
 PRINT "During the OOBE, you can restore backed up user data"
 PRINT "Please eject all removable disks and restart the computer"
 PRINT ""
+
+
 50
+PRINT "System/7 Setup"
+PRINT "______________"
+PRINT ""
+PRINT "  System/7 installation has been cancelled"
+PRINT "  The system has been stopped, it is now safe to power off"
+PRINT " "
+PRINT "  - To reboot, press CTRL, ALT and DEL"
+PRINT "
+795
+GOTO 795
+
+75 
+CLS
+BEEP
+PRINT "System/7 Setup"
+PRINT "______________"
+PRINT ""
+PRINT "  The drive entered was invalid"
+PRINT ""
+PRINT "  - To go back and partition the drive, press space"
+PRINT "  - To format the newly made partition, press f"
+PRINT "  - To exit, press F3"
+PRINT ""
+DO
+LET G$ = INKEY$
+LOOP UNTIL G$ <> ""
+IF G$ = CHR$(32) THEN
+GOTO 100
+ELSEIF F$ = CHR$(0) + CHR$(61) THEN
 GOTO 50
-ON ERROR GOTO 11114
-11111
-SLEEP 1.5
-		COLOR 15, 4
-		PLAY "A"
-		CLS
-		CLS
-		PRINT ""
-		PRINT ""
-		PRINT "The system detected an processing"
-		PRINT "error at process 'PKUNZIP'"
-		PRINT ""
-		PRINT "FAIL : 00000005"
-		PRINT "OS Revision - Setup"
-		PRINT ""
-		PRINT ""
-		PRINT "The system has halted. Record the FAIL code"
-		PRINT "of the error and contact an Everytab System/7 Developer"
-	  PRINT "Please check the media's checksum to see if corruption present on disc"
-PRINT "The files couldn't be copied"
-		SLEEP 5
-		CLS
-		SLEEP 1
-SHELL "A:\freedos\bin\fdapm warmboot"
-ON ERROR GOTO 11114
-11112
-SLEEP 1.5
-		COLOR 15, 4
-		PLAY "A"
-		CLS
-		CLS
-		PRINT ""
-		PRINT ""
-		PRINT "The system detected an processing"
-		PRINT "error at process 'SYS'"
-		PRINT ""
-		PRINT "FAIL : 00000006"
-		PRINT "OS Revision - Setup"
-		PRINT ""
-		PRINT ""
-		PRINT "The system has halted. Record the FAIL code"
-		PRINT "of the error and contact an Everytab System/7 Developer"
-	  PRINT "Please check the media's checksum to see if corruption present on disc"
-	  PRINT "The Bootloader couldn't be installed"
-		SLEEP 5
-		CLS
-		SLEEP 1
-	  SHELL "A:\freedos\bin\fdapm warmboot"
-ON ERROR GOTO 11114
-11113
-SLEEP 1.5
-		COLOR 15, 4
-		PLAY "A"
-		CLS
-		CLS
-		PRINT ""
-		PRINT ""
-		PRINT "The system detected an processing"
-		PRINT "error at process 'FDISK/FORMAT'"
-		PRINT ""
-		PRINT "FAIL : 00000007"
-		PRINT "OS Revision - Setup"
-		PRINT ""
-		PRINT ""
-		PRINT "The system has halted. Record the FAIL code"
-		PRINT "of the error and contact an Everytab System/7 Developer"
-	  PRINT "Please check the media's checksum to see if corruption present on disc"
-	  PRINT "The disk couldn't be partitioned/formatted"
-		SLEEP 5
-		CLS
-		SLEEP 1
-	 PRINT "Press CTRL + ALT + DELETE to restart"
-		SLEEP 5
-GOTO 50
-	ON ERROR GOTO 11114
-11114
-SLEEP 1.5
-		COLOR 15, 4
-		PLAY "A"
-		CLS
-		CLS
-		PRINT ""
-		PRINT ""
-		PRINT "The system detected an processing"
-		PRINT "error at process 'FDAPM'"
-		PRINT ""
-		PRINT "FAIL : 00000008"
-		PRINT "OS Revision - Setup"
-		PRINT ""
-		PRINT ""
-		PRINT "The system has halted. Record the FAIL code"
-		PRINT "of the error and contact an Everytab System/7 Developer"
-	  PRINT "Please check the media's checksum to see if corruption present on disc"
-	  PRINT "Press CTRL + ALT + DELETE to restart"
-		SLEEP 5
-		CLS
-		SLEEP 1
-111115
-GOTO 111115
-112 CLS
-		
-		SLEEP 1.5
-		COLOR 15, 4
-		PLAY "A"
-		CLS
-		CLS
-		PRINT ""
-		PRINT ""
-		PRINT "The system detected an processing"
-		PRINT "error at process 'MENU'"
-		PRINT ""
-		PRINT "FAIL : 00000002"
-		PRINT "OS Revision - SETUP"
-		PRINT ""
-		PRINT ""
-		PRINT "The system has halted. Record the FAIL code"
-		PRINT "of the error and contact an Everytab System/7 Developer"
-	  PRINT "Please check the media's checksum to see if corruption present on disc"
-		SLEEP 5
-		CLS
-		SLEEP 1
-	  SHELL "A:\freedos\bin\fdapm warmboot"
-	ON ERROR GOTO 11114
+ELSE
+BEEP
+GOTO 75
+END IF
 
