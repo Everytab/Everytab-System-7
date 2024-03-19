@@ -7,7 +7,7 @@ System/7 is a small DOS-Based program meant to make interacting with your comput
 
 - Visual Basic for MS-DOS 1.0 (Or QuickBASIC 4.5/7)
 - Appropriate source files which are as follows
-  * `ESSM2.BAS`
+  * `ESSM_L.BAS`
   * `SET.BAS`
   * `X.BAS`
   * `CDST.BAS`
@@ -40,7 +40,7 @@ System/7 is a small DOS-Based program meant to make interacting with your comput
 
 - ST1 to 4 (Use CDST)
 - UP1 and 2 (Use CDST)
-- ES and ESSM (Use ESSM2)
+- ES, ESSM and ESSM2 (Use ESSM_L)
 - PLUSNON
 - the base images
 
