@@ -228,7 +228,7 @@ PRINT ""
 PRINT "  System/7 Setup has copied the files"
 PRINT ""
 PRINT "  If you are installing over an older build, the user accounts will not be present"
-PRINT "  Do you want to migrate the user files?"
+PRINT "  Do you want to migrate the admin user file?"
 PRINT ""
 PRINT "  - To migrate the user files, press F1"
 PRINT "  - To skip migrating the user files, press F2"
@@ -245,9 +245,12 @@ IF LOF(1) = 0 THEN
 END IF
 CLOSE #1
 PRINT "Starting Migration"
-SHELL ("COPY " + DRV$ + :\ES7\CONFIG\0.SYS
+SHELL ("COPY " + DRV$ + ":\ES7\CONFIG\0.SYS " + DRV$ + ":\ES7\USER\ADMIN.USR")
+PRINT "Done"
+Sleep 3
+GOTO 160
 ELSEIF L$ = CHR$(0) + CHR$(60) THEN
-
+GOTO 160
 ELSE
 BEEP
 CLS
