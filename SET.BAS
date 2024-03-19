@@ -10,8 +10,19 @@ DIM BMenuItem(3) AS STRING
 DIM BChooseItem AS INTEGER
 DIM BXMenuPosn AS INTEGER
 DIM BYMenuPosn AS INTEGER
-Build$ = "16.01.338"
-Ver$ = "Project Alpha"
+OPEN "DRIVE.SYS" FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+CLOSE #1
+DRV$ = "C"
+PRINT "WARNING : DRIVE.SYS was not found, assuming root as C:\"
+ELSE
+OPEN "DRIVE.SYS" FOR INPUT AS #2
+INPUT #2, DRV$
+CLOSE #2
+CLOSE #2
+END IF
+Build$ = "0.1.340"
+Ver$ = "N/A"
 OPEN "C:\ES7\CONFIG\SETVAR.SYS" FOR INPUT AS #1
 INPUT #1, SVAR1$
 INPUT #1, SVAR2$
@@ -44,9 +55,10 @@ CLOSE #1
 CLOSE #1
 CLOSE #1
 CLOSE #1
-		OPEN "C:\ES7\CONFIG\SUPER.SYS" FOR BINARY AS #1
-IF LOF(1) = 0 THEN
+OPEN "C:\ES7\CONFIG\UBAR.SYS" FOR INPUT AS #1
+INPUT #1, UBAR
 CLOSE #1
+IF UBAR = 0 THEN
 PRINT SVAR1$
 SLEEP 2
 GOTO 124
@@ -127,18 +139,16 @@ RETURN
 		PLAY "D"
 		PLAY "A"
 		PLAY "D"
-INPUT "***WARNING!!!*** THIS WILL RESET THE ENTIRE SYSTEM, ARE YOU SURE?(Y/N)"; e$
+INPUT "This will DELETE ALL USERS on the system, Proceed? (Y/N)"; e$
 		IF e$ = "Y" THEN
-OPEN "sys.dat" FOR OUTPUT AS #1
-WRITE #1, 0
-WRITE #1, 0
-WRITE #1, 0
-CLOSE #1
-		PRINT "Press any key to restart ..."
-		PRINT
-		DO
-		LOOP UNTIL INKEY$ <> ""
-		SHELL ("fdapm reboot")
+OPEN DRV$ + ":\ES7\CONFIG\STATE.SYS" FOR OUTPUT AS #1
+		WRITE #1, 0
+		CLOSE #1
+SHELL ("DEL " + DRV$ + ":\ES7\USER\*.*")
+		PRINT "The system has halted"
+		PRINT "Press CTRL, ALT and DEL to restart"
+		10
+                GOTO 10
 		ELSEIF e$ = "N" THEN
 		CLS
 		COLOR 15, 1
@@ -153,14 +163,14 @@ CLOSE #1
 		PRINT "Settings > About"
 		PRINT SVAR9$
 		PRINT ""
-		PRINT "About Everytab System/7:-"
+		PRINT "About System/7:-"
 		PRINT ""
-		PRINT "The Everytab System/7 Version "; Ver$
+		PRINT "The System/7 Version "; Ver$
 		PRINT "OS Build "; Build$
 		PRINT ""
 		PRINT "Credits :"
 		PRINT "Developers - Everytab, greenland"
-		PRINT "Everytab System/7 runs on a modified FreeDOS Install"
+		PRINT "System/7 runs on a modified OpenDOS Install"
 		PRINT ""
 		PRINT "Press any key to continue ..."
 		PRINT
@@ -171,250 +181,154 @@ CLOSE #1
 		GOTO 124
 			ELSEIF set$ = "User Settings" THEN
 		CLS
+50
 		PRINT "User Settings"
 PRINT SVAR9$
-PRINT "Choose a User to modify"
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-OPEN "C:\ES7\CONFIG\1.SYS" FOR INPUT AS #1
-INPUT #1, e1
-INPUT #1, f1$
-INPUT #1, PASSE1$
-INPUT #1, a1
-CLOSE #1
-OPEN "C:\ES7\CONFIG\2.SYS" FOR INPUT AS #1
-INPUT #1, e2
-INPUT #1, f2$
-INPUT #1, PASSE2$
-INPUT #1, a2
-CLOSE #1
-OPEN "C:\ES7\CONFIG\3.SYS" FOR INPUT AS #1
-INPUT #1, e3
-INPUT #1, f3$
-INPUT #1, PASSE3$
-INPUT #1, a3
-CLOSE #1
-OPEN "C:\ES7\CONFIG\4.SYS" FOR INPUT AS #1
-INPUT #1, e4
-INPUT #1, f4$
-INPUT #1, PASSE4$
-INPUT #1, a4
-CLOSE #1
-OPEN "C:\ES7\CONFIG\5.SYS" FOR INPUT AS #1
-INPUT #1, e5
-INPUT #1, f5$
-INPUT #1, PASSE5$
-INPUT #1, a5
-CLOSE #1
-MenuItem$(1) = f1$
-MenuItem$(2) = f2$
-MenuItem$(3) = f3$
-MenuItem$(4) = f4$
-MenuItem$(5) = f5$
-   ChooseItem = 1
-XMenuPosn = 1
-YMenuPosn = 7
+PRINT "  Options are"
+PRINT "  1) Add a user"
+PRINT "  2) Delete a user"
+PRINT "  3) Grant/Revoke Admin"
+PRINT "  4) Cancel"
+PRINT ""
+PRINT ""
+INPUT "Choose an option"; userop
+IF userop = 1 THEN
 
-GOSUB DrawMenu
-
-'get cursor key movements and redraw menu
-DO
-	Cmmnd$ = INKEY$
-
-	IF LEN(Cmmnd$) = 2 THEN Cmmnd$ = RIGHT$(Cmmnd$, 1)
-	  
-	IF Cmmnd$ = "8" OR Cmmnd$ = CHR$(72) THEN GOSUB MoveUp
-	IF Cmmnd$ = "2" OR Cmmnd$ = CHR$(80) THEN GOSUB MoveDown
-	IF Cmmnd$ = "7" OR Cmmnd$ = CHR$(71) THEN ChooseItem = 1
-	IF Cmmnd$ = "1" OR Cmmnd$ = CHR$(79) THEN ChooseItem = UBOUND(MenuItem)
-
-	GOSUB DrawMenu
-LOOP UNTIL Cmmnd$ = CHR$(13)
-
+INPUT "Enter the username"; USR$
+INPUT "Enter the password"; USRP$
+INPUT "Administrator? (1 - Yes, 0 - No)"; USRA
+PRINT "Ready to Write"
+PRINT "Press any key to write the values ..."
 PRINT
-COLOR 15, 1
-PRINT "Item chosen ="; MenuItem(ChooseItem)
-SLEEP 1
-GOTO 106
-
-DrawMenu:
-'Draw the menu
-LOCATE YMenuPosn, XMenuPosn
-FOR Count = 1 TO UBOUND(MenuItem$)
-	IF Count = ChooseItem THEN COLOR 1, 7 ELSE COLOR 15, 1
-	PRINT MenuItem$(Count)
-	LOCATE CSRLIN, XMenuPosn
-NEXT Count
-RETURN
-
-MoveUp:
-IF ChooseItem = 1 THEN
-	ChooseItem = UBOUND(MenuItem$)
-ELSE
-	ChooseItem = ChooseItem - 1
+DO
+LOOP UNTIL INKEY$ <> ""
+ON ERROR GOTO 110
+OPEN DRV$ + ":\ES7\USER\" + USR$ + ".USR" FOR OUTPUT AS #1
+WRITE #1, USRP$
+WRITE #1, USRA
+CLOSE #1
+PRINT "Completed, press any key to exit"
+PRINT
+DO
+LOOP UNTIL INKEY$ <> ""
+GOTO 50
+110 PRINT "Username exceeded 8 letters, aborted"
+PRINT "Press any key to continue"
+DO
+LOOP UNTIL INKEY$ <> ""
+GOTO 50
+ELSEIF userop = 2 THEN
+51
+CLS
+PRINT "Delete User"
+PRINT SVAR9$
+PRINT ""
+INPUT "Username >"; USR$
+        ON ERROR GOTO 110
+	OPEN DRV$ + ":\ES7\USER\" + USR$ + ".USR" FOR BINARY AS #1
+	IF LOF(1) = 0 THEN
+	BEEP
+	PRINT "Invalid User"
+	SHELL ("DEL " + DRV$ + ":\ES7\USER\" + USR$ + ".USR")
+	SLEEP 3
+	GOTO 51
+	END IF
+   CLOSE #1
+   CLOSE #1
+OPEN DRV$ + ":\ES7\USER\" + USR$ + ".USR" FOR INPUT AS #1
+INPUT #1, PASS$
+INPUT #1, UBAR
+CLOSE #1
+CLOSE #1
+ INPUT "Are you sure you want to DELETE the user?(Y/N)"; CONF$
+ IF CONF$ = "Y" THEN
+ SHELL ("DEL " + DRV$ + ":\ES7\USER\" + USR$ + ".USR")
+ PRINT "Completed"
+ SLEEP 2
+ GOTO 50
+ELSEIF CONF$ = "y" THEN
+ SHELL ("DEL " + DRV$ + ":\ES7\USER\" + USR$ + ".USR")
+ PRINT "Completed"
+ SLEEP 2
+ GOTO 50
+ ELSEIF CONF$ = "N" THEN
+ GOTO 50
+ELSEIF CONF$ = "n" THEN
+ GOTO 50
+ ELSE
+ BEEP
+ PRINT "Invalid option entered"
+ SLEEP 2
+ GOTO 51
+ END IF
+ELSEIF userop = 3 THEN
+52 CLS
+PRINT "Revoke/Give Admin"
+PRINT SVAR9$
+PRINT ""
+INPUT "Username >"; USR$
+	OPEN DRV$ + ":\ES7\USER\" + USR$ + ".USR" FOR BINARY AS #1
+	IF LOF(1) = 0 THEN
+	BEEP
+	PRINT "Invalid User"
+	SHELL ("DEL " + DRV$ + ":\ES7\USER\" + USR$ + ".USR")
+	SLEEP 3
+	GOTO 52
+	END IF
+   CLOSE #1
+   CLOSE #1
+OPEN DRV$ + ":\ES7\USER\" + USR$ + ".USR" FOR INPUT AS #1
+INPUT #1, PASS$
+INPUT #1, UBAR
+CLOSE #1
+CLOSE #1
+IF UBAR = 1 THEN
+INPUT "Are you sure you want to REVOKE ADMIN from the user?(Y/N)"; CONF$
+ IF CONF$ = "Y" THEN
+ UBAR = 0
+OPEN DRV$ + ":\ES7\USER\" + USR$ + ".USR" FOR OUTPUT AS #1
+WRITE #1, PASS$
+WRITE #1, UBAR
+CLOSE #1
+CLOSE #1
+ PRINT "Completed"
+ SLEEP 2
+ GOTO 50
+ ELSEIF CONF$ = "N" THEN
+ GOTO 50
+ ELSE
+ BEEP
+ PRINT "Invalid option entered"
+ SLEEP 2
+ GOTO 51
 END IF
-RETURN
-
-MoveDown:
-IF ChooseItem = UBOUND(MenuItem$) THEN
-	ChooseItem = 1
-ELSE
-	ChooseItem = ChooseItem + 1
+ELSEIF UBAR = 0 THEN
+INPUT "Are you sure you want to GIVE ADMIN to the user?(Y/N)"; CONF$
+ IF CONF$ = "Y" THEN
+ UBAR = 1
+OPEN DRV$ + ":\ES7\USER\" + USR$ + ".USR" FOR OUTPUT AS #1
+WRITE #1, PASS$
+WRITE #1, UBAR
+CLOSE #1
+CLOSE #1
+ PRINT "Completed"
+ SLEEP 2
+ GOTO 50
+ ELSEIF CONF$ = "N" THEN
+ GOTO 50
+ ELSE
+ BEEP
+ PRINT "Invalid option entered"
+ SLEEP 2
+ GOTO 51
 END IF
-RETURN
-106
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-ope$ = MenuItem(ChooseItem)
-IF ope$ = f1$ THEN
-CLS
-PRINT "User 1"
-PRINT SVAR9$
-INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
-INPUT "Enter your name"; nanme$
-INPUT "Enter your password"; non$
-INPUT "GIVE ADMIN RIGHTS??? (1 - YES, ANY OTHER NUMBER WILL BE NO)"; sus
-PRINT "Ready to Write"
-PRINT "Press any key to write the values ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-CLOSE #1
-OPEN "C:\ES7\CONFIG\1.SYS" FOR OUTPUT AS #1
-WRITE #1, 1
-WRITE #1, nanme$
-WRITE #1, non$
-WRITE #1, sus
-CLOSE #1
-PRINT "Completed, Press any key to restart ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-SHELL "fdapm warmboot"
+END IF
+ELSEIF userop = 4 THEN
 
-ELSEIF ope$ = f2$ THEN
-CLS
-PRINT "User 2"
-PRINT SVAR9$
-INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
-INPUT "Enter your name"; nanme$
-INPUT "Enter your password"; non$
-INPUT "GIVE ADMIN RIGHTS??? (1 - YES, ANY OTHER NUMBER WILL BE NO)"; sus
-PRINT "Ready to Write"
-PRINT "Press any key to write the values ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-OPEN "C:\ES7\CONFIG\2.SYS" FOR OUTPUT AS #1
-WRITE #1, 1
-WRITE #1, nanme$
-WRITE #1, non$
-WRITE #1, sus
-CLOSE #1
-PRINT "Completed, Press any key to restart ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-SHELL "fdapm warmboot"
-
-ELSEIF ope$ = f3$ THEN
-CLS
-PRINT "User 3"
-PRINT SVAR9$
-INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
-INPUT "Enter your name"; nanme$
-INPUT "Enter your password"; non$
-INPUT "GIVE ADMIN RIGHTS??? (1 - YES, ANY OTHER NUMBER WILL BE NO)"; sus
-PRINT "Ready to Write"
-PRINT "Press any key to write the values ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-OPEN "C:\ES7\CONFIG\3.SYS" FOR OUTPUT AS #1
-WRITE #1, 1
-WRITE #1, nanme$
-WRITE #1, non$
-WRITE #1, sus
-CLOSE #1
-PRINT "Completed, Press any key to restart ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-SHELL "fdapm warmboot"
-
-ELSEIF ope$ = f4$ THEN
-CLS
-PRINT "User 4"
-PRINT SVAR9$
-INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
-INPUT "Enter your name"; nanme$
-INPUT "Enter your password"; non$
-INPUT "GIVE ADMIN RIGHTS??? (1 - YES, ANY OTHER NUMBER WILL BE NO)"; sus
-PRINT "Ready to Write"
-PRINT "Press any key to write the values ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-OPEN "C:\ES7\CONFIG\4.SYS" FOR OUTPUT AS #1
-WRITE #1, 1
-WRITE #1, nanme$
-WRITE #1, non$
-WRITE #1, sus
-CLOSE #1
-PRINT "Completed, Press any key to restart ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-SHELL "fdapm warmboot"
-
-ELSEIF ope$ = f5$ THEN
-CLS
-PRINT "User 5"
-PRINT SVAR9$
-INPUT "Initialised? (0 for no, other numbers will be treated as yes"; innit
-INPUT "Enter your name"; nanme$
-INPUT "Enter your password"; non$
-INPUT "GIVE ADMIN RIGHTS??? (1 - YES, ANY OTHER NUMBER WILL BE NO)"; sus
-PRINT "Ready to Write"
-PRINT "Press any key to write the values ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-OPEN "C:\ES7\CONFIG\5.SYS" FOR OUTPUT AS #1
-WRITE #1, 1
-WRITE #1, nanme$
-WRITE #1, non$
-WRITE #1, sus
-CLOSE #1
-PRINT "Completed, Press any key to restart ..."
-PRINT
-DO
-LOOP UNTIL INKEY$ <> ""
-SHELL "fdapm warmboot"
+GOTO 125
 ELSE
 BEEP
-GOTO 124
+GOTO 50
 END IF
 
 ELSEIF set$ = "Enable and disable apps" THEN

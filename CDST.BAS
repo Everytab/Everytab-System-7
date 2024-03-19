@@ -15,7 +15,8 @@ REM 110 - Drive Selection
 REM 120 - Format
 REM 130 - Confirm Format
 REM 140 - Begin copy
-REM 150 - Copy done
+REM 150 - Migration wizard
+REM 160 - COpy done
 
 
 
@@ -26,7 +27,7 @@ PRINT "______________"
 PRINT ""
 PRINT ""
 PRINT "  Welcome to System/7 Setup"
-PRINT "  This version of setup is for - Build 340 (0.1)"
+PRINT "  This version of setup is for - Build 345 (0.1)"
 PRINT "  This program shall go through the following"
 PRINT ""
 PRINT "  1) Preparing your hard drive"
@@ -168,10 +169,10 @@ GOTO 50
 ELSEIF I$ = CHR$(27) THEN
 GOTO 120
 ELSEIF I$ = CHR$(67) THEN
-SHELL ("A:\FORMAT " + DRV$ + ": /U /S")
+SHELL ("A:\FORMAT " + DRV$ + ": /U /S /X")
 GOTO 140
 ELSEIF I$ = CHR$(99) THEN
-SHELL ("A:\FORMAT " + DRV$ + ": /U /S")
+SHELL ("A:\FORMAT " + DRV$ + ": /U /S /X")
 GOTO 140
 ELSE
 BEEP
@@ -203,6 +204,7 @@ SHELL ("PKUNZIP -e -o -d DOS.ZIP " + DRV$ + ":\")
 SHELL ("PKUNZIP -e -o -d ES7.ZIP " + DRV$ + ":\")
 SHELL ("COPY R:\REC\*.* " + DRV$ + ":\ES7\REC\")
 SHELL ("COPY R:\ES7.zip " + DRV$ + ":\ES7\REC\")
+SHELL ("COPY R:\PKUNZIP.EXE " + DRV$ + ":\ES7\REC\")
 GOTO 150
 ELSEIF H$ = CHR$(99) THEN
 CLS
@@ -210,6 +212,8 @@ SHELL ("R:")
 SHELL ("PKUNZIP -e -o -d DOS.ZIP " + DRV$ + ":\")
 SHELL ("PKUNZIP -e -o -d ES7.ZIP " + DRV$ + ":\")
 SHELL ("COPY R:\REC\*.* " + DRV$ + ":\ES7\REC\")
+SHELL ("COPY R:\ES7.zip " + DRV$ + ":\ES7\REC\")
+SHELL ("COPY R:\PKUNZIP.EXE " + DRV$ + ":\ES7\REC\")
 GOTO 150
 ELSE
 BEEP
@@ -217,15 +221,44 @@ CLS
 GOTO 140
 END IF
 
-
-
-
-
-
-
-
-
 150 CLS
+PRINT "System/7 Setup"
+PRINT "______________"
+PRINT ""
+PRINT "  System/7 Setup has copied the files"
+PRINT ""
+PRINT "  If you are installing over an older build, the user accounts will not be present"
+PRINT "  Do you want to migrate the user files?"
+PRINT ""
+PRINT "  - To migrate the user files, press F1"
+PRINT "  - To skip migrating the user files, press F2"
+DO
+LET L$ = INKEY$
+LOOP UNTIL L$ <> ""
+IF L$ = CHR$(0) + CHR$(59) THEN
+PRINT "Checking files"
+OPEN DRV$ + ":\ES7\CONFIG\0.SYS" FOR BINARY AS #1
+IF LOF(1) = 0 THEN
+    PRINT "The admin file was not found, skipping migration"
+    SLEEP 3
+    GOTO 160
+END IF
+CLOSE #1
+PRINT "Starting Migration"
+SHELL ("COPY " + DRV$ + :\ES7\CONFIG\0.SYS
+ELSEIF L$ = CHR$(0) + CHR$(60) THEN
+
+ELSE
+BEEP
+CLS
+GOTO 150
+END IF
+
+
+
+
+
+160 CLS
 
 PRINT "System/7 Setup"
 PRINT "______________"
